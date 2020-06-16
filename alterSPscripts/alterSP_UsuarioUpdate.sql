@@ -1,4 +1,4 @@
-USE [Progra]
+﻿USE [Progra]
 GO
 IF OBJECT_ID('[dbo].[SP_UsuarioUpdate]') IS NOT NULL
 BEGIN 
