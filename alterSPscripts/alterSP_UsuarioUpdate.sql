@@ -1,1 +1,59 @@
-单⁅偛潲牧嵡਍佇਍䙉传䩂䍅彔䑉✨摛潢⹝卛彐獕慵楲啯摰瑡嵥⤧䤠⁓低⁔啎䱌਍䕂䥇⁎਍††剄偏倠佒⁃摛潢⹝卛彐獕慵楲啯摰瑡嵥†਍久⁄਍䕓⁔乁䥓也䱕卌传ൎ䜊൏匊呅儠何䕔彄䑉久䥔䥆剅传ൎ䜊൏䌊䕒呁⁅剐䍏嬠扤嵯嬮偓啟畳牡潩灕慤整⁝਍††楀乮浯牢⁥慶捲慨⡲〱⤰ബ †䀠湩慐獳潷摲瘠牡档牡㌨⤰ബ †䀠湩楔潰敄獕慵楲⁯慶捲慨⡲〳Ⱙ਍䀉湩潎扭敲牏杩湩污瘠牡档牡ㄨ〰Ⱙ਍䀉湩獕慵楲䅯慃杲⁯慶捲慨⡲〲Ⱙ䀠湩偉獵慵楲⁯慶捲慨⡲〲ഩ䄊⁓਍䈉䝅义਍उ䕂䥇⁎剔൙ऊ匉呅丠䍏問呎传⁎਍उ䕓⁔䅘呃䅟佂呒传⁎ഠऊउ䕂䥇⁎剔乁਍उउ敤汣牡⁥橀潳䅮瑮獥瘠牡档牡㔨〰Ⱙ䀠獪湯敄灳敵⁳慶捲慨⡲〵⤰‬楀䵤摯晩敩⁤湩൴ऊउⴉⴭ䜭䅕䑒⁁䱅䨠体⁎䕄⁌佒⁗䕄唠啓剁佉䄠呎卅਍उउ䕓⁔橀潳䅮瑮獥㴠⠠䕓䕌呃嬠摩ⱝ嬠潮扭敲ⱝ嬠慰獳潷摲ⱝ嬠楴潰敄獕慵楲嵯‬晛捥慨敄湉牧獥嵯਍उउ剆䵏嬠扤嵯嬮獕慵楲嵯圠䕈䕒嬠潮扭敲⁝‽楀乮浯牢佥楲楧慮൬ऊउ䘉剏䨠体⁎䅐䡔ഩऊउⴉ䄭呃䅕䥌䅚䄠⁌单䅕䥒൏ऊउ唉䑐呁⁅摛潢⹝啛畳牡潩൝ऊउउ䕓⁔湛浯牢嵥㴠䌠十⁅楀乮浯牢൥ऊउउ圉䕈⁎ⴧ✱吠䕈⁎湛浯牢嵥਍उउउ䱅䕓䀠湩潎扭敲਍उउ䔉䑎ബऊउउ灛獡睳牯嵤‽䅃䕓䀠湩慐獳潷摲਍उउउ䡗久✠ㄭ‧䡔久嬠慰獳潷摲൝ऊउउ䔉卌⁅楀偮獡睳牯൤ऊउउ久ⱄ਍उउ嬉楴潰敄獕慵楲嵯㴠䌠十⁅楀呮灩䑯啥畳牡潩਍उउउ䡗久✠ㄭ‧䡔久嬠楴潰敄獕慵楲嵯਍उउउ䱅䕓䀠湩楔潰敄獕慵楲൯ऊउउ久ൄऊउउ䡗剅⁅湛浯牢嵥㴠䀠湩潎扭敲牏杩湩污䄠䑎嬠捡楴潶⁝‽റऊउⴉ䜭䅕䑒⁁䱅䨠体⁎䕄⁌佒⁗䕄唠啓剁佉䐠卅啐卅਍उउ䕓⁔橀潳䑮獥異獥㴠⠠䕓䕌呃嬠摩ⱝ嬠潮扭敲ⱝ嬠慰獳潷摲ⱝ嬠楴潰敄獕慵楲嵯‬晛捥慨敄湉牧獥嵯਍उउ剆䵏嬠扤嵯嬮獕慵楲嵯圠䕈䕒嬠潮扭敲⁝‽楀乮浯牢佥楲楧慮൬ऊउ䘉剏䨠体⁎䅐䡔ഩऊउⴉ䜭䅕䑒⁁䱅䤠ൄऊउ匉呅䀠摩潍楤楦摥㴠⠠䕓䕌呃嬠摩⁝剆䵏嬠扤嵯嬮獕慵楲嵯圠䕈䕒嬠潮扭敲⁝‽楀乮浯牢佥楲楧慮⥬਍उउⴭ义䕓呒⁁䱅䌠䵁䥂൏ऊउ䔉䕘⁃摛潢⹝卛彐楂慴潣慲慃扭潩湉敳瑲⁝楀䥮䕤瑮瑩呹灹⁥‽ⰱ楀䕮瑮瑩䥹⁄‽楀䵤摯晩敩Ɽ䀠湩獊湯湁整⁳‽橀潳䅮瑮獥ബऊउउउउउउ楀䩮潳䑮獥異獥㴠䀠獪湯敄灳敵ⱳ䀠湩湉敳瑲摥祂㴠䀠湩獕慵楲䅯慃杲Ɐഠऊउउउउउउ楀䥮獮牥整䥤⁮‽楀䥮畐畳牡潩਍उ䌉䵏䥍ൔऊ䔉䑎吠奒਍उ䕂䥇⁎䅃䍔ൈऊउ佒䱌䅂䭃吠䅒㭎਍उ吉剈坏㔠㔵㄰✬牅潲⁲污洠摯晩捩牡甠畳牡潩‬潰⁲慦潶⁲敶楲楦畱⁥潬⁳慤潴❳ㄬ഻ऊ䔉䑎䌠呁䡃਍䔉䑎਍
+USE [Progra]
+GO
+IF OBJECT_ID('[dbo].[SP_UsuarioUpdate]') IS NOT NULL
+BEGIN 
+    DROP PROC [dbo].[SP_UsuarioUpdate]  
+END 
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROC [dbo].[SP_UsuarioUpdate] 
+    @inNombre varchar(100),
+    @inPassword varchar(30),
+    @inTipoDeUsuario varchar(30),
+	@inNombreOriginal varchar(100),
+	@inUsuarioACargo varchar(20), @inIPusuario varchar(20)
+AS 
+	BEGIN
+		BEGIN TRY
+		SET NOCOUNT ON 
+		SET XACT_ABORT ON  
+			BEGIN TRAN
+				declare @jsonAntes varchar(500), @jsonDespues varchar(500), @idModified int
+				----GUARDA EL JSON DEL ROW DE USUARIO ANTES
+				SET @jsonAntes = (SELECT [id], [nombre], [password], [tipoDeUsuario], [fechaDeIngreso]
+				FROM [dbo].[Usuario] WHERE [nombre] = @inNombreOriginal
+				FOR JSON PATH)
+				--ACTUALIZA AL USUARIO
+				UPDATE [dbo].[Usuario]
+					SET [nombre] = CASE @inNombre
+						WHEN '-1' THEN [nombre]
+						ELSE @inNombre
+					END,
+					[password]= CASE @inPassword
+						WHEN '-1' THEN [password]
+						ELSE @inPassword
+					END,
+					[tipoDeUsuario] = CASE @inTipoDeUsuario
+						WHEN '-1' THEN [tipoDeUsuario]
+						ELSE @inTipoDeUsuario
+					END
+					WHERE [nombre] = @inNombreOriginal AND [activo] = 1
+				--GUARDA EL JSON DEL ROW DE USUARIO DESPUES
+				SET @jsonDespues = (SELECT [id], [nombre], [password], [tipoDeUsuario], [fechaDeIngreso]
+				FROM [dbo].[Usuario] WHERE [nombre] = @inNombreOriginal
+				FOR JSON PATH)
+				--GUARDA EL ID
+				SET @idModified = (SELECT [id] FROM [dbo].[Usuario] WHERE [nombre] = @inNombreOriginal)
+				--INSERTA EL CAMBIO
+				EXEC [dbo].[SP_BitacoraCambioInsert] @inIdEntityType = 1,@inEntityID = @idModified, @inJsonAntes = @jsonAntes,
+													@inJsonDespues = @jsonDespues, @inInsertedBy = @inUsuarioACargo, 
+													@inInsertedIn = @inIPusuario
+			COMMIT
+		END TRY
+		BEGIN CATCH
+			ROLLBACK TRAN;
+			THROW 55501,'Error al modificar usuario, por favor verifique los datos',1;
+		END CATCH
+	END

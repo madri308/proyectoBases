@@ -10,7 +10,7 @@
 *.vbs text
 *.cpp text
 *.hpp text
-*.sql text working-tree-encoding=UTF-16LE eol=CRLF
+*.sql text working-tree-encoding=UTF-16 eol=CRLF
 Makefile text
 
 # Declare files that will always have CRLF line endings on checkout.
