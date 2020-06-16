@@ -4,23 +4,27 @@
 USE [Progra]
 GO
 
-IF EXISTS(
-  SELECT *
-    FROM sys.triggers
-   WHERE name = '[dbo].[cambiosPropiedad]'
-     AND parent_class_desc = N'[Progra]'
-)
-	DROP TRIGGER [dbo].[cambiosPropiedad] ON DATABASE
+IF OBJECT_ID('[dbo].[cambiosPropiedad]') IS NOT NULL
+BEGIN 
+    DROP TRIGGER [dbo].[cambiosPropiedad]  
+END 
 GO
-
 CREATE TRIGGER [dbo].[cambiosPropiedad]
 ON [dbo].[Propiedad]
 AFTER  INSERT,UPDATE
-AS
-DECLARE @userid int
-SET @userid = (SELECT [id] FROM [dbo].[Usuario] WHERE [nombre] = @inInsertedBy)
-INSERT INTO [dbo].[BitacoraCambio] ([idEntityType], [entityID], [jsonAntes],[jsonDespues],[insertedAt],[insertedBy],[insertedIn])
-SELECT @inIdEntityType, @inEntityID, @inJsonAntes,@inJsonDespues,getdate(),@userid,@inInsertedIn
+AS				
+	declare @jsonAntes varchar(500), @jsonDespues varchar(500), @idModified int
+	SET @idModified = (SELECT id FROM Inserted)
+
+	SET @jsonAntes = (SELECT [id], [valor], [direccion], [numFinca], [fechaDeIngreso],[M3acumuladosAgua],[M3AcumuladosUltimoRecibo]
+					FROM deleted
+					FOR JSON PATH)
+	SET @jsonDespues = (SELECT [id], [valor], [direccion], [numFinca], [fechaDeIngreso],[M3acumuladosAgua],[M3AcumuladosUltimoRecibo]
+					FROM inserted WHERE [activo] = 1
+					FOR JSON PATH)
+	EXEC [dbo].[SP_BitacoraCambioInsert] @inIdEntityType = 1,@inEntityID = @idModified, @inJsonAntes = @jsonAntes,
+													@inJsonDespues = @jsonDespues, @inInsertedBy = 'usuario1', 
+													@inInsertedIn = 123
 		
 
 
