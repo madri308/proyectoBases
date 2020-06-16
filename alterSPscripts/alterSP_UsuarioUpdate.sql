@@ -21,6 +21,8 @@ AS
 		SET XACT_ABORT ON  
 			BEGIN TRAN
 				declare @jsonAntes varchar(500), @jsonDespues varchar(500), @idModified int
+				--GUARDA EL ID
+				SET @idModified = (SELECT [id] FROM [dbo].[Usuario] WHERE [nombre] = @inNombreOriginal)
 				----GUARDA EL JSON DEL ROW DE USUARIO ANTES
 				SET @jsonAntes = (SELECT [id], [nombre], [password], [tipoDeUsuario], [fechaDeIngreso]
 				FROM [dbo].[Usuario] WHERE [nombre] = @inNombreOriginal
@@ -44,8 +46,6 @@ AS
 				SET @jsonDespues = (SELECT [id], [nombre], [password], [tipoDeUsuario], [fechaDeIngreso]
 				FROM [dbo].[Usuario] WHERE [nombre] = @inNombreOriginal
 				FOR JSON PATH)
-				--GUARDA EL ID
-				SET @idModified = (SELECT [id] FROM [dbo].[Usuario] WHERE [nombre] = @inNombreOriginal)
 				--INSERTA EL CAMBIO
 				EXEC [dbo].[SP_BitacoraCambioInsert] @inIdEntityType = 1,@inEntityID = @idModified, @inJsonAntes = @jsonAntes,
 													@inJsonDespues = @jsonDespues, @inInsertedBy = @inUsuarioACargo, 

@@ -24,6 +24,8 @@ AS
 				SET @jsonAntes = (SELECT [id], [nombre], [valorDocId], [identificacion], [fechaDeIngreso]
 				FROM [dbo].[Propietario] WHERE [identificacion] = @inIdentificacionOriginal
 				FOR JSON PATH)
+				--GUARDA EL ID
+				SET @idModified = (SELECT [id] FROM [dbo].[Propietario] WHERE [identificacion] = @inIdentificacionOriginal)
 				--ACTUALIZA EL PROPIETARIO
 				UPDATE [dbo].[Propietario]
 					SET [nombre] = CASE @inNombre
@@ -43,8 +45,6 @@ AS
 				SET @jsonDespues = (SELECT [id], [nombre], [valorDocId], [identificacion], [fechaDeIngreso]
 				FROM [dbo].[Propietario] WHERE [identificacion] = @inIdentificacionOriginal
 				FOR JSON PATH)
-				--GUARDA EL ID
-				SET @idModified = (SELECT [id] FROM [dbo].[Propietario] WHERE [identificacion] = @inIdentificacionOriginal)
 				--INSERTA EL CAMBIO
 				EXEC [dbo].[SP_BitacoraCambioInsert] @inIdEntityType = 1,@inEntityID = @idModified, @inJsonAntes = @jsonAntes,
 													@inJsonDespues = @jsonDespues, @inInsertedBy = @inUsuarioACargo, 

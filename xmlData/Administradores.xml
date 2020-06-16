@@ -1,0 +1,5 @@
+<Administrador>
+	<UsuarioAdmi user="Jquiros" password="123hola" tipo="administrador"/>
+	<UsuarioAdmi user="Jperez" password="123mama" tipo="administrador"/>	
+	<UsuarioAdmi user="Kipanda" password="1211pez" tipo="administrador"/>
+</Administrador>

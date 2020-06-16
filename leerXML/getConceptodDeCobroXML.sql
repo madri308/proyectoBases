@@ -2,7 +2,7 @@ USE [Progra]
 DECLARE @XMLData XML, @MinDate DATE, @MaxDate DATE
 DECLARE @hdoc INT
 SELECT @XMLData = C
-FROM OPENROWSET (BULK 'C:\Users\emema\Documents\TEC\2020\SEM_I\BasesI\PrograI\ConceptoDeCobro.xml', SINGLE_BLOB) AS ReturnData(C)
+FROM OPENROWSET (BULK 'C:\Program Files\Microsoft SQL Server\MSSQL15.MSSQLSERVER\MSSQL\DATA\p1DATA\xmlData\ConceptoDeCobro.xml', SINGLE_BLOB) AS ReturnData(C)
 EXEC sp_xml_preparedocument @hdoc OUTPUT, @XMLData
 
 			INSERT INTO [dbo].[ConceptoDeCobro] ([id], [nombre],[diaDeCobro],[diasParaVencer],
