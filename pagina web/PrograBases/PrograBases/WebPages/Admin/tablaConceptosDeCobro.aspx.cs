@@ -114,6 +114,8 @@ namespace PrograBases.WebPages
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     cmd.Parameters.Add("@inId", SqlDbType.Int).Value = id;
+                    cmd.Parameters.Add("@inUsuarioACargo", SqlDbType.VarChar).Value = Session["userName"];
+                    cmd.Parameters.Add("@inIPusuario", SqlDbType.VarChar).Value = Session["userIp"];
 
                     cmd.Connection = conn;
                     conn.Open();

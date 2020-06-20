@@ -1,7 +1,7 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="About.aspx.cs" Inherits="PrograBases.WebPages.About" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/WebPages/Admin/Admin_Site.master" AutoEventWireup="true" CodeBehind="About.aspx.cs" Inherits="PrograBases.WebPages.About" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 
-    <link rel="stylesheet" href="/css/About.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="/css/Admin/About.css" type="text/css" media="screen" />
 
 </asp:Content>
 

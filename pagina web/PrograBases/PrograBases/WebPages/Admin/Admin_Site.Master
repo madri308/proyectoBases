@@ -1,0 +1,38 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Admin_Site.Master.cs" Inherits="PrograBases.Site1" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <title></title>
+
+    <link rel="stylesheet" href="/css/Admin/SiteMaster.css" type="text/css" media="screen" />
+
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div id="mainDiv">
+            
+            <div id="buttonsDiv">
+                <ul class="hrefList">
+                    <li><a runat="server" class="adminButton" href="~/WebPages/Admin/StartPage.aspx">Pagina Principal</a></li>
+                    <li><a runat="server" class="adminButton" href="~/WebPages/Admin/tablaPropiedades.aspx?all=true">Propiedades</a></li>
+                    <li><a runat="server" class="adminButton" href="~/WebPages/Admin/tablaPropietarios.aspx?all=true">Propietarios</a></li>
+                    <li><a runat="server" class="adminButton" href="~/WebPages/Admin/tablaUsuarios.aspx?all=true">Usuarios</a></li>
+                    <li><a runat="server" class="adminButton" href="~/WebPages/Admin/tablaConceptosDeCobro.aspx?all=true">Conceptos de cobro</a></li>
+                    <li><a runat="server" class="adminButton" href="~/WebPages/Admin/crudsRelaciones.aspx">Editar Relaciones</a></li>
+                    <li><a runat="server" class="adminButton" href="~/WebPages/Admin/About.aspx">Acerca de</a></li>
+                </ul>
+            </div>
+
+            <div id="divContentPlaceHolder">
+                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+
+                </asp:ContentPlaceHolder>
+            </div>
+        </div>
+    </form>
+</body>
+</html>

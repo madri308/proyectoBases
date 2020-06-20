@@ -13,7 +13,14 @@ namespace PrograBases.Pages
         static string checkUserSpName = "SP_checkUserAndPasswordSP";
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (!IsPostBack)
+            {
+                string userIp = Request.UserHostAddress;
+                if (Request.UserHostAddress != null)
+                {
+                    HttpContext.Current.Session["userIp"] = userIp;
+                }
+            }
         }
 
         protected void loginButton_Click(object sender, EventArgs e)
@@ -58,12 +65,14 @@ namespace PrograBases.Pages
                 if (response == 1) // Usuario administrador
                 {
                     HttpContext.Current.Session["userType"] = 1;
-                    Response.Redirect("~/WebPages/StartPage.aspx");
+                    HttpContext.Current.Session["userName"] = user;
+                    Response.Redirect("~/WebPages/Admin/StartPage.aspx");
                 }
                 else if (response == 0) // Usuario corriente
                 {
-                    RespuestaLabel.Text = "Acceso solo a usuarios administradores";
-                    RespuestaLabel.Visible = true;
+                    HttpContext.Current.Session["userType"] = 0;
+                    HttpContext.Current.Session["userName"] = user;
+                    Response.Redirect("~/WebPages/Normal_user/StartPage.aspx");
                 }
                 else
                 {

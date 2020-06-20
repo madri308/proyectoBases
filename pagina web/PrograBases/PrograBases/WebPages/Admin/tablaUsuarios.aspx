@@ -1,7 +1,7 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="tablaUsuarios.aspx.cs" Inherits="PrograBases.WebPages.tablaUsuarios" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/WebPages/Admin/Admin_Site.master" AutoEventWireup="true" CodeBehind="tablaUsuarios.aspx.cs" Inherits="PrograBases.WebPages.tablaUsuarios" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <link rel="stylesheet" href="/css/tablaUsuarios.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="/css/Admin/tablaUsuarios.css" type="text/css" media="screen" />
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">

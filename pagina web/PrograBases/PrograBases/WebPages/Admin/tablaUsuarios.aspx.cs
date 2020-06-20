@@ -116,6 +116,8 @@ namespace PrograBases.WebPages
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     cmd.Parameters.Add("@inUsuario", SqlDbType.VarChar).Value = usuario;
+                    cmd.Parameters.Add("@inUsuarioACargo", SqlDbType.VarChar).Value = Session["userName"];
+                    cmd.Parameters.Add("@inIPusuario", SqlDbType.VarChar).Value = Session["userIp"];
 
                     cmd.Connection = conn;
                     conn.Open();
@@ -140,7 +142,7 @@ namespace PrograBases.WebPages
             string nombreUsuario = tb.Text;
             HttpContext.Current.Session["opcionDeBusqueda"] = 3;
             HttpContext.Current.Session["nombreUsuario"] = nombreUsuario;
-            Response.Redirect("~/WebPages/tablaPropiedades.aspx");
+            Response.Redirect("~/WebPages/Admin/tablaPropiedades.aspx");
         }
 
         protected void lnkAddGridUsuarios_Click(object sender, EventArgs e)
@@ -170,6 +172,8 @@ namespace PrograBases.WebPages
                     cmd.Parameters.Add("@inNombre", SqlDbType.VarChar).Value = usuario;
                     cmd.Parameters.Add("@inPassword", SqlDbType.VarChar).Value = pass;
                     cmd.Parameters.Add("@inTipoDeUsuario", SqlDbType.VarChar).Value = tipoUsuario;
+                    cmd.Parameters.Add("@inUsuarioACargo", SqlDbType.VarChar).Value = Session["userName"];
+                    cmd.Parameters.Add("@inIPusuario", SqlDbType.VarChar).Value = Session["userIp"];
 
                     cmd.Connection = conn;
                     conn.Open();

@@ -66,7 +66,8 @@ namespace PrograBases.WebPages
 
                         cmd.Parameters.Add("@inNumFinca", SqlDbType.VarChar).Value = numFinca;
                         cmd.Parameters.Add("@inIdentificacion", SqlDbType.VarChar).Value = identificacion;
-
+                        cmd.Parameters.Add("@inUsuarioACargo", SqlDbType.VarChar).Value = Session["userName"];
+                        cmd.Parameters.Add("@inIPusuario", SqlDbType.VarChar).Value = Session["userIp"];
                         cmd.Connection = conn;
                         conn.Open();
 
@@ -97,6 +98,8 @@ namespace PrograBases.WebPages
 
                         cmd.Parameters.Add("@inNumFinca", SqlDbType.VarChar).Value = numFinca;
                         cmd.Parameters.Add("@inIdentificacion", SqlDbType.VarChar).Value = identificacion;
+                        cmd.Parameters.Add("@inUsuarioACargo", SqlDbType.VarChar).Value = Session["userName"];
+                        cmd.Parameters.Add("@inIPusuario", SqlDbType.VarChar).Value = Session["userIp"];
 
                         cmd.Connection = conn;
                         conn.Open();
@@ -133,6 +136,8 @@ namespace PrograBases.WebPages
                         cmd.Parameters.Add("@inIdentificacion", SqlDbType.VarChar).Value = newIdentificacion;
                         cmd.Parameters.Add("@inNumFincaOriginal", SqlDbType.VarChar).Value = numFinca;
                         cmd.Parameters.Add("@inNumFinca", SqlDbType.VarChar).Value = newNumFinca;
+                        cmd.Parameters.Add("@inUsuarioACargo", SqlDbType.VarChar).Value = Session["userName"];
+                        cmd.Parameters.Add("@inIPusuario", SqlDbType.VarChar).Value = Session["userIp"];
 
                         cmd.Connection = conn;
                         conn.Open();
@@ -188,6 +193,8 @@ namespace PrograBases.WebPages
 
                         cmd.Parameters.Add("@inUsuario", SqlDbType.VarChar).Value = usuario;
                         cmd.Parameters.Add("@inNumFinca", SqlDbType.VarChar).Value = numFinca;
+                        cmd.Parameters.Add("@inUsuarioACargo", SqlDbType.VarChar).Value = Session["userName"];
+                        cmd.Parameters.Add("@inIPusuario", SqlDbType.VarChar).Value = Session["userIp"];
 
                         cmd.Connection = conn;
                         conn.Open();
@@ -219,6 +226,8 @@ namespace PrograBases.WebPages
 
                         cmd.Parameters.Add("@inUsuario", SqlDbType.VarChar).Value = usuario;
                         cmd.Parameters.Add("@inNumFinca", SqlDbType.VarChar).Value = numFinca;
+                        cmd.Parameters.Add("@inUsuarioACargo", SqlDbType.VarChar).Value = Session["userName"];
+                        cmd.Parameters.Add("@inIPusuario", SqlDbType.VarChar).Value = Session["userIp"];
 
                         cmd.Connection = conn;
                         conn.Open();
@@ -255,6 +264,8 @@ namespace PrograBases.WebPages
                         cmd.Parameters.Add("@inUsuario", SqlDbType.VarChar).Value = newUsuario;
                         cmd.Parameters.Add("@inNumFincaOriginal", SqlDbType.VarChar).Value = numFinca;
                         cmd.Parameters.Add("@inUsuarioOriginal", SqlDbType.VarChar).Value = usuario;
+                        cmd.Parameters.Add("@inUsuarioACargo", SqlDbType.VarChar).Value = Session["userName"];
+                        cmd.Parameters.Add("@inIPusuario", SqlDbType.VarChar).Value = Session["userIp"];
 
                         cmd.Connection = conn;
                         conn.Open();
@@ -311,6 +322,8 @@ namespace PrograBases.WebPages
 
                         cmd.Parameters.Add("@inIdcobro", SqlDbType.Int).Value = idConceptoDeCobro;
                         cmd.Parameters.Add("@inNumFinca", SqlDbType.VarChar).Value = numFinca;
+                        cmd.Parameters.Add("@inUsuarioACargo", SqlDbType.VarChar).Value = Session["userName"];
+                        cmd.Parameters.Add("@inIPusuario", SqlDbType.VarChar).Value = Session["userIp"];
 
                         cmd.Connection = conn;
                         conn.Open();
@@ -343,6 +356,8 @@ namespace PrograBases.WebPages
 
                         cmd.Parameters.Add("@inIdCC", SqlDbType.Int).Value = idConceptoDeCobro;
                         cmd.Parameters.Add("@inNumFinca", SqlDbType.VarChar).Value = numFinca;
+                        cmd.Parameters.Add("@inUsuarioACargo", SqlDbType.VarChar).Value = Session["userName"];
+                        cmd.Parameters.Add("@inIPusuario", SqlDbType.VarChar).Value = Session["userIp"];
 
                         cmd.Connection = conn;
                         conn.Open();
@@ -385,6 +400,9 @@ namespace PrograBases.WebPages
 
                         cmd.Parameters.Add("@inNumFincaOriginal", SqlDbType.Int).Value = numFinca;
                         cmd.Parameters.Add("@inNumFinca", SqlDbType.VarChar).Value = newNumFinca;
+                        
+                        cmd.Parameters.Add("@inUsuarioACargo", SqlDbType.VarChar).Value = Session["userName"];
+                        cmd.Parameters.Add("@inIPusuario", SqlDbType.VarChar).Value = Session["userIp"];
 
                         cmd.Connection = conn;
                         conn.Open();

@@ -117,6 +117,8 @@ namespace PrograBases.WebPages
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     cmd.Parameters.Add("@inIdentificacion", SqlDbType.VarChar).Value = identificacion;
+                    cmd.Parameters.Add("@inUsuarioACargo", SqlDbType.VarChar).Value = Session["userName"];
+                    cmd.Parameters.Add("@inIPusuario", SqlDbType.VarChar).Value = Session["userIp"];
 
                     cmd.Connection = conn;
                     conn.Open();
@@ -143,7 +145,7 @@ namespace PrograBases.WebPages
             string idPropietario = tb.Text;
             HttpContext.Current.Session["opcionDeBusqueda"] = 2;
             HttpContext.Current.Session["idPropietario"] = idPropietario;
-            Response.Redirect("~/WebPages/tablaPropiedades.aspx");
+            Response.Redirect("~/WebPages/Admin/tablaPropiedades.aspx");
         }
 
         protected void lnkAddGridPropietarios_Click(object sender, EventArgs e)
@@ -172,6 +174,8 @@ namespace PrograBases.WebPages
                     cmd.Parameters.Add("@inNombre", SqlDbType.VarChar).Value = nombrePropietario;
                     cmd.Parameters.Add("@inValorDocId", SqlDbType.Int).Value = idTipoId;
                     cmd.Parameters.Add("@inIdentificacion", SqlDbType.VarChar).Value = identificacion;
+                    cmd.Parameters.Add("@inUsuarioACargo", SqlDbType.VarChar).Value = Session["userName"];
+                    cmd.Parameters.Add("@inIPusuario", SqlDbType.VarChar).Value = Session["userIp"];
 
                     cmd.Connection = conn;
                     conn.Open();
@@ -210,6 +214,8 @@ namespace PrograBases.WebPages
                     cmd.Parameters.Add("@inValorDocId", SqlDbType.Int).Value = tipoDocId;
                     cmd.Parameters.Add("@inIdentificacion", SqlDbType.VarChar).Value = newIdentificacion;
                     cmd.Parameters.Add("@inIdentificacionOriginal", SqlDbType.VarChar).Value = identificacionActual;
+                    cmd.Parameters.Add("@inUsuarioACargo", SqlDbType.VarChar).Value = Session["userName"];
+                    cmd.Parameters.Add("@inIPusuario", SqlDbType.VarChar).Value = Session["userIp"];
 
                     cmd.Connection = conn;
                     conn.Open();

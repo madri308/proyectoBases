@@ -68,47 +68,49 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="91.gif" />
-    <Content Include="css\About.css" />
-    <Content Include="css\crudsRelaciones.css" />
+    <Content Include="css\Admin\About.css" />
+    <Content Include="css\Admin\crudsRelaciones.css" />
     <Content Include="css\login.css" />
-    <Content Include="css\SiteMaster.css" />
-    <Content Include="css\StartPage.css" />
-    <Content Include="css\tablaConceptoDeCobro.css" />
-    <Content Include="css\tablaPropiedades.css" />
-    <Content Include="css\tablaPropietarios.css" />
-    <Content Include="css\tablaUsuarios.css" />
+    <Content Include="css\Admin\SiteMaster.css" />
+    <Content Include="css\Admin\StartPage.css" />
+    <Content Include="css\Admin\tablaConceptoDeCobro.css" />
+    <Content Include="css\Admin\tablaPropiedades.css" />
+    <Content Include="css\Admin\tablaPropietarios.css" />
+    <Content Include="css\Admin\tablaUsuarios.css" />
+    <Content Include="css\Normal_user\StartPage.css" />
     <Content Include="Web.config" />
-    <Content Include="WebPages\About.aspx" />
-    <Content Include="WebPages\crudsRelaciones.aspx" />
+    <Content Include="WebPages\Admin\About.aspx" />
+    <Content Include="WebPages\Admin\crudsRelaciones.aspx" />
     <Content Include="WebPages\loginPage.aspx" />
-    <Content Include="WebPages\StartPage.aspx" />
-    <Content Include="WebPages\tablaConceptosDeCobro.aspx" />
-    <Content Include="WebPages\tablaPropiedades.aspx" />
-    <Content Include="WebPages\tablaPropietarios.aspx" />
-    <Content Include="WebPages\tablaUsuarios.aspx" />
+    <Content Include="WebPages\Admin\StartPage.aspx" />
+    <Content Include="WebPages\Admin\tablaConceptosDeCobro.aspx" />
+    <Content Include="WebPages\Admin\tablaPropiedades.aspx" />
+    <Content Include="WebPages\Admin\tablaPropietarios.aspx" />
+    <Content Include="WebPages\Admin\tablaUsuarios.aspx" />
+    <Content Include="WebPages\Normal_user\StartPage.aspx" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Site.Master.cs">
-      <DependentUpon>Site.Master</DependentUpon>
+    <Compile Include="WebPages\Admin\Admin_Site.Master.cs">
+      <DependentUpon>Admin_Site.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Site.Master.designer.cs">
-      <DependentUpon>Site.Master</DependentUpon>
+    <Compile Include="WebPages\Admin\Admin_Site.Master.designer.cs">
+      <DependentUpon>Admin_Site.Master</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilidad.cs" />
-    <Compile Include="WebPages\About.aspx.cs">
+    <Compile Include="WebPages\Admin\About.aspx.cs">
       <DependentUpon>About.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="WebPages\About.aspx.designer.cs">
+    <Compile Include="WebPages\Admin\About.aspx.designer.cs">
       <DependentUpon>About.aspx</DependentUpon>
     </Compile>
-    <Compile Include="WebPages\crudsRelaciones.aspx.cs">
+    <Compile Include="WebPages\Admin\crudsRelaciones.aspx.cs">
       <DependentUpon>crudsRelaciones.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="WebPages\crudsRelaciones.aspx.designer.cs">
+    <Compile Include="WebPages\Admin\crudsRelaciones.aspx.designer.cs">
       <DependentUpon>crudsRelaciones.aspx</DependentUpon>
     </Compile>
     <Compile Include="WebPages\loginPage.aspx.cs">
@@ -118,45 +120,52 @@
     <Compile Include="WebPages\loginPage.aspx.designer.cs">
       <DependentUpon>loginPage.aspx</DependentUpon>
     </Compile>
-    <Compile Include="WebPages\StartPage.aspx.cs">
+    <Compile Include="WebPages\Admin\StartPage.aspx.cs">
       <DependentUpon>StartPage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="WebPages\StartPage.aspx.designer.cs">
+    <Compile Include="WebPages\Admin\StartPage.aspx.designer.cs">
       <DependentUpon>StartPage.aspx</DependentUpon>
     </Compile>
-    <Compile Include="WebPages\tablaConceptosDeCobro.aspx.cs">
+    <Compile Include="WebPages\Admin\tablaConceptosDeCobro.aspx.cs">
       <DependentUpon>tablaConceptosDeCobro.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="WebPages\tablaConceptosDeCobro.aspx.designer.cs">
+    <Compile Include="WebPages\Admin\tablaConceptosDeCobro.aspx.designer.cs">
       <DependentUpon>tablaConceptosDeCobro.aspx</DependentUpon>
     </Compile>
-    <Compile Include="WebPages\tablaPropiedades.aspx.cs">
+    <Compile Include="WebPages\Admin\tablaPropiedades.aspx.cs">
       <DependentUpon>tablaPropiedades.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="WebPages\tablaPropiedades.aspx.designer.cs">
+    <Compile Include="WebPages\Admin\tablaPropiedades.aspx.designer.cs">
       <DependentUpon>tablaPropiedades.aspx</DependentUpon>
     </Compile>
-    <Compile Include="WebPages\tablaPropietarios.aspx.cs">
+    <Compile Include="WebPages\Admin\tablaPropietarios.aspx.cs">
       <DependentUpon>tablaPropietarios.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="WebPages\tablaPropietarios.aspx.designer.cs">
+    <Compile Include="WebPages\Admin\tablaPropietarios.aspx.designer.cs">
       <DependentUpon>tablaPropietarios.aspx</DependentUpon>
     </Compile>
-    <Compile Include="WebPages\tablaUsuarios.aspx.cs">
+    <Compile Include="WebPages\Admin\tablaUsuarios.aspx.cs">
       <DependentUpon>tablaUsuarios.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="WebPages\tablaUsuarios.aspx.designer.cs">
+    <Compile Include="WebPages\Admin\tablaUsuarios.aspx.designer.cs">
       <DependentUpon>tablaUsuarios.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebPages\Normal_user\StartPage.aspx.cs">
+      <DependentUpon>StartPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebPages\Normal_user\StartPage.aspx.designer.cs">
+      <DependentUpon>StartPage.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <Content Include="Site.Master" />
+    <Content Include="WebPages\Admin\Admin_Site.Master" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

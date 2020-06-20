@@ -184,6 +184,8 @@ namespace PrograBases.WebPages
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     cmd.Parameters.Add("@inNumFinca", SqlDbType.VarChar).Value = numfinca;
+                    cmd.Parameters.Add("@inUsuarioACargo", SqlDbType.VarChar).Value = Session["userName"];
+                    cmd.Parameters.Add("@inIPusuario", SqlDbType.VarChar).Value = Session["userIp"];
 
                     cmd.Connection = conn;
                     conn.Open();
@@ -227,6 +229,8 @@ namespace PrograBases.WebPages
                     cmd.Parameters.Add("@inNumFinca", SqlDbType.VarChar).Value = numfinca;
                     cmd.Parameters.Add("@inValor", SqlDbType.Money).Value = valor;
                     cmd.Parameters.Add("@inDireccion", SqlDbType.VarChar).Value = direccion;
+                    cmd.Parameters.Add("@inUsuarioACargo", SqlDbType.VarChar).Value = Session["userName"];
+                    cmd.Parameters.Add("@inIPusuario", SqlDbType.VarChar).Value = Session["userIp"];
 
                     cmd.Connection = conn;
                     conn.Open();
@@ -251,7 +255,7 @@ namespace PrograBases.WebPages
             string numfinca = tb.Text;
             HttpContext.Current.Session["opcionDeBusqueda"] = 1;
             HttpContext.Current.Session["numFinca"] = numfinca;
-            Response.Redirect("~/WebPages/tablaPropietarios.aspx");
+            Response.Redirect("~/WebPages/Admin/tablaPropietarios.aspx");
         }
 
         protected void botonUpdate_Propiedad_Click(object sender, EventArgs e)
@@ -277,6 +281,8 @@ namespace PrograBases.WebPages
                     cmd.Parameters.Add("@inDireccion", SqlDbType.VarChar).Value = newDireccion;
                     cmd.Parameters.Add("@inNumFinca", SqlDbType.VarChar).Value = newNumFinca;
                     cmd.Parameters.Add("@inNumFincaOriginal", SqlDbType.VarChar).Value = numFincaActual;
+                    cmd.Parameters.Add("@inUsuarioACargo", SqlDbType.VarChar).Value = Session["userName"];
+                    cmd.Parameters.Add("@inIPusuario", SqlDbType.VarChar).Value = Session["userIp"];
 
                     cmd.Connection = conn;
                     conn.Open();
@@ -301,7 +307,7 @@ namespace PrograBases.WebPages
             string numfinca = tb.Text;
             HttpContext.Current.Session["opcionDeBusqueda"] = 1;
             HttpContext.Current.Session["numFinca"] = numfinca;
-            Response.Redirect("~/WebPages/tablaConceptosDeCobro.aspx");
+            Response.Redirect("~/WebPages/Admin/tablaConceptosDeCobro.aspx");
         }
     }
 }
