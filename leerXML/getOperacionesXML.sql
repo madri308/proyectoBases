@@ -107,9 +107,43 @@ BEGIN
 				INNER JOIN Propiedad ON [numFinca2] = Propiedad.numFinca
 				INNER JOIN Usuario ON [nombreUsuario] = Usuario.nombre
 				WHERE fechaDeIngreso7 = @MinDate
-				
-	SET @MinDate = dateadd(d,1,@MinDate) --INCREMENTA LA FECHA
 
+
+		--INSERTAR AJUSTES CONSUMO	
+		INSERT INTO [dbo].[MovConsumo] (montoM3,lecturaConsumo,nuevoM3Consumo,id_Propiedad,idTipoMov,fecha)
+			SELECT [M3],NULL,[nuevoM3Aum],Propiedad.id,tipoMov.id,CONVERT(DATE,[fechaDeIngreso],121)[fechaDeIngreso]
+			FROM OPENXML (@hdoc, 'Operaciones_por_Dia/OperacionDia/AjusteConsumo',1)  
+				WITH (	[M3]			INT				'@M3',  
+						[razon]		VARCHAR(100)		'@Razón',  
+						[numFinca]		int				'@NumeroFinca',  
+						[fechaDeIngreso]	VARCHAR(100)	'../@fecha')
+				INNER JOIN tipoMov ON [nombre] = [razon]
+				INNER JOIN Propiedad ON [numFinca] = Propiedad.numFinca
+				WHERE fechaDeIngreso = @MinDate
+
+		--PAGO DE LOS RECIBOS  --NO TERMINADO
+		DECLARE @Pagos PagosTipo  
+		INSERT INTO @Pagos(numFinca,idTipoRecibo, fechaOperacion)  
+			SELECT [NumFinca],[TipoRecibo],CONVERT(DATE,[fechaDeIngreso],121)[fechaDeIngreso]
+			FROM OPENXML (@hdoc, 'Operaciones_por_Dia/OperacionDia/Pago',1)  
+				WITH (	[NumFinca]		VARCHAR(30)	'@NumFinca',  
+						[TipoRecibo]	INT			'@TipoRecibo',
+						[fechaDeIngreso]	VARCHAR(100)	'../@fecha')
+				WHERE fechaDeIngreso = @MinDate
+		EXEC [dbo].[SP_ProcesarPagos] @Pagos
+
+		--ACTUALIZACION DE VALOR PROPIEDAD
+		DECLARE @nuevosValProp ValorPropiedadTipo  
+		INSERT INTO @nuevosValProp(numFinca,nuevoValor)  
+			SELECT [NumFinca],[nuevoValor]
+			FROM OPENXML (@hdoc, 'Operaciones_por_Dia/OperacionDia/PropiedadCambio ',1)  
+				WITH (	[NumFinca]	VARCHAR(30)	'@NumFinca',  
+						[nuevoValor]	MONEY	'@NuevoValor',
+						[fechaDeIngreso] DATE	'../@fecha')
+				WHERE [fechaDeIngreso] = @MinDate
+		EXEC [dbo].[SP_ProcActualizarValProp] @nuevosValProp
+						
+	SET @MinDate = dateadd(d,1,@MinDate) --INCREMENTA LA FECHA
 
 END
 EXEC sp_xml_removedocument @hdoc  

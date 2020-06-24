@@ -1,0 +1,39 @@
+Pago de recibos: mas valor en la progra esta duro jerry iterativo o sql masivo???
+=============================================================================================================
+Cambio valor propiedad:
+=============================================================================================================
+Registro de consumo de Agua:
+
+	<consumo NumeroFinca="12345" LecturaMedidorM3="1075"/>
+	consumo: 
+		LecturaConsumo = LecturaMedidorM3(XML)
+		montoM3 = LecturaConsumo - M3acumulados(propiedad)
+		NuevoM3acumulados = M3acumulados(Propiedad)?? = lectura
+
+	<AjusteConsumo NumeroFinca="12345" M3="5" Razon="Lectura Erronea"/>
+	ajuste consumo: 
+		LecturaConsumo = NULL
+		montoM3 = M3
+
+	Se generan recibo solo a aquellas Propiedades asociadas con CCconsumo agua.
+	Saldo de agua = M3acumulados --> Se guarda en la propiedad y en el movimiento(despues de hacer el movimiento).
+	Ajustes se aplica solo a M3acumulados.
+
+=============================================================================================================
+Ordenes de corta y reconexion: SP separados
+=============================================================================================================
+Generacion de recibos:
+
+	Monto(Recibos) = case when (M3Acumulados(Propiedad) - M3AcumuladosUltimoRecibo(Propiedad))*ValorM3 > MontoMinimoRecibo
+			then (M3Acumulados - M3AcumuladosUltimoRecibo)*ValorM3
+			else MontoMinimoRecibo
+
+	Despues de generar recibo M3AcumuladosUltimoRecibo(Propiedad) = M3Acumulados(Propiedad)
+
+
+
+
+	
+	
+	
+
