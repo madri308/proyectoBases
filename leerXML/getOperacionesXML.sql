@@ -5,7 +5,7 @@ SET NOCOUNT ON
 
 --GUARDAR EL XML CON OPENXML
 SELECT @XMLData = C
-FROM OPENROWSET (BULK 'C:\Program Files\Microsoft SQL Server\MSSQL15.MSSQLSERVER\MSSQL\DATA\p1DATA\xmlData\Operaciones2.xml', SINGLE_BLOB) AS ReturnData(C)
+FROM OPENROWSET (BULK 'C:\Program Files\Microsoft SQL Server\MSSQL15.MSSQLSERVER\MSSQL\DATA\p1DATA\xmlData\Operaciones.xml', SINGLE_BLOB) AS ReturnData(C)
 EXEC sp_xml_preparedocument @hdoc OUTPUT, @XMLData
 
 --CREA TABLA TEMPORAL DE FECHAS
@@ -43,7 +43,7 @@ BEGIN
 						[numFinca]		int         '@NumFinca',  
 						[fechaDeIngreso]	VARCHAR(100)	'../@fecha')
 				WHERE fechaDeIngreso = @MinDate
-				
+		
 		--INSERTAR PROPIETARIOS
 		INSERT INTO [dbo].[Propietario](nombre,valorDocId,identificacion,fechaDeIngreso)
 			SELECT [nombre],[TipDocIdRep],[DocidRep],CONVERT(DATE,[fechaDeIngreso1],121)[fechaDeIngreso1]
@@ -108,7 +108,7 @@ BEGIN
 				INNER JOIN Usuario ON [nombreUsuario] = Usuario.nombre
 				WHERE fechaDeIngreso7 = @MinDate
 
-
+		
 		--INSERTAR AJUSTES CONSUMO	
 		INSERT INTO [dbo].[MovConsumo] (montoM3,lecturaConsumo,nuevoM3Consumo,id_Propiedad,idTipoMov,fecha)
 			SELECT [M3],NULL,[nuevoM3Aum],Propiedad.id,tipoMov.id,CONVERT(DATE,[fechaDeIngreso],121)[fechaDeIngreso]
@@ -139,12 +139,37 @@ BEGIN
 			FROM OPENXML (@hdoc, 'Operaciones_por_Dia/OperacionDia/PropiedadCambio ',1)  
 				WITH (	[NumFinca]	VARCHAR(30)	'@NumFinca',  
 						[nuevoValor]	MONEY	'@NuevoValor',
-						[fechaDeIngreso] DATE	'../@fecha')
+						[fechaDeIngreso] VARCHAR(100)	'../@fecha')
 				WHERE [fechaDeIngreso] = @MinDate
 		EXEC [dbo].[SP_ProcActualizarValProp] @nuevosValProp
-						
-	SET @MinDate = dateadd(d,1,@MinDate) --INCREMENTA LA FECHA
 
+		--REGISTRO CONSUMO DE AGUA: AJUSTE CONSUMO
+		DECLARE @ajustesConsumo AjustesConsumoTipo  
+		INSERT INTO @ajustesConsumo(numFinca,M3,Razon,Fecha)  
+			SELECT [NumFinca],[M3],[Razon],CONVERT(DATE,[fechaDeIngreso],121)[fechaDeIngreso]
+			FROM OPENXML (@hdoc, 'Operaciones_por_Dia/OperacionDia/AjusteConsumo ',1)  
+				WITH (	[NumFinca]	VARCHAR(30)	'@NumeroFinca',  
+						[M3]	INT	'@M3',
+						[Razon] VARCHAR(30) '@Razón',
+						[fechaDeIngreso] VARCHAR(100)	'../@fecha')
+				WHERE [fechaDeIngreso] = @MinDate
+		EXEC [dbo].[SP_ProcAjustesConsumo] @ajustesConsumo
+		
+		--REGISTRO CONSUMO DE AGUA: CONSUMO
+		DECLARE @consumo ConsumoTipo  
+		INSERT INTO @ajustesConsumo(numFinca,LecturaMedidorM3,Fecha)  
+			SELECT [NumFinca],[LecturaMedidorM3],CONVERT(DATE,[fechaDeIngreso],121)[fechaDeIngreso]
+			FROM OPENXML (@hdoc, 'Operaciones_por_Dia/OperacionDia/AjusteConsumo ',1)  
+				WITH (	[NumFinca]	VARCHAR(30)	'@NumeroFinca',  
+						[LecturaMedidorM3]	INT	'@LecturaMedidorM3',
+						[fechaDeIngreso] VARCHAR(100)	'../@fecha')
+				WHERE [fechaDeIngreso] = @MinDate
+		EXEC [dbo].[SP_ProcesaConsumo] @consumo
+
+		--Ordenes de corta 
+
+	SET @MinDate = dateadd(d,1,@MinDate) --INCREMENTA LA FECHA
+	
 END
 EXEC sp_xml_removedocument @hdoc  
 /*
@@ -155,4 +180,5 @@ DELETE PropietarioJuridico
 DELETE Propietario
 DELETE Propiedad
 DELETE Usuario
+DELETE BitacoraCambio
 */

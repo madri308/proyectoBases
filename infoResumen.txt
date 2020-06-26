@@ -14,6 +14,7 @@ Registro de consumo de Agua:
 	ajuste consumo: 
 		LecturaConsumo = NULL
 		montoM3 = M3
+		NuevoM3acumulados  = NuevoM3acumulados+montoM3
 
 	Se generan recibo solo a aquellas Propiedades asociadas con CCconsumo agua.
 	Saldo de agua = M3acumulados --> Se guarda en la propiedad y en el movimiento(despues de hacer el movimiento).

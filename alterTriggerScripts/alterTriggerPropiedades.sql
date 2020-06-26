@@ -1,6 +1,3 @@
---====================================
---  Create database trigger template 
---====================================
 USE [Progra]
 GO
 
@@ -13,18 +10,26 @@ CREATE TRIGGER [dbo].[cambiosPropiedad]
 ON [dbo].[Propiedad]
 AFTER  INSERT,UPDATE
 AS				
-	declare @jsonAntes varchar(500), @jsonDespues varchar(500), @idModified int
-	SET @idModified = (SELECT id FROM Inserted)
-
-	SET @jsonAntes = (SELECT [id], [valor], [direccion], [numFinca], [fechaDeIngreso],[M3acumuladosAgua],[M3AcumuladosUltimoRecibo]
-					FROM deleted
-					FOR JSON PATH)
-	SET @jsonDespues = (SELECT [id], [valor], [direccion], [numFinca], [fechaDeIngreso],[M3acumuladosAgua],[M3AcumuladosUltimoRecibo]
-					FROM inserted WHERE [activo] = 1
-					FOR JSON PATH)
-	EXEC [dbo].[SP_BitacoraCambioInsert] @inIdEntityType = 1,@inEntityID = @idModified, @inJsonAntes = @jsonAntes,
-													@inJsonDespues = @jsonDespues, @inInsertedBy = 'usuario1', 
-													@inInsertedIn = 123
+	declare @jsonAntes varchar(500), @jsonDespues varchar(500), @idMenor int, @idMayor int
+	
+	SELECT 
+		@idMenor = min([id]), @idMayor=max([id])
+	FROM
+		inserted
+	WHILE @idMenor<=@idMayor
+	BEGIN
+		SET @jsonAntes = (SELECT [id], [valor], [direccion], [numFinca], [fechaDeIngreso],[M3acumuladosAgua],[M3AcumuladosUltimoRecibo]
+						FROM deleted
+						WHERE [id] = @idMenor
+						FOR JSON PATH)
+		SET @jsonDespues = (SELECT [id], [valor], [direccion], [numFinca], [fechaDeIngreso],[M3acumuladosAgua],[M3AcumuladosUltimoRecibo]
+						FROM inserted WHERE [activo] = 1 AND [id] = @idMenor
+						FOR JSON PATH)
+		EXEC [dbo].[SP_BitacoraCambioInsert] @inIdEntityType = 1,@inEntityID = @idMenor, @inJsonAntes = @jsonAntes,
+														@inJsonDespues = @jsonDespues, @inInsertedBy = 'usuario1', 
+														@inInsertedIn = 123
 		
+		SET @idMenor = @idMenor+1 
+	END
 
 
