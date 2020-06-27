@@ -14,12 +14,20 @@ AS
 		BEGIN TRY
 		SET NOCOUNT ON 
 		SET XACT_ABORT ON
+		declare @idMenor int, @idMayor int
+		SELECT @idMenor = min([id]), @idMayor=max([id]) FROM @nuevosValProp
+		WHILE @idMenor<=@idMayor
+		BEGIN
 			UPDATE [dbo].[Propiedad]
-			SET valor = NVP.nuevoValor
-			FROM [dbo].[Propiedad]
-			INNER JOIN @nuevosValProp NVP ON Propiedad.numFinca = NVP.numFinca 
+			SET [dbo].[Propiedad].[valor] = NVP.nuevoValor
+			FROM [dbo].[Propiedad] P
+			INNER JOIN @nuevosValProp NVP ON NVP.numFinca = P.numFinca
+			WHERE NVP.id = @idMenor
+			
+			SET @idMenor = @idMenor+1 
+		END
 		END TRY
 		BEGIN CATCH
-			THROW 6000, 'Error: No se ha podido crear el pago.',1;
+			THROW 6000, 'Error: No se ha podido actualizar la propiedad.',1;
 		END CATCH
 	END

@@ -33,152 +33,145 @@ DROP TABLE #TEMP_DATES_TABLE --DEJA LA TABLA
 --INSERTAR DATOS
 WHILE @MinDate<=@MaxDate
 BEGIN
-	
 		--INSERTAR PROPIEDADES
 		INSERT INTO [dbo].[Propiedad] (valor,direccion,numFinca,fechaDeIngreso)
 			SELECT [valor], [direccion],[numFinca],CONVERT(DATE,[fechaDeIngreso],121)[fechaDeIngreso]
 			FROM OPENXML (@hdoc, 'Operaciones_por_Dia/OperacionDia/Propiedad',1)  
-				WITH (	[valor]			MONEY		'@Valor',  
-						[direccion]		VARCHAR(100)	'@Direccion',  
-						[numFinca]		int         '@NumFinca',  
+				WITH (	[valor]				MONEY			'@Valor',  
+						[direccion]			VARCHAR(100)	'@Direccion',  
+						[numFinca]			VARCHAR(30)		'@NumFinca',  
 						[fechaDeIngreso]	VARCHAR(100)	'../@fecha')
 				WHERE fechaDeIngreso = @MinDate
 		
 		--INSERTAR PROPIETARIOS
-		INSERT INTO [dbo].[Propietario](nombre,valorDocId,identificacion,fechaDeIngreso)
+		DECLARE @Propietario PropietarioTipo
+		INSERT INTO @Propietario(nombre,valorDocId,identificacion,fecha)
 			SELECT [nombre],[TipDocIdRep],[DocidRep],CONVERT(DATE,[fechaDeIngreso1],121)[fechaDeIngreso1]
 			FROM OPENXML (@hdoc, 'Operaciones_por_Dia/OperacionDia/Propietario',1) 
-				WITH(	[nombre]		VARCHAR(100)		'@Nombre',  
-						[TipDocIdRep]	int '@TipoDocIdentidad',  
-						[DocidRep]		VARCHAR(100)         '@identificacion',  
+				WITH(	[nombre]			VARCHAR(100)	'@Nombre',  
+						[TipDocIdRep]		int				'@TipoDocIdentidad',  
+						[DocidRep]			VARCHAR(100)    '@identificacion',  
 						[fechaDeIngreso1]	VARCHAR(100)	'../@fecha')
 				WHERE fechaDeIngreso1 = @MinDate 
-
+		EXEC [dbo].[SP_ProcesaPropietarios] @Propietario
+		DELETE @Propietario
+		
 		--INSERTAR PERSONAS JURIDICAS
 		INSERT INTO [dbo].[PropietarioJuridico](id,DocidRepresentante,TipDocIdRepresentante,Representante,docidPersonaJuridica)
 			SELECT propietario.id,[DocidRepresentante],[TipDocIdRepresentante],[Representante],[docidPersonaJuridica]
 			FROM OPENXML (@hdoc, 'Operaciones_por_Dia/OperacionDia/PersonaJuridica',1)
-				WITH(	[DocidRepresentante] VARCHAR(100) '@DocidRepresentante',
-						[TipDocIdRepresentante] VARCHAR(100) '@TipDocIdRepresentante',
-						[docidPersonaJuridica] VARCHAR(100) '@docidPersonaJuridica',
-						[fechaDeIngreso3]	VARCHAR(100)	'../@fecha',
-						[Representante]		VARCHAR(100)	'@Nombre')
+				WITH(	[DocidRepresentante]	VARCHAR(100)	'@DocidRepresentante',
+						[TipDocIdRepresentante] VARCHAR(100)	'@TipDocIdRepresentante',
+						[docidPersonaJuridica]	VARCHAR(100)	'@docidPersonaJuridica',
+						[fechaDeIngreso3]		VARCHAR(100)	'../@fecha',
+						[Representante]			VARCHAR(100)	'@Nombre')
 				INNER JOIN Propietario ON [docidPersonaJuridica] = Propietario.identificacion
 				WHERE fechaDeIngreso3 = @MinDate
-				
+		
 		--INSERTAR PropiedadVersusPropietario
-		INSERT INTO [dbo].[PropiedadDelPropietario](id_Propiedad,id_Propietario)
+		DECLARE @PropiedadDelPropietario PropiedadDelPropietarioTipo
+		INSERT INTO @PropiedadDelPropietario(idPropiedad,idPropietario)
 			SELECT [dbo].[Propiedad].[id],[dbo].[Propietario].[id]
 			FROM OPENXML(@hdoc, 'Operaciones_por_Dia/OperacionDia/PropiedadVersusPropietario',1)
-				WITH(	[numFinca1] VARCHAR(30) '@NumFinca',
-						[identificacion1] VARCHAR(30) '@identificacion',
-						[fechaDeIngreso4] VARCHAR(100)	'../@fecha')
+				WITH(	[numFinca1]			VARCHAR(30)		'@NumFinca',
+						[identificacion1]	VARCHAR(30)		'@identificacion',
+						[fechaDeIngreso4]	VARCHAR(100)	'../@fecha')
 				INNER JOIN Propiedad ON [numFinca1] = Propiedad.numFinca
 				INNER JOIN Propietario ON [identificacion1] = Propietario.identificacion
 				WHERE fechaDeIngreso4 = @MinDate
-				
+		EXEC [dbo].[SP_ProcPropiedadVSPropietario] @PropiedadDelPropietario
+		DELETE @PropiedadDelPropietario
+		
 		--INSERTAR ConceptoCobroVersusPropiedad
 		INSERT INTO [dbo].[CCDePropiedad](id_Propiedad,id_CC,fechaInicio)
 			SELECT Propiedad.[id],ConceptoDeCobro.[id],CONVERT(DATE,[fechaDeIngreso5],121)[fechaDeIngreso5]
 			FROM OPENXML(@hdoc, 'Operaciones_por_Dia/OperacionDia/ConceptoCobroVersusPropiedad',1)
-				WITH(	[numFinca2] VARCHAR(30) '@NumFinca',
-						[idcobro] VARCHAR(30) '@idcobro',
-						[fechaDeIngreso5] VARCHAR(100)	'../@fecha')
+				WITH(	[numFinca2]			VARCHAR(30)		'@NumFinca',
+						[idcobro]			VARCHAR(30)		'@idcobro',
+						[fechaDeIngreso5]	VARCHAR(100)	'../@fecha')
 				INNER JOIN Propiedad ON [numFinca2] = Propiedad.numFinca
 				INNER JOIN ConceptoDeCobro ON [idcobro] = ConceptoDeCobro.id
 				WHERE fechaDeIngreso5 = @MinDate
-				
+		
 		--INSERTAR Usuarios
-		INSERT INTO [dbo].[Usuario]([nombre],[password],[tipoDeUsuario],[fechaDeIngreso])
-			SELECT [nombre],[password],'normal',CONVERT(DATE,[fechaDeIngreso6],121)[fechaDeIngreso6]
+		DECLARE  @Usuario UsuarioTipo
+		INSERT INTO @Usuario(nombre,contrasenna,tipoDeUsuario,Fecha)
+			SELECT [nombre],[password],[tipo],CONVERT(DATE,[fechaDeIngreso6],121)[fechaDeIngreso6]
 			FROM OPENXML (@hdoc, 'Operaciones_por_Dia/OperacionDia/Usuario',1) 
-				WITH(	[nombre]		VARCHAR(100)		'@Nombre',  
-						[password]		VARCHAR(30)		'@password',  
+				WITH(	[nombre]	VARCHAR(100)	'@Nombre',  
+						[password]	VARCHAR(30)		'@password',  
+						[tipo]		VARCHAR(30)		'@tipo',
 						[fechaDeIngreso6]	VARCHAR(100)	'../@fecha')
 				WHERE fechaDeIngreso6 = @MinDate 
-
+		EXEC [dbo].[SP_ProcesaUsuarios] @Usuario
+		DELETE @Usuario
+		
 		--INSERTAR UsuarioVersusPropiedad
-		INSERT INTO [dbo].[UsuarioDePropiedad](id_Propiedad,id_Usuario)
+		DECLARE @PropiedadDelUsuario PropiedadDelUsuarioTipo
+		INSERT INTO @PropiedadDelUsuario(idPropiedad,idUsuario)
 			SELECT Propiedad.[id],Usuario.[id]
 			FROM OPENXML(@hdoc, 'Operaciones_por_Dia/OperacionDia/UsuarioVersusPropiedad',1)
-				WITH(	[numFinca2] VARCHAR(30) '@NumFinca',
-						[nombreUsuario] VARCHAR(30) '@nombreUsuario',
-						[fechaDeIngreso7] VARCHAR(100)	'../@fecha')
+				WITH(	[numFinca2]			VARCHAR(30)		'@NumFinca',
+						[nombreUsuario]		VARCHAR(30)		'@nombreUsuario',
+						[fechaDeIngreso7]	VARCHAR(100)	'../@fecha')
 				INNER JOIN Propiedad ON [numFinca2] = Propiedad.numFinca
 				INNER JOIN Usuario ON [nombreUsuario] = Usuario.nombre
 				WHERE fechaDeIngreso7 = @MinDate
-
+		EXEC [dbo].[SP_ProcPropiedadVSUsuario] @PropiedadDelUsuario
+		DELETE @PropiedadDelUsuario
 		
-		--INSERTAR AJUSTES CONSUMO	
-		INSERT INTO [dbo].[MovConsumo] (montoM3,lecturaConsumo,nuevoM3Consumo,id_Propiedad,idTipoMov,fecha)
-			SELECT [M3],NULL,[nuevoM3Aum],Propiedad.id,tipoMov.id,CONVERT(DATE,[fechaDeIngreso],121)[fechaDeIngreso]
-			FROM OPENXML (@hdoc, 'Operaciones_por_Dia/OperacionDia/AjusteConsumo',1)  
-				WITH (	[M3]			INT				'@M3',  
-						[razon]		VARCHAR(100)		'@Razón',  
-						[numFinca]		int				'@NumeroFinca',  
-						[fechaDeIngreso]	VARCHAR(100)	'../@fecha')
-				INNER JOIN tipoMov ON [nombre] = [razon]
-				INNER JOIN Propiedad ON [numFinca] = Propiedad.numFinca
-				WHERE fechaDeIngreso = @MinDate
-
-		--PAGO DE LOS RECIBOS  --NO TERMINADO
+		--PAGO DE LOS RECIBOS  --NO TERMINAdo
 		DECLARE @Pagos PagosTipo  
 		INSERT INTO @Pagos(numFinca,idTipoRecibo, fechaOperacion)  
-			SELECT [NumFinca],[TipoRecibo],CONVERT(DATE,[fechaDeIngreso],121)[fechaDeIngreso]
+			SELECT [NumFinca],[TipoRecibo],CONVERT(DATE,[fechaDeIngreso9],121)[fechaDeIngreso9]
 			FROM OPENXML (@hdoc, 'Operaciones_por_Dia/OperacionDia/Pago',1)  
 				WITH (	[NumFinca]		VARCHAR(30)	'@NumFinca',  
 						[TipoRecibo]	INT			'@TipoRecibo',
-						[fechaDeIngreso]	VARCHAR(100)	'../@fecha')
-				WHERE fechaDeIngreso = @MinDate
+						[fechaDeIngreso9]	VARCHAR(100)	'../@fecha')
+				WHERE fechaDeIngreso9 = @MinDate
 		EXEC [dbo].[SP_ProcesarPagos] @Pagos
-
+		
 		--ACTUALIZACION DE VALOR PROPIEDAD
 		DECLARE @nuevosValProp ValorPropiedadTipo  
 		INSERT INTO @nuevosValProp(numFinca,nuevoValor)  
 			SELECT [NumFinca],[nuevoValor]
-			FROM OPENXML (@hdoc, 'Operaciones_por_Dia/OperacionDia/PropiedadCambio ',1)  
-				WITH (	[NumFinca]	VARCHAR(30)	'@NumFinca',  
-						[nuevoValor]	MONEY	'@NuevoValor',
-						[fechaDeIngreso] VARCHAR(100)	'../@fecha')
-				WHERE [fechaDeIngreso] = @MinDate
-		EXEC [dbo].[SP_ProcActualizarValProp] @nuevosValProp
-
-		--REGISTRO CONSUMO DE AGUA: AJUSTE CONSUMO
-		DECLARE @ajustesConsumo AjustesConsumoTipo  
-		INSERT INTO @ajustesConsumo(numFinca,M3,Razon,Fecha)  
-			SELECT [NumFinca],[M3],[Razon],CONVERT(DATE,[fechaDeIngreso],121)[fechaDeIngreso]
-			FROM OPENXML (@hdoc, 'Operaciones_por_Dia/OperacionDia/AjusteConsumo ',1)  
-				WITH (	[NumFinca]	VARCHAR(30)	'@NumeroFinca',  
-						[M3]	INT	'@M3',
-						[Razon] VARCHAR(30) '@Razón',
-						[fechaDeIngreso] VARCHAR(100)	'../@fecha')
-				WHERE [fechaDeIngreso] = @MinDate
-		EXEC [dbo].[SP_ProcAjustesConsumo] @ajustesConsumo
+			FROM OPENXML (@hdoc, 'Operaciones_por_Dia/OperacionDia/CambioPropiedad ',1)  
+				WITH (	[NumFinca]			VARCHAR(30)		'@NumFinca',  
+						[nuevoValor]		MONEY			'@NuevoValor',
+						[fechaDeIngreso10]	VARCHAR(100)	'../@fecha')
+				WHERE [fechaDeIngreso10] = @MinDate
+		EXEC [dbo].[SP_ProcActualizarValProp] @nuevosValProp;
+		DELETE FROM @nuevosValProp
 		
-		--REGISTRO CONSUMO DE AGUA: CONSUMO
+		--REGISTRO CONSUMO DE AGUA:
 		DECLARE @consumo ConsumoTipo  
-		INSERT INTO @ajustesConsumo(numFinca,LecturaMedidorM3,Fecha)  
-			SELECT [NumFinca],[LecturaMedidorM3],CONVERT(DATE,[fechaDeIngreso],121)[fechaDeIngreso]
-			FROM OPENXML (@hdoc, 'Operaciones_por_Dia/OperacionDia/AjusteConsumo ',1)  
-				WITH (	[NumFinca]	VARCHAR(30)	'@NumeroFinca',  
-						[LecturaMedidorM3]	INT	'@LecturaMedidorM3',
-						[fechaDeIngreso] VARCHAR(100)	'../@fecha')
-				WHERE [fechaDeIngreso] = @MinDate
+		INSERT INTO @consumo(numFinca,LecturaM3,Fecha,descripcion,idTipo)  
+			SELECT [NumFinca],[LecturaM3],CONVERT(DATE,[fechaDeIngreso11],121)[fechaDeIngreso11],[descripcion],[idTipo]
+			FROM OPENXML (@hdoc, 'Operaciones_por_Dia/OperacionDia/TransConsumo',1)  
+				WITH (	[NumFinca]		VARCHAR(30)	'@NumFinca',  
+						[LecturaM3]		INT			'@LecturaM3',
+						[idTipo]		INT			'@id',
+						[descripcion]	VARCHAR(100)	'@descripcion',
+						[fechaDeIngreso11] DATE			'../@fecha')
+				WHERE [fechaDeIngreso11] = @MinDate
 		EXEC [dbo].[SP_ProcesaConsumo] @consumo
+		DELETE @consumo
 
 		--Ordenes de corta 
-
+		
 	SET @MinDate = dateadd(d,1,@MinDate) --INCREMENTA LA FECHA
 	
 END
 EXEC sp_xml_removedocument @hdoc  
 /*
+USE [Progra]
 DELETE PropiedadDelPropietario
 DELETE UsuarioDePropiedad
 DELETE CCDePropiedad
 DELETE PropietarioJuridico
 DELETE Propietario
+DELETE MovConsumo
 DELETE Propiedad
-DELETE Usuario
+DELETE Usuario WHERE tipoDeUsuario = 'cliente'
 DELETE BitacoraCambio
 */

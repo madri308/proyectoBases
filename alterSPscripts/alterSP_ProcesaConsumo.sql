@@ -22,19 +22,27 @@ AS
 					INSERT INTO [dbo].[MovConsumo](fecha,montoM3,lecturaConsumo,nuevoM3Consumo,id_Propiedad,idTipoMov)
 					SELECT 
 						C.Fecha,
-						Propiedad.M3acumuladosAgua-C.LecturaMedidorM3,
-						LecturaMedidorM3,
-						Propiedad.M3acumuladosAgua+Propiedad.M3acumuladosAgua-C.LecturaMedidorM3,
-						Propiedad.id,
-						2
-					FROM [dbo].[Propiedad]
-					INNER JOIN @consumo C ON C.numFinca = [dbo].[Propiedad].[numFinca]
+						CASE WHEN (C.idTipo = 1) THEN C.LecturaM3-P.M3acumuladosAgua
+						ELSE C.LecturaM3
+						END,
+						CASE WHEN (C.idTipo = 1) THEN C.LecturaM3
+						ELSE NULL
+						END,
+						CASE WHEN (C.idTipo = 1) THEN C.LecturaM3
+						ELSE P.M3acumuladosAgua+C.LecturaM3
+						END,
+						P.id,
+						C.idTipo
+					FROM [dbo].[Propiedad] P
+					INNER JOIN @consumo C ON C.numFinca = P.[numFinca]
 					WHERE C.id = @idMenor
 
 					UPDATE [Propiedad]
-					SET M3acumuladosAgua = C.LecturaMedidorM3
-					FROM [Propiedad]
-					INNER JOIN @consumo C ON C.numFinca = [dbo].[Propiedad].[numFinca]
+					SET M3acumuladosAgua = CASE WHEN (C.idTipo = 1) THEN C.LecturaM3
+					ELSE M3acumuladosAgua+C.LecturaM3
+					END
+					FROM [Propiedad] P
+					INNER JOIN @consumo C ON C.numFinca = P.[numFinca]
 					WHERE C.id = @idMenor
 
 					SET @idMenor = @idMenor+1 

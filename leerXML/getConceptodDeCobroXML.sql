@@ -29,7 +29,7 @@ EXEC sp_xml_preparedocument @hdoc OUTPUT, @XMLData
 					[id] int '@id',
 					[tipo] varchar(30) '@TipoCC',
 					[valorPorcentual] float '@ValorPorcentaje')
-			WHERE [tipo] = 'CC Porcentual';
+			WHERE [tipo] = 'CC Porcentaje';
 			
 			--INSERTAR CCFIJO
 			INSERT INTO [dbo].[CCFijo] ([id],[Monto])
@@ -41,24 +41,15 @@ EXEC sp_xml_preparedocument @hdoc OUTPUT, @XMLData
 					[tipo] varchar(30) '@TipoCC')
 			WHERE [tipo] = 'CC Fijo';
 			
-			--INSERT CCINTERESMORATORIO 
-			INSERT INTO [dbo].[CCImpMoratorio] ([id])
-			SELECT [id]
-			FROM OPENXML (@hdoc,'Conceptos_de_Cobro/conceptocobro', 1)
-				WITH(
-					[id] int '@id',
-					[tipo] varchar(30) '@TipoCC',
-					[esFijo] VARCHAR(2) '@EsFijo')
-				WHERE [tipo] = 'CC Moratorio';
-			
 			--INSERTAR CCCONSUMO
-			INSERT INTO [dbo].[CCConsumo] ([id],[valorPorM3])
-			SELECT [id],[valorPorM3]
+			INSERT INTO [dbo].[CCConsumo] ([id],[valorPorM3],[montoMinimoRecibo])
+			SELECT [id],[valorPorM3],[montoMinimoRecibo]
 			FROM OPENXML (@hdoc,'Conceptos_de_Cobro/conceptocobro', 1)
 				WITH(
 					[id] int '@id',
 					[tipo] varchar(30) '@TipoCC',
-					[valorPorM3] real '@ValorM3')
+					[valorPorM3] real '@ValorM3',
+					[montoMinimoRecibo] MONEY '@MontoMinRecibo')
 			WHERE [tipo] = 'CC Consumo';
 
 /*
