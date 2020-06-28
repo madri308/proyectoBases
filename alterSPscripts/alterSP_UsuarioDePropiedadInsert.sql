@@ -14,7 +14,7 @@ AS
 		BEGIN TRY
 		SET NOCOUNT ON 
 		SET XACT_ABORT ON 
-			DECLARE @idUsuario int, @idPropiedad int,@jsonDespues varchar(500), @idModified int
+			DECLARE @idUsuario int, @idPropiedad int,@jsonDespues varchar(500), @idModified int, @insertedAt DATE
 			SET @idPropiedad = (SELECT [id] FROM [dbo].[Propiedad] WHERE [numFinca] = @inNumFinca AND [activo] = 1)
 			SET @idUsuario = (SELECT [id] FROM [dbo].[Usuario] WHERE [nombre] = @inUsuario AND [activo] = 1)
 			--INSERTA LA RELACION
@@ -22,6 +22,7 @@ AS
 			SELECT @idPropiedad, @idUsuario
 			--GUARDA EL ID
 			SET @idModified = (SELECT [id] FROM [dbo].[UsuarioDePropiedad] WHERE [id_Propiedad] = @idPropiedad AND [id_Usuario] = @idUsuario)
+			SET @insertedAt = GETDATE()
 			--GUARDA EL JSON DEL ROW DE LA RELACION DESPUES
 			SET @jsonDespues = (SELECT [id], [id_Propiedad], [id_Usuario]
 			FROM [dbo].[UsuarioDePropiedad] WHERE [id_Propiedad] = @idPropiedad AND [id_Usuario] = @idUsuario
@@ -29,7 +30,7 @@ AS
 			--INSERTA EL CAMBIO
 			EXEC [dbo].[SP_BitacoraCambioInsert] @inIdEntityType = 1,@inEntityID = @idModified, @inJsonAntes = NULL,
 												@inJsonDespues = @jsonDespues, @inInsertedBy = @inUsuarioACargo, 
-												@inInsertedIn = @inIPusuario
+												@inInsertedIn = @inIPusuario, @inInsertedAt = @insertedAt
 		END TRY
 		BEGIN CATCH
 			ROLLBACK TRAN;

@@ -9,7 +9,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE PROC [dbo].[SP_UsuarioDelete] 
-    @inUsuario varchar(30),@inUsuarioACargo varchar(20), @inIPusuario varchar(20)
+    @inUsuario varchar(30),@inUsuarioACargo varchar(20), @inIPusuario varchar(20), @insertedAt DATE
 AS 
 	BEGIN 
 		BEGIN TRY 
@@ -25,12 +25,13 @@ AS
 				UPDATE [dbo].[Usuario]
 				SET    [activo] = 0
 				WHERE  [nombre] = @inUsuario
-				--GUARDA EL ID
+				--GUARDA EL ID Y FECHA
+				SET @insertedAt = GETDATE()
 				SET @idModified = (SELECT [id] FROM [dbo].[Usuario] WHERE [nombre] = @inUsuario)
 				--INSERTA EL CAMBIO
 				EXEC [dbo].[SP_BitacoraCambioInsert] @inIdEntityType = 1,@inEntityID = @idModified, @inJsonAntes = @jsonAntes,
 													@inJsonDespues = NULL, @inInsertedBy = @inUsuarioACargo, 
-													@inInsertedIn = @inIPusuario
+													@inInsertedIn = @inIPusuario, @inInsertedAt = @insertedAt
 			COMMIT
 		END TRY
 		BEGIN CATCH

@@ -30,7 +30,8 @@ AS
 				[numFinca] = CASE @inNumFinca
 					WHEN '-1' THEN [numFinca]
 					ELSE @inNumFinca
-				END
+				END,
+				[fechaDeIngreso] = GETDATE()
 			WHERE [numFinca] = @inNumFincaOriginal AND [activo] = 1
 		END TRY
 		BEGIN CATCH

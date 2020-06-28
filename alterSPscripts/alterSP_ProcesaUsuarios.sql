@@ -14,9 +14,10 @@ AS
 		BEGIN TRY
 		SET NOCOUNT ON 
 		SET XACT_ABORT ON 
-			declare @jsonDespues varchar(500), @idMenor int, @idMayor int, @idModified int
+			declare @jsonDespues varchar(500), @idMenor int, @idMayor int, @idModified int, @insertedAt DATE
 			BEGIN TRAN
 				SELECT @idMenor = min([id]), @idMayor=max([id]) FROM @Usuario
+				SET @insertedAt = (SELECT Fecha FROM @Usuario WHERE id = @idMenor) 
 				WHILE @idMenor<=@idMayor
 				BEGIN
 					INSERT INTO [dbo].[Usuario] ([nombre], [password], [tipoDeUsuario],[fechaDeIngreso])
@@ -31,7 +32,7 @@ AS
 
 					EXEC [dbo].[SP_BitacoraCambioInsert] @inIdEntityType = 3,@inEntityID = @idModified, @inJsonAntes = NULL,
 																	@inJsonDespues = @jsonDespues, @inInsertedBy = 'usuario1', 
-																	@inInsertedIn = 123
+																	@inInsertedIn = 123, @inInsertedAt = @insertedAt
 					SET @idMenor = @idMenor+1 
 				END
 			COMMIT

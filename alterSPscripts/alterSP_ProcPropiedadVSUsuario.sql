@@ -14,9 +14,10 @@ AS
 		BEGIN TRY
 		SET NOCOUNT ON 
 		SET XACT_ABORT ON 
-			declare @jsonDespues varchar(500), @idMenor int, @idMayor int, @idModified int
+			declare @jsonDespues varchar(500), @idMenor int, @idMayor int, @idModified int, @insertedAt DATE
 			BEGIN TRAN
 				SELECT @idMenor = min([id]), @idMayor=max([id]) FROM @PropiedadDelUsuario
+				SET @insertedAt = (SELECT Fecha FROM @PropiedadDelUsuario WHERE id = @idMenor)
 				WHILE @idMenor<=@idMayor
 				BEGIN
 					--INSERTA LA RELACION
@@ -24,7 +25,8 @@ AS
 					SELECT idUsuario,idPropiedad
 					FROM @PropiedadDelUsuario
 					WHERE id = @idMenor
-					--GUARDA EL ID
+					--GUARDA EL ID y fecha
+					SET @insertedAt = GETDATE()
 					SET @idModified = @@IDENTITY --(SELECT [id] FROM [dbo].[PropiedadDelPropietario] WHERE [id_Propiedad] IN (SELECT idPropiedad FROM @PropiedadDelPropietario WHERE id = @idMenor) AND [id_Propietario] = @idPropietario)
 					--GUARDA EL JSON DEL ROW DE LA RELACION DESPUES
 					SET @jsonDespues = (SELECT [id], [id_Propiedad], [id_Usuario]
@@ -33,7 +35,7 @@ AS
 					--INSERTA EL CAMBIO
 					EXEC [dbo].[SP_BitacoraCambioInsert] @inIdEntityType = 5,@inEntityID = @idModified, @inJsonAntes = NULL,
 														@inJsonDespues = @jsonDespues, @inInsertedBy = 'usuario1', 
-														@inInsertedIn = 123
+														@inInsertedIn = 123, @inInsertedAt = @insertedAt
 					SET @idMenor = @idMenor+1 
 				END
 			COMMIT

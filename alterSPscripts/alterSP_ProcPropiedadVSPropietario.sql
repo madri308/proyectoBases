@@ -14,9 +14,10 @@ AS
 		BEGIN TRY
 		SET NOCOUNT ON 
 		SET XACT_ABORT ON 
-			declare @jsonDespues varchar(500), @idMenor int, @idMayor int, @idModified int
+			declare @jsonDespues varchar(500), @idMenor int, @idMayor int, @idModified int, @insertedAt DATE
 			BEGIN TRAN
 				SELECT @idMenor = min([id]), @idMayor=max([id]) FROM @PropiedadDelPropietario
+				SET @insertedAt = (SELECT Fecha FROM @PropiedadDelPropietario WHERE id = @idMenor)
 				WHILE @idMenor<=@idMayor
 				BEGIN
 					--INSERTA LA RELACION
@@ -33,7 +34,7 @@ AS
 					--INSERTA EL CAMBIO
 					EXEC [dbo].[SP_BitacoraCambioInsert] @inIdEntityType = 4,@inEntityID = @idModified, @inJsonAntes = NULL,
 														@inJsonDespues = @jsonDespues, @inInsertedBy = 'usuario1', 
-														@inInsertedIn = 123
+														@inInsertedIn = 123, @inInsertedAt = @insertedAt
 					SET @idMenor = @idMenor+1 
 				END
 			COMMIT

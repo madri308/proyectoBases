@@ -10,8 +10,9 @@ CREATE TRIGGER [dbo].[cambiosPropiedad]
 ON [dbo].[Propiedad]
 AFTER  INSERT,UPDATE
 AS				
-	declare @jsonAntes varchar(500), @jsonDespues varchar(500), @idMenor int, @idMayor int
+	declare @jsonAntes varchar(500), @jsonDespues varchar(500), @idMenor int, @idMayor int, @insertedAt DATE
 	SELECT @idMenor = min([id]), @idMayor=max([id]) FROM inserted
+	SET @insertedAt = (SELECT fechaDeIngreso FROM inserted WHERE [id] = @idMenor)
 	WHILE @idMenor<=@idMayor
 	BEGIN
 		SET @jsonAntes = (SELECT [id], [valor], [direccion], [numFinca], [fechaDeIngreso],[M3acumuladosAgua],[M3AcumuladosUltimoRecibo]
@@ -26,7 +27,8 @@ AS
 		@inJsonAntes = @jsonAntes,
 		@inJsonDespues = @jsonDespues, 
 		@inInsertedBy = 'usuario1', 
-		@inInsertedIn = 123
+		@inInsertedIn = 123,
+		@inInsertedAt = @insertedAt
 		
 		SET @idMenor = @idMenor+1 
 	END

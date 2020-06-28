@@ -70,8 +70,8 @@ BEGIN
 		
 		--INSERTAR PropiedadVersusPropietario
 		DECLARE @PropiedadDelPropietario PropiedadDelPropietarioTipo
-		INSERT INTO @PropiedadDelPropietario(idPropiedad,idPropietario)
-			SELECT [dbo].[Propiedad].[id],[dbo].[Propietario].[id]
+		INSERT INTO @PropiedadDelPropietario(idPropiedad,idPropietario,Fecha)
+			SELECT [dbo].[Propiedad].[id],[dbo].[Propietario].[id],CONVERT(DATE,[fechaDeIngreso4],121)[fechaDeIngreso4]
 			FROM OPENXML(@hdoc, 'Operaciones_por_Dia/OperacionDia/PropiedadVersusPropietario',1)
 				WITH(	[numFinca1]			VARCHAR(30)		'@NumFinca',
 						[identificacion1]	VARCHAR(30)		'@identificacion',
@@ -108,8 +108,8 @@ BEGIN
 		
 		--INSERTAR UsuarioVersusPropiedad
 		DECLARE @PropiedadDelUsuario PropiedadDelUsuarioTipo
-		INSERT INTO @PropiedadDelUsuario(idPropiedad,idUsuario)
-			SELECT Propiedad.[id],Usuario.[id]
+		INSERT INTO @PropiedadDelUsuario(idPropiedad,idUsuario,Fecha)
+			SELECT Propiedad.[id],Usuario.[id],CONVERT(DATE,[fechaDeIngreso7],121)[fechaDeIngreso7]
 			FROM OPENXML(@hdoc, 'Operaciones_por_Dia/OperacionDia/UsuarioVersusPropiedad',1)
 				WITH(	[numFinca2]			VARCHAR(30)		'@NumFinca',
 						[nombreUsuario]		VARCHAR(30)		'@nombreUsuario',
@@ -119,8 +119,8 @@ BEGIN
 				WHERE fechaDeIngreso7 = @MinDate
 		EXEC [dbo].[SP_ProcPropiedadVSUsuario] @PropiedadDelUsuario
 		DELETE @PropiedadDelUsuario
-		
-		--PAGO DE LOS RECIBOS  --NO TERMINAdo
+		/*
+		--PAGO DE LOS RECIBOS  --No probado
 		DECLARE @Pagos PagosTipo  
 		INSERT INTO @Pagos(numFinca,idTipoRecibo, fechaOperacion)  
 			SELECT [NumFinca],[TipoRecibo],CONVERT(DATE,[fechaDeIngreso9],121)[fechaDeIngreso9]
@@ -157,7 +157,7 @@ BEGIN
 		EXEC [dbo].[SP_ProcesaConsumo] @consumo
 		DELETE @consumo
 
-		--Ordenes de corta 
+		--Ordenes de corta */
 		
 	SET @MinDate = dateadd(d,1,@MinDate) --INCREMENTA LA FECHA
 	

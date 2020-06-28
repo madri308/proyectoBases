@@ -18,12 +18,13 @@ AS
 		BEGIN TRY
 		SET NOCOUNT ON 
 		SET XACT_ABORT ON 
-			DECLARE @idPropiedad int, @idUsuario int,@idPropiedadOriginal int, @idUsuarioOriginal int, @jsonAntes varchar(500),@jsonDespues varchar(500), @idModified int
+			DECLARE @idPropiedad int, @idUsuario int,@idPropiedadOriginal int, @idUsuarioOriginal int, @jsonAntes varchar(500),@jsonDespues varchar(500), @idModified int, @insertedAt DATE
 			SET @idPropiedad = (SELECT [id] FROM [dbo].[Propiedad] WHERE [numFinca] = @inNumFinca AND [activo]=1)
 			SET @idUsuario = (SELECT [id] FROM [dbo].[Usuario] WHERE [nombre] = @inUsuario AND [activo]=1)
 			SET @idPropiedadOriginal = (SELECT [id] FROM [dbo].[Propiedad] WHERE [numFinca] = @inNumFincaOriginal AND [activo]=1)
 			SET @idUsuarioOriginal = (SELECT [id] FROM [dbo].[Usuario] WHERE [nombre] = @inUsuarioOriginal AND [activo]=1)
-			--GUARDA EL ID
+			--GUARDA EL ID y fecha
+			SET @insertedAt = GETDATE()
 			SET @idModified = (SELECT [id] FROM [dbo].[UsuarioDePropiedad] WHERE [id_Propiedad] = @idPropiedadOriginal AND [id_Usuario] = @idUsuarioOriginal)
 			--GUARDA EL JSON DEL ROW DE LA RELACION ANTES
 			SET @jsonAntes = (SELECT [id], [id_Propiedad], [id_Usuario]
@@ -43,7 +44,7 @@ AS
 			--INSERTA EL CAMBIO
 			EXEC [dbo].[SP_BitacoraCambioInsert] @inIdEntityType = 1,@inEntityID = @idModified, @inJsonAntes = @jsonAntes,
 												@inJsonDespues = @jsonDespues, @inInsertedBy = @inUsuarioACargo, 
-												@inInsertedIn = @inIPusuario
+												@inInsertedIn = @inIPusuario, @inInsertedAt = @insertedAt
 		END TRY
 		BEGIN CATCH;
 			ROLLBACK TRAN;

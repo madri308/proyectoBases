@@ -15,10 +15,11 @@ AS
 		BEGIN TRY
 		SET NOCOUNT ON 
 		SET XACT_ABORT ON  
-			DECLARE @idUsuario int, @idPropiedad int
+			DECLARE @idUsuario int, @idPropiedad int, @insertedAt DATE
 			SET @idPropiedad = (SELECT [id] FROM [dbo].[Propiedad] WHERE [numFinca] = @inNumFinca AND [activo] = 1)
 			SET @idUsuario = (SELECT [id] FROM [dbo].[Usuario] WHERE [nombre] = @inUsuario AND [activo] = 1)
-			--GUARDA EL ID
+			--GUARDA EL ID y fecha
+			SET @insertedAt = GETDATE()
 			SET @idModified = (SELECT [id] FROM [dbo].[UsuarioDePropiedad] WHERE [id_Propiedad] = @idPropiedad AND [id_Usuario] = @idUsuario)
 			--GUARDA EL JSON DEL ROW DE LA RELACION ANTES
 			SET @jsonAntes = (SELECT [id], [id_Propiedad], [id_Usuario]
@@ -31,7 +32,7 @@ AS
 			--INSERTA EL CAMBIO
 			EXEC [dbo].[SP_BitacoraCambioInsert] @inIdEntityType = 1,@inEntityID = @idModified, @inJsonAntes = @jsonAntes,
 												@inJsonDespues = NULL, @inInsertedBy = @inUsuarioACargo, 
-												@inInsertedIn = @inIPusuario
+												@inInsertedIn = @inIPusuario, @inInsertedAt = @insertedAt
 		END TRY
 		BEGIN CATCH
 			THROW 92836,'Error: No se ha podido eliminar la relacion entre el usuario y la propiedad.',1;

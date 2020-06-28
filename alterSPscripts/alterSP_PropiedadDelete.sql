@@ -16,7 +16,8 @@ AS
 		SET NOCOUNT ON 
 		SET XACT_ABORT ON
 			UPDATE [dbo].[Propiedad]
-			SET    [activo] = 0
+			SET    [activo] = 0,
+			fechaDeIngreso = GETDATE()
 			WHERE  [numFinca] = @inNumFinca
 		END TRY
 		BEGIN CATCH
