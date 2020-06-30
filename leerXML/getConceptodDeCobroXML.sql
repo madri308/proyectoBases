@@ -52,6 +52,15 @@ EXEC sp_xml_preparedocument @hdoc OUTPUT, @XMLData
 					[montoMinimoRecibo] MONEY '@MontoMinRecibo')
 			WHERE [tipo] = 'CC Consumo';
 
+			--INSERTAR CC Interes Moratorio
+			INSERT INTO [dbo].[CCImpMoratorio] ([id])
+			SELECT [id]
+			FROM OPENXML (@hdoc,'Conceptos_de_Cobro/conceptocobro', 1)
+				WITH(
+					[id] int '@id',
+					[tipo] varchar(30) '@TipoCC')
+			WHERE [tipo] = 'CC Interes Moratorio';
+
 /*
 DELETE [dbo].[CCConsumo]
 DELETE [dbo].[CCFijo]

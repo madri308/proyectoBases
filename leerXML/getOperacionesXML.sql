@@ -33,7 +33,7 @@ DROP TABLE #TEMP_DATES_TABLE --DEJA LA TABLA
 --INSERTAR DATOS
 WHILE @MinDate<=@MaxDate
 BEGIN
-		--INSERTAR PROPIEDADES
+		/*--INSERTAR PROPIEDADES
 		INSERT INTO [dbo].[Propiedad] (valor,direccion,numFinca,fechaDeIngreso)
 			SELECT [valor], [direccion],[numFinca],CONVERT(DATE,[fechaDeIngreso],121)[fechaDeIngreso]
 			FROM OPENXML (@hdoc, 'Operaciones_por_Dia/OperacionDia/Propiedad',1)  
@@ -119,7 +119,7 @@ BEGIN
 				WHERE fechaDeIngreso7 = @MinDate
 		EXEC [dbo].[SP_ProcPropiedadVSUsuario] @PropiedadDelUsuario
 		DELETE @PropiedadDelUsuario
-		/*
+		
 		--PAGO DE LOS RECIBOS  --No probado
 		DECLARE @Pagos PagosTipo  
 		INSERT INTO @Pagos(numFinca,idTipoRecibo, fechaOperacion)  
@@ -142,8 +142,9 @@ BEGIN
 				WHERE [fechaDeIngreso10] = @MinDate
 		EXEC [dbo].[SP_ProcActualizarValProp] @nuevosValProp;
 		DELETE FROM @nuevosValProp
+		DELETE @nuevosValProp
 		
-		--REGISTRO CONSUMO DE AGUA:
+		--REGISTRO CONSUMO DE AGUA
 		DECLARE @consumo ConsumoTipo  
 		INSERT INTO @consumo(numFinca,LecturaM3,Fecha,descripcion,idTipo)  
 			SELECT [NumFinca],[LecturaM3],CONVERT(DATE,[fechaDeIngreso11],121)[fechaDeIngreso11],[descripcion],[idTipo]
@@ -156,8 +157,13 @@ BEGIN
 				WHERE [fechaDeIngreso11] = @MinDate
 		EXEC [dbo].[SP_ProcesaConsumo] @consumo
 		DELETE @consumo
-
-		--Ordenes de corta */
+		
+		--ORDENES DE CORTA
+		EXEC [dbo].[SP_ProcCortaAgua] @MinDate
+		EXEC [dbo].[SP_ProcReconexionAgua] @MinDate
+		*/
+		--GENERACION DE RECIBOS
+		EXEC [dbo].[SP_ProcGeneraRecibos] @MinDate
 		
 	SET @MinDate = dateadd(d,1,@MinDate) --INCREMENTA LA FECHA
 	
@@ -174,4 +180,10 @@ DELETE MovConsumo
 DELETE Propiedad
 DELETE Usuario WHERE tipoDeUsuario = 'cliente'
 DELETE BitacoraCambio
+DELETE ReciboPagado
+DELETE ReciboReconexion
+DELETE Recibos
+DELETE ComprobantePago
+DELETE Corte
+DELETE Reconexion
 */

@@ -29,7 +29,8 @@ AS
 						ELSE NULL
 						END,
 						CASE WHEN (C.idTipo = 1) THEN C.LecturaM3
-						ELSE P.M3acumuladosAgua+C.LecturaM3
+							 WHEN (C.idTipo = 2) THEN P.M3acumuladosAgua-C.LecturaM3
+							 ELSE P.M3acumuladosAgua+C.LecturaM3
 						END,
 						P.id,
 						C.idTipo
