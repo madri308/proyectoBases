@@ -1,57 +1,40 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="StartPage.aspx.cs" Inherits="PrograBases.WebPages.Normal_user.StartPage" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/WebPages/Normal_user/NormalUser_Site.Master" AutoEventWireup="true" CodeBehind="StartPage.aspx.cs" Inherits="PrograBases.WebPages.Normal_user.StartPage1" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 
-<!DOCTYPE html>
+    <link rel="stylesheet" href="/css/Normal_user/StartPage.css" type="text/css" media="screen" />
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title></title>
-</head>
-<body>
-    <form id="form1" runat="server">
-        <div id="propiedadesUsuario">
+</asp:Content>
 
-            <asp:GridView runat="server" CssClass="gridNormalUser" id="GridPropiedades" AutoGenerateColumns="false" Visible="false" ShowFooter="True" CellPadding="3" DataKeyNames="numFinca" >
-                <Columns>
-                    <asp:TemplateField HeaderText="Numero de Finca" > 
-                        <FooterTemplate>
-                            <asp:TextBox ID="txtNewNumeroFinca" runat="server" ></asp:TextBox>
-                        </FooterTemplate> 
-                        <ItemTemplate> 
-                            <asp:Label ID="labelNumeroFinca" runat="server" Text='<%# Bind("numFinca") %>'></asp:Label>
-                        </ItemTemplate>
-                    </asp:TemplateField>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <div id="propiedadesUsuario">
+        <asp:GridView runat="server" CssClass="gridNormalUser" id="GridPropiedades" AutoGenerateColumns="false" Visible="false" ShowFooter="True" CellPadding="3" DataKeyNames="numFinca" >
+            <Columns>
+                <asp:BoundField HeaderText="Numero de Finca" DataField="numFinca" InsertVisible="False" ReadOnly="True" SortExpression="numFinca" />
 
-                    <asp:TemplateField HeaderText="Valor"> 
-                        <FooterTemplate>
-                            <asp:TextBox ID="txtNewValor" runat="server" ></asp:TextBox>
-                        </FooterTemplate> 
-                        <ItemTemplate> 
-                            <asp:Label ID="labelValor" runat="server" Text='<%# "$" + Eval("valor") %>'></asp:Label>
-                        </ItemTemplate>
-                    </asp:TemplateField>
+                <asp:BoundField HeaderText="Valor" DataField="valor"  InsertVisible="False" ReadOnly="True" SortExpression="valor" />
 
-                    <asp:TemplateField HeaderText="Direccion"> 
-                        <FooterTemplate>
-                            <asp:TextBox ID="txtNewDireccion" runat="server" ></asp:TextBox>
-                        </FooterTemplate> 
-                        <ItemTemplate> 
-                            <asp:Label ID="labelDireccion" runat="server" Text='<%# Bind("direccion") %>'></asp:Label>
-                        </ItemTemplate>
-                    </asp:TemplateField>
+                <asp:BoundField HeaderText="Direccion" DataField="direccion" InsertVisible="False" ReadOnly="True" SortExpression="direccion" />
 
-                    <asp:TemplateField HeaderText="Propietarios" ShowHeader="False">
-                        <ItemTemplate>
-                            <asp:LinkButton ID="lnkvVerConceptosDeCobro" runat="server" CausesValidation="True" Text="Conceptos de cobro"></asp:LinkButton>
-                        </ItemTemplate>
-                    </asp:TemplateField>
+                <asp:TemplateField HeaderText="" ShowHeader="False">
+                    <ItemTemplate>
+                        <asp:LinkButton ID="lnkvVerConceptosDeCobro" runat="server" CausesValidation="True" Text="Conceptos de cobro" OnClick="lnkvVerConceptosDeCobro_Click"></asp:LinkButton>
+                    </ItemTemplate>
+                </asp:TemplateField>
 
-                    <asp:CommandField HeaderText="Borrar" ShowDeleteButton="True" ShowHeader="True" />
-                
-                </Columns>
-                <HeaderStyle BackColor="#222222" Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
+                <asp:TemplateField HeaderText="" ShowHeader="False">
+                    <ItemTemplate>
+                        <asp:LinkButton ID="lnkvVerRecibosPendientes" runat="server" CausesValidation="True" Text="Recibos Pendientes" OnClick="lnkvVerRecibosPendientes_Click"></asp:LinkButton>
+                    </ItemTemplate>
+                </asp:TemplateField>
 
-            </asp:GridView>
-        </div>
-    </form>
-</body>
-</html>
+                <asp:TemplateField HeaderText="" ShowHeader="False">
+                    <ItemTemplate>
+                        <asp:LinkButton ID="lnkvVerRecibosPagados" runat="server" CausesValidation="True" Text="RecibosPagados" OnClick="lnkvVerRecibosPagados_Click"></asp:LinkButton>
+                    </ItemTemplate>
+                </asp:TemplateField>
+            </Columns>
+            <HeaderStyle BackColor="#222222" Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
+
+        </asp:GridView>
+    </div>
+</asp:Content>

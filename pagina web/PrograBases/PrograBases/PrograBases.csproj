@@ -88,6 +88,8 @@
     <Content Include="WebPages\Admin\tablaPropietarios.aspx" />
     <Content Include="WebPages\Admin\tablaUsuarios.aspx" />
     <Content Include="WebPages\Normal_user\StartPage.aspx" />
+    <Content Include="WebPages\Normal_user\tablaConceptosDeCobro.aspx" />
+    <Content Include="WebPages\Normal_user\tablaRecibos.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="WebPages\Admin\Admin_Site.Master.cs">
@@ -155,12 +157,33 @@
     <Compile Include="WebPages\Admin\tablaUsuarios.aspx.designer.cs">
       <DependentUpon>tablaUsuarios.aspx</DependentUpon>
     </Compile>
+    <Compile Include="WebPages\Normal_user\NormalUser_Site.Master.cs">
+      <DependentUpon>NormalUser_Site.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebPages\Normal_user\NormalUser_Site.Master.designer.cs">
+      <DependentUpon>NormalUser_Site.Master</DependentUpon>
+    </Compile>
     <Compile Include="WebPages\Normal_user\StartPage.aspx.cs">
       <DependentUpon>StartPage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="WebPages\Normal_user\StartPage.aspx.designer.cs">
       <DependentUpon>StartPage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebPages\Normal_user\tablaConceptosDeCobro.aspx.cs">
+      <DependentUpon>tablaConceptosDeCobro.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebPages\Normal_user\tablaConceptosDeCobro.aspx.designer.cs">
+      <DependentUpon>tablaConceptosDeCobro.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebPages\Normal_user\tablaRecibos.aspx.cs">
+      <DependentUpon>tablaRecibos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebPages\Normal_user\tablaRecibos.aspx.designer.cs">
+      <DependentUpon>tablaRecibos.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -172,6 +195,7 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
+    <Content Include="WebPages\Normal_user\NormalUser_Site.Master" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Js\" />

@@ -1,0 +1,31 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="NormalUser_Site.master.cs" Inherits="PrograBases.WebPages.Normal_user.NormalUser_Site" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <title></title>
+    
+    <link rel="stylesheet" href="/css/Admin/SiteMaster.css" type="text/css" media="screen" />
+
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div id="mainDiv">
+            <div id="buttonsDiv">
+                <ul class="hrefList">
+                    <li><a runat="server" class="adminButton" href="~/WebPages/Normal_user/StartPage.aspx">Pagina Principal</a></li>
+                </ul>
+            </div>
+
+            <div id="divContentPlaceHolder">
+                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+
+                </asp:ContentPlaceHolder>
+            </div>
+        </div>
+    </form>
+</body>
+</html>

@@ -1,16 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace PrograBases.WebPages.Normal_user
 {
-    public partial class StartPage : System.Web.UI.Page
+    public partial class StartPage1 : System.Web.UI.Page
     {
         private string verPropiedadesDeUsuario = "SP_getPropertyOfUsers";
         protected void Page_Load(object sender, EventArgs e)
@@ -23,7 +20,7 @@ namespace PrograBases.WebPages.Normal_user
 
         protected void fillGridPropiedades()
         {
-            string user = (string) Session["userName"];
+            string user = (string)Session["userName"];
             try
             {
                 using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
@@ -49,6 +46,33 @@ namespace PrograBases.WebPages.Normal_user
                 ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('" + alertMessage + "')", true);
 
             }
+        }
+
+        protected void lnkvVerConceptosDeCobro_Click(object sender, EventArgs e)
+        {
+            LinkButton btn = (LinkButton)sender;
+            GridViewRow row = (GridViewRow)btn.NamingContainer;
+            string numfinca = row.Cells[0].Text;
+            Session["numFinca"] = numfinca;
+            Response.Redirect("~/WebPages/Normal_user/tablaConceptosDeCobro.aspx");
+        }
+
+        protected void lnkvVerRecibosPendientes_Click(object sender, EventArgs e)
+        {
+            LinkButton btn = (LinkButton)sender;
+            GridViewRow row = (GridViewRow)btn.NamingContainer;
+            string numfinca = row.Cells[0].Text;
+            Session["numFinca"] = numfinca;
+            Response.Redirect("~/WebPages/Normal_user/tablaRecibos.aspx");
+        }
+
+        protected void lnkvVerRecibosPagados_Click(object sender, EventArgs e)
+        {
+            LinkButton btn = (LinkButton)sender;
+            GridViewRow row = (GridViewRow)btn.NamingContainer;
+            string numfinca = row.Cells[0].Text;
+            Session["numFinca"] = numfinca;
+            Response.Redirect("~/WebPages/Normal_user/tablaRecibos.aspx");
         }
     }
 }
