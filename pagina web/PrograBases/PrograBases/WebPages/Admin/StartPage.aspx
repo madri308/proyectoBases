@@ -2,6 +2,9 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 
     <link rel="stylesheet" href="/css/Admin/StartPage.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="/css/jquery-ui.min.css">
+    <script src="/Js/jquery-3.5.1.min.js" type="text/javascript"></script>
+    <script src="/Js/jquery-ui.min.js" type="text/javascript"></script>
 
 </asp:Content>
 
@@ -31,6 +34,75 @@
             <asp:TextBox runat="server" CssClass="textBoxConsulta" ID="txtUsuarioDePropiedad"></asp:TextBox>
             <asp:Button runat="server" CssClass="botonConsulta" ID="botonConsultaUsuarioDePropiedad" Text="Consultar usuario de propiedad" OnClick="botonConsultaUsuarioDePropiedad_Click"/>
         </div>
+
+        <div>
+            <asp:DropDownList runat="server" id="tipoEntidadConsultaCambios" CssClass="dropDownListStartPage" AutoPostBack="false">
+                <asp:ListItem Selected="True" Value="1"> Propiedad </asp:ListItem>
+                <asp:ListItem Value="2"> Propietario </asp:ListItem>
+                <asp:ListItem Value="3"> Usuario </asp:ListItem>
+                <asp:ListItem Value="4"> Propiedad vs Propietario </asp:ListItem>
+                <asp:ListItem Value="5"> Propiedad vs Usuario </asp:ListItem>
+                <asp:ListItem Value="6"> Propietario Juridico </asp:ListItem>
+                <asp:ListItem Value="7"> Concepto de Cobro </asp:ListItem>
+            </asp:DropDownList>
+
+            <asp:TextBox ID="txtStartDate" runat="server" />
+            <asp:TextBox ID="txtEndDate" runat="server" />
+
+            <p style="color:white">Date: <input type="text" name="fromDate" id="fromDate"> TO <input type="text" name="toDate" id="toDate"></p>
+
+            <asp:Button runat="server" CssClass="botonConsulta" ID="botonConsultaCambiosEnEntidad" Text="Realizar consulta" OnClick="botonConsultaCambiosEnEntidad_Click"/>
+        </div>
     </div>
 
+    <script>
+        
+        $(function () {
+            $("#<%= txtStartDate.ClientID %>")
+                .datepicker
+                ({
+                    dateFormat: "yy-mm-dd",
+                    changeMonth: true,
+                    changeYear: true
+                });
+
+            $("#<%= txtEndDate.ClientID %>")
+                .datepicker
+                ({
+                    dateFormat: "yy-mm-dd",
+                    changeMonth: true,
+                    changeYear: true
+                });
+        });
+
+        $(function () {
+            var from = $("#fromDate")
+                .datepicker({
+                    dateFormat: "yy-mm-dd",
+                    changeMonth: true
+                })
+                .on("change", function () {
+                    to.datepicker("option", "minDate", getDate(this));
+                }),
+                to = $("#toDate").datepicker({
+                    dateFormat: "yy-mm-dd",
+                    changeMonth: true
+                })
+                    .on("change", function () {
+                        from.datepicker("option", "maxDate", getDate(this));
+                    });
+
+            function getDate(element) {
+                var date;
+                var dateFormat = "yy-mm-dd";
+                try {
+                    date = $.datepicker.parseDate(dateFormat, element.value);
+                } catch (error) {
+                    date = null;
+                }
+
+                return date;
+            }
+        });
+    </script>
 </asp:Content>

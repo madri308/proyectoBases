@@ -13,5 +13,10 @@ namespace PrograBases.WebPages.Normal_user
         {
 
         }
+        protected void logout_button_Click(object sender, EventArgs e)
+        {
+            Session.Clear();
+            Response.Redirect("~/WebPages/loginPage.aspx");
+        }
     }
 }

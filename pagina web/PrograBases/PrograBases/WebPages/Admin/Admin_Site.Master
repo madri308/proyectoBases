@@ -25,6 +25,7 @@
                     <li><a runat="server" class="adminButton" href="~/WebPages/Admin/crudsRelaciones.aspx">Editar Relaciones</a></li>
                     <li><a runat="server" class="adminButton" href="~/WebPages/Admin/About.aspx">Acerca de</a></li>
                 </ul>
+                <asp:Button runat="server" ID="logout_button" Text="Cerrar Sesion" OnClick="logout_button_Click" />
             </div>
 
             <div id="divContentPlaceHolder">

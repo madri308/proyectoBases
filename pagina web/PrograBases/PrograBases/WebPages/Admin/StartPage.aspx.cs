@@ -65,5 +65,11 @@ namespace PrograBases.WebPages
             HttpContext.Current.Session["numFinca"] = numFica;
             Response.Redirect("~/WebPages/Admin/tablaUsuarios.aspx");
         }
+
+        protected void botonConsultaCambiosEnEntidad_Click(object sender, EventArgs e)
+        {
+            string from = Request.Form["fromDate"];
+            string to = Request.Form["toDate"];
+        }
     }
 }

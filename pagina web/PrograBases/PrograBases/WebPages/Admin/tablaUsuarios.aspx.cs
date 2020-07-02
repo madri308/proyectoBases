@@ -15,6 +15,7 @@ namespace PrograBases.WebPages
         private string verUsuariosSpName = "SP_UsuarioSelect";
         private string deleteUsuarioSpName = "SP_UsuarioDelete";
         private string insertUsuarioSpName = "SP_UsuarioInsert";
+        private string updateUsuarioSpName = "SP_UsuarioUpdate";
         private string verUsuariosDePropiedadSpName = "SP_getUsersOfProperty";
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -28,7 +29,7 @@ namespace PrograBases.WebPages
             }
         }
 
-        private void fillGridUsuarios() 
+        private void fillGridUsuarios()
         {
             int opcionDeBusqueda;
             try
@@ -73,7 +74,7 @@ namespace PrograBases.WebPages
             else
             {
                 try
-                { 
+                {
                     using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
                     {
                         string procedure = verUsuariosSpName;
@@ -90,7 +91,7 @@ namespace PrograBases.WebPages
                         GridUsuarios.DataBind();
                         GridUsuarios.Visible = true;
                     }
-                    
+
                 }
                 catch (SqlException ex)
                 {
@@ -105,7 +106,7 @@ namespace PrograBases.WebPages
         {
             GridViewRow row = GridUsuarios.Rows[e.RowIndex];
             Label tb = (Label)row.FindControl("labelUsuario");
-            string usuario  = tb.Text;
+            string usuario = tb.Text;
 
             try
             {
@@ -147,7 +148,7 @@ namespace PrograBases.WebPages
 
         protected void lnkAddGridUsuarios_Click(object sender, EventArgs e)
         {
-            
+
             GridViewRow row = GridUsuarios.FooterRow;
             TextBox tb = (TextBox)row.FindControl("txtNewUsuario");
             string usuario = (tb.Text).Trim();
@@ -196,13 +197,25 @@ namespace PrograBases.WebPages
             string newUsuario = (newUsuario_txtForUpdate.Text).Trim();
             string newPassword = (newPassword_TxtForUpdate.Text).Trim();
             string tipoUsuario = newTipoUsuario_DllForUpdate.SelectedValue;
+            if (String.IsNullOrEmpty(usuario)) usuario = "-1";
+            if (String.IsNullOrEmpty(newUsuario)) newUsuario = "-1";
+            if (String.IsNullOrEmpty(newPassword)) newPassword = "-1";
+
             try
             {
                 using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
                 {
-                    string procedure = insertUsuarioSpName;
+                    string procedure = updateUsuarioSpName;
                     SqlCommand cmd = new SqlCommand(procedure, conn);
                     cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add("@inNombre ", SqlDbType.VarChar).Value = newUsuario;
+                    cmd.Parameters.Add("@inPassword ", SqlDbType.VarChar).Value = newPassword;
+                    cmd.Parameters.Add("@inNombreOriginal ", SqlDbType.VarChar).Value = usuario;
+                    cmd.Parameters.Add("@inTipoDeUsuario ", SqlDbType.VarChar).Value = tipoUsuario;
+
+                    //cmd.Parameters.Add("@inUsuarioACargo", SqlDbType.VarChar).Value = Session["userName"];
+                    //cmd.Parameters.Add("@inIPusuario", SqlDbType.VarChar).Value = Session["userIp"];
 
                     cmd.Connection = conn;
                     conn.Open();

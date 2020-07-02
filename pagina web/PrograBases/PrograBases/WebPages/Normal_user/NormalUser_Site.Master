@@ -18,6 +18,7 @@
                 <ul class="hrefList">
                     <li><a runat="server" class="adminButton" href="~/WebPages/Normal_user/StartPage.aspx">Pagina Principal</a></li>
                 </ul>
+                <asp:Button runat="server" ID="logout_button" Text="Cerrar Sesion" OnClick="logout_button_Click" />
             </div>
 
             <div id="divContentPlaceHolder">
