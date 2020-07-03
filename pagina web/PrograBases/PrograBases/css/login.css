@@ -1,0 +1,51 @@
+﻿html {
+    height: 100%;
+    margin: 0 10% 0 10%;
+}
+
+body {
+    padding-top: 5%;
+}
+
+.textBox {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+.loginLabel {
+    width: 280px;
+}
+
+.loginButton {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 12px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.loginButton:hover {
+    opacity: 0.8;
+}
+
+#loginFormContainer {
+    margin-left: 35%;
+    margin-right: 35%;
+    padding: 0 30px 0 30px;
+    background-color: white;
+}
+
+#respuestaDiv {
+    margin-top: 12px;
+    padding-left: 12px;
+}
+
+.RespuestaLabel {
+    color: red;
+    font-weight: bold;
+}
