@@ -8,7 +8,7 @@ namespace PrograBases.WebPages.Normal_user
 {
     public partial class tablaRecibos : System.Web.UI.Page
     {
-        private string getRecibosSpName = "";
+        private string selectRecibosSpName = "SP_RecibosSelect";
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -24,7 +24,7 @@ namespace PrograBases.WebPages.Normal_user
             {
                 using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
                 {
-                    string procedure = getRecibosSpName;
+                    string procedure = selectRecibosSpName;
 
                     SqlCommand cmd = new SqlCommand(procedure, conn);
                     cmd.CommandType = CommandType.StoredProcedure;

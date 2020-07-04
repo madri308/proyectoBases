@@ -81,6 +81,7 @@
     <Content Include="Web.config" />
     <Content Include="WebPages\Admin\About.aspx" />
     <Content Include="WebPages\Admin\crudsRelaciones.aspx" />
+    <Content Include="WebPages\Admin\tablaCambios.aspx" />
     <Content Include="WebPages\loginPage.aspx" />
     <Content Include="WebPages\Admin\StartPage.aspx" />
     <Content Include="WebPages\Admin\tablaConceptosDeCobro.aspx" />
@@ -114,6 +115,13 @@
     </Compile>
     <Compile Include="WebPages\Admin\crudsRelaciones.aspx.designer.cs">
       <DependentUpon>crudsRelaciones.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebPages\Admin\tablaCambios.aspx.cs">
+      <DependentUpon>tablaCambios.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebPages\Admin\tablaCambios.aspx.designer.cs">
+      <DependentUpon>tablaCambios.aspx</DependentUpon>
     </Compile>
     <Compile Include="WebPages\loginPage.aspx.cs">
       <DependentUpon>loginPage.aspx</DependentUpon>

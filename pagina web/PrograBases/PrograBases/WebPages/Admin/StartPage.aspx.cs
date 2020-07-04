@@ -68,8 +68,10 @@ namespace PrograBases.WebPages
 
         protected void botonConsultaCambiosEnEntidad_Click(object sender, EventArgs e)
         {
-            string from = Request.Form["fromDate"];
-            string to = Request.Form["toDate"];
+            Session["tipoEntidad"] = tipoEntidadConsultaCambios.SelectedValue;
+            Session["fromDate"] = Request.Form["fromDate"];
+            Session["toDate"] = Request.Form["toDate"];
+            Response.Redirect("~/WebPages/Admin/tablaCambios.aspx");
         }
     }
 }

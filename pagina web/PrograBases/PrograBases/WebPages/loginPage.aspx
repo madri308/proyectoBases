@@ -21,7 +21,7 @@
             <asp:Button runat="server" CssClass="loginButton" id="loginButton" Text="Login" OnClick="loginButton_Click" />
         
             <div id="respuestaDiv">
-                <asp:Label runat="server" CssClass="RespuestaLabel" ID="RespuestaLabel" Visible="true" text="CPenalla, tXfIF, Jquiros, 123hola"/>
+                <asp:Label runat="server" CssClass="RespuestaLabel" ID="RespuestaLabel" Visible="true" text="LDiaz, 2o8Gd, usuario1, 123"/>
             </div>
         </div>
 

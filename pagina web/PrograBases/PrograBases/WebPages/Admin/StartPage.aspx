@@ -46,9 +46,6 @@
                 <asp:ListItem Value="7"> Concepto de Cobro </asp:ListItem>
             </asp:DropDownList>
 
-            <asp:TextBox ID="txtStartDate" runat="server" />
-            <asp:TextBox ID="txtEndDate" runat="server" />
-
             <p style="color:white">Date: <input type="text" name="fromDate" id="fromDate"> TO <input type="text" name="toDate" id="toDate"></p>
 
             <asp:Button runat="server" CssClass="botonConsulta" ID="botonConsultaCambiosEnEntidad" Text="Realizar consulta" OnClick="botonConsultaCambiosEnEntidad_Click"/>
@@ -56,25 +53,6 @@
     </div>
 
     <script>
-        
-        $(function () {
-            $("#<%= txtStartDate.ClientID %>")
-                .datepicker
-                ({
-                    dateFormat: "yy-mm-dd",
-                    changeMonth: true,
-                    changeYear: true
-                });
-
-            $("#<%= txtEndDate.ClientID %>")
-                .datepicker
-                ({
-                    dateFormat: "yy-mm-dd",
-                    changeMonth: true,
-                    changeYear: true
-                });
-        });
-
         $(function () {
             var from = $("#fromDate")
                 .datepicker({
@@ -91,18 +69,6 @@
                     .on("change", function () {
                         from.datepicker("option", "maxDate", getDate(this));
                     });
-
-            function getDate(element) {
-                var date;
-                var dateFormat = "yy-mm-dd";
-                try {
-                    date = $.datepicker.parseDate(dateFormat, element.value);
-                } catch (error) {
-                    date = null;
-                }
-
-                return date;
-            }
         });
     </script>
 </asp:Content>

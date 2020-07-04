@@ -7,7 +7,7 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div id="propiedadesUsuario">
-        <asp:GridView runat="server" CssClass="gridNormalUser" id="GridPropiedades" AutoGenerateColumns="false" Visible="false" ShowFooter="True" CellPadding="3" DataKeyNames="numFinca" >
+        <asp:GridView runat="server" CssClass="gridNormalUser" id="GridPropiedades" AutoGenerateColumns="false" Visible="false" ShowFooter="false" CellPadding="3" DataKeyNames="numFinca" >
             <Columns>
                 <asp:BoundField HeaderText="Numero de Finca" DataField="numFinca" InsertVisible="False" ReadOnly="True" SortExpression="numFinca" />
 
@@ -23,13 +23,7 @@
 
                 <asp:TemplateField HeaderText="" ShowHeader="False">
                     <ItemTemplate>
-                        <asp:LinkButton ID="lnkvVerRecibosPendientes" runat="server" CausesValidation="True" Text="Recibos Pendientes" OnClick="lnkvVerRecibosPendientes_Click"></asp:LinkButton>
-                    </ItemTemplate>
-                </asp:TemplateField>
-
-                <asp:TemplateField HeaderText="" ShowHeader="False">
-                    <ItemTemplate>
-                        <asp:LinkButton ID="lnkvVerRecibosPagados" runat="server" CausesValidation="True" Text="RecibosPagados" OnClick="lnkvVerRecibosPagados_Click"></asp:LinkButton>
+                        <asp:LinkButton ID="lnkvVerRecibos" runat="server" CausesValidation="True" Text="Recibos" OnClick="lnkvVerRecibos_Click"></asp:LinkButton>
                     </ItemTemplate>
                 </asp:TemplateField>
             </Columns>
