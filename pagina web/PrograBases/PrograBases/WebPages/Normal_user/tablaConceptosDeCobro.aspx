@@ -4,7 +4,7 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div id="divConceptosDeCobro" style="margin-left:11%">
-        <asp:GridView runat="server" CssClass="gridNormalUser" id="GridConceptosDeCobro" AutoGenerateColumns="false" Visible="false" ShowFooter="True" CellPadding="3" DataKeyNames="id">
+        <asp:GridView runat="server" CssClass="gridNormalUser" id="GridConceptosDeCobro" AutoGenerateColumns="false" Visible="false" ShowFooter="false" CellPadding="3" DataKeyNames="id">
             <Columns>              
                 <asp:BoundField HeaderText="Id" DataField="id" InsertVisible="False" ReadOnly="True" SortExpression="id" />
 

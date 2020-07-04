@@ -16,12 +16,12 @@ AS
 			SET @tipoDeUsuario =(	SELECT [tipoDeUsuario]
 									FROM [dbo].[Usuario] 
 									WHERE [nombre] = @inNombre AND [password] = @inPassword AND [activo] = 1)
-			IF @tipoDeUsuario = 'administrador'
+			IF @tipoDeUsuario = 'admin'
 				RETURN 1 --USUARIO ADMIN
-			ELSE IF @tipoDeUsuario = 'normal'
+			ELSE IF @tipoDeUsuario = 'cliente'
 				RETURN 0 --USUARIO NO ADMIN
 			ELSE
-				RETURN -1 --NO EXISTE
+				RETURN -2 --NO EXISTE
 		END TRY	
 		BEGIN CATCH
 			THROW 55600,'Error: No se ha podido encontrar el tipo de usuario.',1;

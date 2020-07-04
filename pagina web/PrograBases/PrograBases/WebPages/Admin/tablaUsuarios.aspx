@@ -69,8 +69,8 @@
             <asp:Label runat="server" CssClass="updateUsuario_label" ID="newtipoUsuario_labelForUpdate" Text="Nuevo tipo de usuario:" AssociatedControlID="newTipoUsuario_DllForUpdate"  EnableViewState="False">
                 <asp:DropDownList runat="server" id="newTipoUsuario_DllForUpdate" CssClass="updateUsuario_txt" AutoPostBack="false">
                     <asp:ListItem Value="-1"> No actualizar </asp:ListItem>
-                    <asp:ListItem Value="administrador"> Administrador </asp:ListItem>
-                    <asp:ListItem Value="normal"> Normal </asp:ListItem>
+                    <asp:ListItem Value="admin"> Administrador </asp:ListItem>
+                    <asp:ListItem Value="cliente"> Normal </asp:ListItem>
                 </asp:DropDownList>
             </asp:Label>
 
