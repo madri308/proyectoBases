@@ -33,7 +33,7 @@ DROP TABLE #TEMP_DATES_TABLE --DEJA LA TABLA
 --INSERTAR DATOS
 WHILE @MinDate<=@MaxDate
 BEGIN
-		/*--INSERTAR PROPIEDADES
+		--INSERTAR PROPIEDADES
 		INSERT INTO [dbo].[Propiedad] (valor,direccion,numFinca,fechaDeIngreso)
 			SELECT [valor], [direccion],[numFinca],CONVERT(DATE,[fechaDeIngreso],121)[fechaDeIngreso]
 			FROM OPENXML (@hdoc, 'Operaciones_por_Dia/OperacionDia/Propiedad',1)  
@@ -120,7 +120,7 @@ BEGIN
 		EXEC [dbo].[SP_ProcPropiedadVSUsuario] @PropiedadDelUsuario
 		DELETE @PropiedadDelUsuario
 		
-		--PAGO DE LOS RECIBOS  --No probado
+		/*--PAGO DE LOS RECIBOS  --No probado
 		DECLARE @Pagos PagosTipo  
 		INSERT INTO @Pagos(numFinca,idTipoRecibo, fechaOperacion)  
 			SELECT [NumFinca],[TipoRecibo],CONVERT(DATE,[fechaDeIngreso9],121)[fechaDeIngreso9]
@@ -129,7 +129,7 @@ BEGIN
 						[TipoRecibo]	INT			'@TipoRecibo',
 						[fechaDeIngreso9]	VARCHAR(100)	'../@fecha')
 				WHERE fechaDeIngreso9 = @MinDate
-		EXEC [dbo].[SP_ProcesarPagos] @Pagos
+		EXEC [dbo].[SP_ProcesarPagos] @Pagos*/
 		
 		--ACTUALIZACION DE VALOR PROPIEDAD
 		DECLARE @nuevosValProp ValorPropiedadTipo  
@@ -159,9 +159,9 @@ BEGIN
 		DELETE @consumo
 		
 		--ORDENES DE CORTA
-		EXEC [dbo].[SP_ProcCortaAgua] @MinDate
-		EXEC [dbo].[SP_ProcReconexionAgua] @MinDate
-		*/
+		--EXEC [dbo].[SP_ProcCortaAgua] @MinDate
+		--EXEC [dbo].[SP_ProcReconexionAgua] @MinDate
+		
 		--GENERACION DE RECIBOS
 		EXEC [dbo].[SP_ProcGeneraRecibos] @MinDate
 		

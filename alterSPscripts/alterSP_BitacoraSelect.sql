@@ -19,10 +19,9 @@ AS
 			SET @fechaHasta = CONVERT(DATE,@inFechaHasta,121)
 			SELECT * FROM [dbo].[BitacoraCambio] 
 			WHERE (insertedAt BETWEEN @fechaDesde AND @fechaHasta) 
-				AND (entityID = @inIdEntidad)
-
+				AND (idEntityType = @inIdEntidad)
 		END TRY
 		BEGIN CATCH
-			THROW 6000, 'Error: No se ha podido crear el pago.',1;
+			THROW 60500, 'Error: No se ha podido insertar a bitacora.',1;
 		END CATCH
 	END

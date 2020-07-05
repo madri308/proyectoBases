@@ -15,7 +15,7 @@ AS
 		SET NOCOUNT ON 
 		SET XACT_ABORT ON
 			DECLARE @dia int
-			--SET @dia  = DAY(@fecha)
+			SET @dia  = DAY(@fecha)
 			INSERT INTO [dbo].[Recibos](id_CC,monto,estado,id_Propiedad,fecha,fechaVence)
 			SELECT 
 				CC.id,
@@ -40,6 +40,6 @@ AS
 		END TRY
 		BEGIN CATCH
 			ROLLBACK TRAN;
-			THROW 550034,'Error: No se ha podido generar el recibo',1;
+			THROW 550834,'Error: No se ha podido generar el recibo',1;
 		END CATCH	
 	END
