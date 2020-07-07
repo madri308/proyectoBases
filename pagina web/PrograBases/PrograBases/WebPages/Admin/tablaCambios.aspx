@@ -7,13 +7,10 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div id="tablaCambios" style="margin-left:11%">
 
-        <asp:GridView runat="server" ID="GridFechas" AutoGenerateColumns="false" Visible="false" ShowFooter="false" CellPadding="3">
+        <asp:GridView runat="server" ID="GridFechas" AutoGenerateColumns="true" Visible="false" ShowFooter="false" CellPadding="3" OnRowDataBound="GridFechas_RowDataBound">
             
             <columns>
-                <asp:BoundField runat="server" HeaderText="Fecha De cambio" DataField="Fecha De cambio" />
-                <asp:BoundField runat="server" HeaderText="Usuario" DataField="Usuario" />
-                <asp:BoundField runat="server" HeaderText="Ip" DataField="Ip" />
-                <asp:TemplateField HeaderText="Propiedades" ShowHeader="False">
+                <asp:TemplateField HeaderText="" ShowHeader="False">
                     <ItemTemplate>
                         <asp:LinkButton ID="lnkbVerCambiosDeFecha" runat="server" CausesValidation="True" OnClick="lnkbVerCambiosDeFecha_Click" Text="Ver cambios"></asp:LinkButton>
                     </ItemTemplate>
@@ -23,5 +20,12 @@
             <HeaderStyle BackColor="#222222" Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
         </asp:GridView>
 
+        <asp:GridView runat="server" ID="GridJsonAntes" AutoGenerateColumns="true" Visible="false" ShowFooter="false" CellPadding="3">
+            <HeaderStyle BackColor="#222222" Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
+        </asp:GridView>
+
+        <asp:GridView runat="server" ID="GridJsonDespues" AutoGenerateColumns="true" Visible="false" ShowFooter="false" CellPadding="3">
+            <HeaderStyle BackColor="#222222" Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
+        </asp:GridView>
     </div>
 </asp:Content>

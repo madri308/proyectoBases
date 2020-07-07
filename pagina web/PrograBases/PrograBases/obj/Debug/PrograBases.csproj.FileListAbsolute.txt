@@ -233,3 +233,5 @@ C:\Users\esteb\OneDrive - Estudiantes ITCR\Documents\GitKraken\proyectoBases\pag
 C:\Users\esteb\OneDrive - Estudiantes ITCR\Documents\GitKraken\proyectoBases\pagina web\PrograBases\PrograBases\obj\Debug\PrograBases.csproj.CopyComplete
 C:\Users\esteb\OneDrive - Estudiantes ITCR\Documents\GitKraken\proyectoBases\pagina web\PrograBases\PrograBases\obj\Debug\PrograBases.dll
 C:\Users\esteb\OneDrive - Estudiantes ITCR\Documents\GitKraken\proyectoBases\pagina web\PrograBases\PrograBases\obj\Debug\PrograBases.pdb
+C:\Users\esteb\OneDrive - Estudiantes ITCR\Documents\GitKraken\proyectoBases\pagina web\PrograBases\PrograBases\bin\Newtonsoft.Json.dll
+C:\Users\esteb\OneDrive - Estudiantes ITCR\Documents\GitKraken\proyectoBases\pagina web\PrograBases\PrograBases\bin\Newtonsoft.Json.xml
