@@ -16,12 +16,11 @@ AS
 		SET NOCOUNT ON 
 		SET XACT_ABORT ON
 			DECLARE @idPropiedad INT
-			SET @idPropiedad = (select id from Propiedad where Propiedad.numFinca = @inNumFinca)
-
+			SET @idPropiedad = (SELECT id FROM Propiedad WHERE Propiedad.numFinca = @inNumFinca)
 
 			SELECT [id_CC], [monto], [estado], [fecha], [fechaVence]
 			FROM   [dbo].[Recibos] 
-			WHERE  ([id_Propiedad] = @idPropiedad) 
+			WHERE  [id_Propiedad] = @idPropiedad
 		END TRY
 		BEGIN CATCH
 			THROW 63857,'Error: No se ha podido mostrar los recibos.',1;

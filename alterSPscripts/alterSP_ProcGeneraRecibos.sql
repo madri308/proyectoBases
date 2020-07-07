@@ -36,7 +36,6 @@ AS
 			FULL OUTER JOIN [dbo].[CCPorcentaje] CCPo ON CCPo.id = CC.id
 			FULL OUTER JOIN [dbo].[CCConsumo] CCC ON CCC.id = CC.id
 			WHERE CC.diaDeCobro = @dia
-			
 		END TRY
 		BEGIN CATCH
 			ROLLBACK TRAN;

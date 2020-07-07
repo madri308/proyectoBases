@@ -32,7 +32,8 @@ DROP TABLE #TEMP_DATES_TABLE --DEJA LA TABLA
 
 --INSERTAR DATOS
 WHILE @MinDate<=@MaxDate
-BEGIN
+BEGIN		
+		/*
 		--INSERTAR PROPIEDADES
 		INSERT INTO [dbo].[Propiedad] (valor,direccion,numFinca,fechaDeIngreso)
 			SELECT [valor], [direccion],[numFinca],CONVERT(DATE,[fechaDeIngreso],121)[fechaDeIngreso]
@@ -42,7 +43,7 @@ BEGIN
 						[numFinca]			VARCHAR(30)		'@NumFinca',  
 						[fechaDeIngreso]	VARCHAR(100)	'../@fecha')
 				WHERE fechaDeIngreso = @MinDate
-		
+		*/
 		--INSERTAR PROPIETARIOS
 		DECLARE @Propietario PropietarioTipo
 		INSERT INTO @Propietario(nombre,valorDocId,identificacion,fecha)
@@ -55,7 +56,7 @@ BEGIN
 				WHERE fechaDeIngreso1 = @MinDate 
 		EXEC [dbo].[SP_ProcesaPropietarios] @Propietario
 		DELETE @Propietario
-		
+		/*
 		--INSERTAR PERSONAS JURIDICAS
 		INSERT INTO [dbo].[PropietarioJuridico](id,DocidRepresentante,TipDocIdRepresentante,Representante,docidPersonaJuridica)
 			SELECT propietario.id,[DocidRepresentante],[TipDocIdRepresentante],[Representante],[docidPersonaJuridica]
@@ -119,8 +120,8 @@ BEGIN
 				WHERE fechaDeIngreso7 = @MinDate
 		EXEC [dbo].[SP_ProcPropiedadVSUsuario] @PropiedadDelUsuario
 		DELETE @PropiedadDelUsuario
-		
-		/*--PAGO DE LOS RECIBOS  --No probado
+		*/
+		--PAGO DE LOS RECIBOS  --No probado
 		DECLARE @Pagos PagosTipo  
 		INSERT INTO @Pagos(numFinca,idTipoRecibo, fechaOperacion)  
 			SELECT [NumFinca],[TipoRecibo],CONVERT(DATE,[fechaDeIngreso9],121)[fechaDeIngreso9]
@@ -129,8 +130,8 @@ BEGIN
 						[TipoRecibo]	INT			'@TipoRecibo',
 						[fechaDeIngreso9]	VARCHAR(100)	'../@fecha')
 				WHERE fechaDeIngreso9 = @MinDate
-		EXEC [dbo].[SP_ProcesarPagos] @Pagos*/
-		
+		EXEC [dbo].[SP_ProcesarPagos] @Pagos
+		/*
 		--ACTUALIZACION DE VALOR PROPIEDAD
 		DECLARE @nuevosValProp ValorPropiedadTipo  
 		INSERT INTO @nuevosValProp(numFinca,nuevoValor)  
@@ -157,13 +158,13 @@ BEGIN
 				WHERE [fechaDeIngreso11] = @MinDate
 		EXEC [dbo].[SP_ProcesaConsumo] @consumo
 		DELETE @consumo
-		
+		*/
 		--ORDENES DE CORTA
 		--EXEC [dbo].[SP_ProcCortaAgua] @MinDate
 		--EXEC [dbo].[SP_ProcReconexionAgua] @MinDate
 		
 		--GENERACION DE RECIBOS
-		EXEC [dbo].[SP_ProcGeneraRecibos] @MinDate
+		--EXEC [dbo].[SP_ProcGeneraRecibos] @MinDate
 		
 	SET @MinDate = dateadd(d,1,@MinDate) --INCREMENTA LA FECHA
 	
@@ -171,6 +172,13 @@ END
 EXEC sp_xml_removedocument @hdoc  
 /*
 USE [Progra]
+DELETE BitacoraCambio
+DELETE ReciboPagado
+DELETE ReciboReconexion
+DELETE Recibos
+DELETE ComprobantePago
+DELETE Corte
+DELETE Reconexion
 DELETE PropiedadDelPropietario
 DELETE UsuarioDePropiedad
 DELETE CCDePropiedad
@@ -179,11 +187,4 @@ DELETE Propietario
 DELETE MovConsumo
 DELETE Propiedad
 DELETE Usuario WHERE tipoDeUsuario = 'cliente'
-DELETE BitacoraCambio
-DELETE ReciboPagado
-DELETE ReciboReconexion
-DELETE Recibos
-DELETE ComprobantePago
-DELETE Corte
-DELETE Reconexion
 */

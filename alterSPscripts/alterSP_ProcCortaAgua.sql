@@ -15,21 +15,17 @@ AS
 		SET NOCOUNT ON 
 		SET XACT_ABORT ON 
 			BEGIN TRAN
-				
-				/*SELECT id_Propiedad 
+				DECLARE @idPropiedades TABLE(id INT IDENTITY(1,1),idPropiedad int,idCC INT,c int)
+				DECLARE @idMenor INT, @idMayor INT, @id int
+
+				INSERT INTO @idPropiedades(idPropiedad,idCC,c)
+				SELECT R.id_Propiedad,R.id_CC, COUNT(*)
 				FROM [dbo].[Recibos] R
-				JOIN [dbo].[Propiedad] P ON R.id_Propiedad = P.id
-				WHERE EXISTS(SELECT 2 FROM [dbo].[Recibos] WHERE id_Propiedad = P.id AND id_CC = 1)*/
-				DECLARE @idPropiedades TABLE(id INT IDENTITY(1,1),idPropiedad int,c int)
-				DECLARE @idMenor INT, @idMayor INT
-
-				INSERT INTO @idPropiedades
-				SELECT id_Propiedad, COUNT(*)
-				FROM [dbo].[Recibos] 
-				WHERE estado = 0
-				GROUP BY id_Propiedad
+				WHERE R.estado = 0 AND R.id_CC = 1
+				AND NOT EXISTS (SELECT id FROM [dbo].[Recibos] WHERE id_CC = 10 AND id_Propiedad = R.id_Propiedad)
+				GROUP BY id_Propiedad,R.id_CC
 				HAVING COUNT(*) > 1
-
+				
 				SELECT @idMenor = MIN(id), @idMayor = MAX(id) FROM @idPropiedades
 				
 				WHILE @idMenor<=@idMayor
@@ -40,18 +36,22 @@ AS
 					INNER JOIN [dbo].[ConceptoDeCobro] CC ON CC.id = 10
 					WHERE P.id = @idMenor
 
-					INSERT INTO [dbo].[ReciboReconexion](id)
-					SELECT @@IDENTITY
+					SET @id = @@IDENTITY
 
-					INSERT INTO [dbo].[Reconexion](fecha,id_Propiedad,recRecon)
-					SELECT @fecha,idP.idPropiedad,@@IDENTITY
+					INSERT INTO [dbo].[ReciboReconexion](id)
+					SELECT @id
+
+					INSERT INTO [dbo].[Corte](fecha,id_Propiedad,recRecon)
+					SELECT @fecha,idP.idPropiedad,@id
 					FROM @idPropiedades idP
 					WHERE idP.id =	@idMenor
+					
+					SET @idMenor = @idMenor+1
 				END
 			COMMIT
 		END TRY
 		BEGIN CATCH
 			ROLLBACK TRAN;
-			THROW 55004,'Error: No se ha podido eliminar el propietario',1;
+			THROW 55004,'Error: No se ha podido procesas las cortas de agua',1;
 		END CATCH	
 	END
