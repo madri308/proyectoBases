@@ -8,16 +8,15 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE PROC [dbo].[SP_ProcCortaAgua] @fecha DATE
+CREATE PROC [dbo].[SP_ProcCortaAgua] @inFecha DATE
 AS  	
 	BEGIN
 		BEGIN TRY
 		SET NOCOUNT ON 
 		SET XACT_ABORT ON 
+			DECLARE @idPropiedades TABLE(id INT IDENTITY(1,1),idPropiedad int,idCC INT,c int)
+			DECLARE @idMenor INT, @idMayor INT, @id int
 			BEGIN TRAN
-				DECLARE @idPropiedades TABLE(id INT IDENTITY(1,1),idPropiedad int,idCC INT,c int)
-				DECLARE @idMenor INT, @idMayor INT, @id int
-
 				INSERT INTO @idPropiedades(idPropiedad,idCC,c)
 				SELECT R.id_Propiedad,R.id_CC, COUNT(*)
 				FROM [dbo].[Recibos] R
@@ -31,18 +30,18 @@ AS
 				WHILE @idMenor<=@idMayor
 				BEGIN
 					INSERT INTO [dbo].[Recibos](id_CC,monto,estado,id_Propiedad,fecha,fechaVence)
-					SELECT 10,CC.monto,0,P.idPropiedad,@fecha,DATEADD(D,CC.diasParaVencer,@fecha)
+					SELECT 10,CC.monto,0,P.idPropiedad,@inFecha,DATEADD(D,CC.diasParaVencer,@inFecha)
 					FROM @idPropiedades P
 					INNER JOIN [dbo].[ConceptoDeCobro] CC ON CC.id = 10
 					WHERE P.id = @idMenor
 
-					SET @id = @@IDENTITY
+					SET @id = IDENT_CURRENT('[dbo].[Recibos]')
 
 					INSERT INTO [dbo].[ReciboReconexion](id)
 					SELECT @id
 
 					INSERT INTO [dbo].[Corte](fecha,id_Propiedad,recRecon)
-					SELECT @fecha,idP.idPropiedad,@id
+					SELECT @inFecha,idP.idPropiedad,@id
 					FROM @idPropiedades idP
 					WHERE idP.id =	@idMenor
 					
@@ -52,6 +51,6 @@ AS
 		END TRY
 		BEGIN CATCH
 			ROLLBACK TRAN;
-			THROW 55004,'Error: No se ha podido procesas las cortas de agua',1;
+			THROW 554004,'Error: No se ha podido procesas las cortas de agua',1;
 		END CATCH	
 	END

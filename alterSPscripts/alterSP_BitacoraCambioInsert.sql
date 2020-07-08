@@ -8,8 +8,14 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE PROC [dbo].[SP_BitacoraCambioInsert] @inIdEntityType int,@inEntityID int,@inJsonAntes VARCHAR(500),@inJsonDespues VARCHAR(500),
-											@inInsertedBy varchar(20), @inInsertedIn varchar(20), @inInsertedAt DATE
+CREATE PROC [dbo].[SP_BitacoraCambioInsert] 
+	@inIdEntityType int,
+	@inEntityID int,
+	@inJsonAntes VARCHAR(500),
+	@inJsonDespues VARCHAR(500),
+	@inInsertedBy varchar(20), 
+	@inInsertedIn varchar(20), 
+	@inInsertedAt DATE
 AS   
 	BEGIN 
 		BEGIN TRY

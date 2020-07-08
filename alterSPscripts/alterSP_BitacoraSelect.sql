@@ -22,6 +22,6 @@ AS
 				AND (idEntityType = @inIdEntidad)
 		END TRY
 		BEGIN CATCH
-			THROW 60500, 'Error: No se ha podido insertar a bitacora.',1;
+			THROW 60500, 'Error: No se ha podido mostrar los datos de la bitacora.',1;
 		END CATCH
 	END

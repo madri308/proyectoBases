@@ -14,20 +14,20 @@ AS
 		BEGIN TRY
 		SET NOCOUNT ON 
 		SET XACT_ABORT ON
-		declare @idMenor int, @idMayor int
-		SELECT @idMenor = min([id]), @idMayor=max([id]) FROM @nuevosValProp
-		WHILE @idMenor<=@idMayor
-		BEGIN
-			UPDATE [dbo].[Propiedad]
-			SET [dbo].[Propiedad].[valor] = NVP.nuevoValor
-			FROM [dbo].[Propiedad] P
-			INNER JOIN @nuevosValProp NVP ON NVP.numFinca = P.numFinca
-			WHERE NVP.id = @idMenor
+			DECLARE @idMenor INT, @idMayor INT
+			SELECT @idMenor = min([id]), @idMayor=max([id]) FROM @nuevosValProp
+			WHILE @idMenor<=@idMayor
+			BEGIN
+				UPDATE [dbo].[Propiedad]
+				SET [dbo].[Propiedad].[valor] = NVP.nuevoValor
+				FROM [dbo].[Propiedad] P
+				INNER JOIN @nuevosValProp NVP ON NVP.numFinca = P.numFinca
+				WHERE NVP.id = @idMenor
 			
-			SET @idMenor = @idMenor+1 
-		END
+				SET @idMenor = @idMenor+1 
+			END
 		END TRY
 		BEGIN CATCH
-			THROW 6000, 'Error: No se ha podido actualizar la propiedad.',1;
+			THROW 600210, 'Error: No se ha podido actualizar la propiedad.',1;
 		END CATCH
 	END

@@ -40,7 +40,8 @@ AS
 
 					UPDATE [Propiedad]
 					SET M3acumuladosAgua = CASE WHEN (C.idTipo = 1) THEN C.LecturaM3
-					ELSE M3acumuladosAgua+C.LecturaM3
+												WHEN (C.idTipo = 2) THEN M3acumuladosAgua-C.LecturaM3
+												ELSE M3acumuladosAgua+C.LecturaM3
 					END
 					FROM [Propiedad] P
 					INNER JOIN @consumo C ON C.numFinca = P.[numFinca]
@@ -52,6 +53,6 @@ AS
 		END TRY
 		BEGIN CATCH
 			ROLLBACK TRAN;
-			THROW 92039, 'Error: no se ha podido eliminar el usuario.',1
+			THROW 92039, 'Error: no se ha podido procesar los consumos de agua.',1
 		END CATCH;
 	END

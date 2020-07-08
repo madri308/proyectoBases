@@ -8,14 +8,14 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE PROC [dbo].[SP_ProcGeneraRecibos] @fecha DATE
+CREATE PROC [dbo].[SP_ProcGeneraRecibos] @inFecha DATE
 AS  	
 	BEGIN
 		BEGIN TRY
 		SET NOCOUNT ON 
 		SET XACT_ABORT ON
 			DECLARE @dia int
-			SET @dia  = DAY(@fecha)
+			SET @dia  = DAY(@inFecha)
 			INSERT INTO [dbo].[Recibos](id_CC,monto,estado,id_Propiedad,fecha,fechaVence)
 			SELECT 
 				CC.id,
@@ -28,8 +28,8 @@ AS
 						END,
 				0,
 				P.id,
-				@fecha,
-				DATEADD(d,CC.diasParaVencer,@fecha)
+				@inFecha,
+				DATEADD(d,CC.diasParaVencer,@inFecha)
 			FROM [dbo].[CCDePropiedad] CCP 
 			INNER JOIN [dbo].[ConceptoDeCobro] CC ON CCP.id_CC = CC.id
 			INNER JOIN [dbo].[Propiedad] P ON CCP.id_Propiedad = P.id
@@ -38,7 +38,6 @@ AS
 			WHERE CC.diaDeCobro = @dia
 		END TRY
 		BEGIN CATCH
-			ROLLBACK TRAN;
-			THROW 550834,'Error: No se ha podido generar el recibo',1;
+			THROW 550834,'Error: No se ha podido generar los recibos',1;
 		END CATCH	
 	END
