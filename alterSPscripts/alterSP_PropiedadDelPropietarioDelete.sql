@@ -22,7 +22,7 @@ AS
 			SET @idModified = (SELECT [id] FROM [dbo].[PropiedadDelPropietario] WHERE [id_Propiedad] = @idPropiedad AND [id_Propietario] = @idPropietario)
 			--GUARDA EL JSON DEL ROW DE LA RELACION ANTES
 			SET @jsonAntes = (SELECT [id], [id_Propiedad], [id_Propietario]
-			FROM [dbo].[PropiedadDelPropietario] WHERE [id_Propiedad] = @idPropiedad AND [id_Propietario] = @idPropietario
+			FROM [dbo].[PropiedadDelPropietario] WHERE [id] = @idModified
 			FOR JSON PATH)
 			--BORRA LA PROPIEDAD
 			UPDATE [dbo].[PropiedadDelPropietario]

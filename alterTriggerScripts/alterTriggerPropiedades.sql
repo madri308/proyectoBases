@@ -16,10 +16,10 @@ AS
 	WHILE @idMenor<=@idMayor
 		BEGIN
 			SET @jsonAntes = (SELECT [id], [valor], [direccion], [numFinca], [fechaDeIngreso],[M3acumuladosAgua],[M3AcumuladosUltimoRecibo]
-							FROM deleted WHERE [id] = @idMenor
+							FROM deleted WHERE [id] = @idMenor AND activo = 1
 							FOR JSON PATH)
 			SET @jsonDespues = (SELECT [id], [valor], [direccion], [numFinca], [fechaDeIngreso],[M3acumuladosAgua],[M3AcumuladosUltimoRecibo]
-							FROM inserted WHERE [id] = @idMenor
+							FROM inserted WHERE [id] = @idMenor AND activo = 1
 							FOR JSON PATH)
 			EXEC [dbo].[SP_BitacoraCambioInsert] 
 			@inIdEntityType = 1,
@@ -27,7 +27,7 @@ AS
 			@inJsonAntes = @jsonAntes,
 			@inJsonDespues = @jsonDespues, 
 			@inInsertedBy = 'usuario1', 
-			@inInsertedIn = 123,
+			@inInsertedIn = '1.1787.0289',
 			@inInsertedAt = @insertedAt
 		
 			SET @idMenor = @idMenor+1 

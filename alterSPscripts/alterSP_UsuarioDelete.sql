@@ -17,17 +17,17 @@ AS
 		SET XACT_ABORT ON  
 			BEGIN TRAN
 				declare @jsonAntes varchar(500), @idModified int
+				--GUARDA EL ID Y FECHA
+				SET @insertedAt = GETDATE()
+				SET @idModified = (SELECT [id] FROM [dbo].[Usuario] WHERE [nombre] = @inUsuario)
 				----GUARDA EL JSON DEL ROW DE USUARIO ANTES
 				SET @jsonAntes = (SELECT [id], [nombre], [password], [tipoDeUsuario], [fechaDeIngreso]
-				FROM [dbo].[Usuario] WHERE [nombre] = @inUsuario
+				FROM [dbo].[Usuario] WHERE [id] = @idModified
 				FOR JSON PATH)
 				--ELIMINA EL USUARIO
 				UPDATE [dbo].[Usuario]
 				SET    [activo] = 0
 				WHERE  [nombre] = @inUsuario
-				--GUARDA EL ID Y FECHA
-				SET @insertedAt = GETDATE()
-				SET @idModified = (SELECT [id] FROM [dbo].[Usuario] WHERE [nombre] = @inUsuario)
 				--INSERTA EL CAMBIO
 				EXEC [dbo].[SP_BitacoraCambioInsert] @inIdEntityType = 1,@inEntityID = @idModified, @inJsonAntes = @jsonAntes,
 													@inJsonDespues = NULL, @inInsertedBy = @inUsuarioACargo, 

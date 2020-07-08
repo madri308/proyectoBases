@@ -22,13 +22,13 @@ AS
 				WHERE (@inNombre != '-1' ) AND 
 						(@inPassword != '-1') AND 
 						(@inTipoDeUsuario != '-1' )
-				--GUARDA EL JSON DEL ROW DE USUARIO
-				SET @jsonDespues = (SELECT [id], [nombre], [password], [tipoDeUsuario], [fechaDeIngreso]
-				FROM [dbo].[Usuario] WHERE [nombre] = @inNombre
-				FOR JSON PATH)
 				--GUARDA EL ID y fecha
 				SET @idModified = (SELECT [id] FROM [dbo].[Usuario] WHERE [nombre] = @inNombre)
 				SET @insertedBy = GETDATE()
+				--GUARDA EL JSON DEL ROW DE USUARIO
+				SET @jsonDespues = (SELECT [id], [nombre], [password], [tipoDeUsuario], [fechaDeIngreso]
+									FROM [dbo].[Usuario] WHERE [id] = @idModified
+									FOR JSON PATH)
 				--INSERTA EL CAMBIO
 				EXEC [dbo].[SP_BitacoraCambioInsert] @inIdEntityType = 1,@inEntityID = @idModified, @inJsonAntes = NULL,
 													@inJsonDespues = @jsonDespues, @inInsertedBy = @inUsuarioACargo, 

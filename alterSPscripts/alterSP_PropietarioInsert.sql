@@ -25,13 +25,13 @@ AS
 				WHERE @inNombre != '-1' AND 
 						@inValorDocId != -1 AND 
 						@inIdentificacion != '-1'
-				--GUARDA EL JSON DEL ROW DE USUARIO
-				SET @jsonDespues = (SELECT [id], [nombre], [valorDocId], [identificacion], [fechaDeIngreso]
-				FROM [dbo].[Propietario] WHERE [identificacion] = @inIdentificacion
-				FOR JSON PATH)
 				--GUARDA EL ID y fecha
 				SET @insertedAt = GETDATE()
 				SET @idModified = (SELECT [id] FROM [dbo].[Propietario] WHERE [identificacion] = @inIdentificacion)
+				--GUARDA EL JSON DEL ROW DE USUARIO
+				SET @jsonDespues = (SELECT [id], [nombre], [valorDocId], [identificacion], [fechaDeIngreso]
+				FROM [dbo].[Propietario] WHERE [id] = @idModified
+				FOR JSON PATH)
 				--INSERTA EL CAMBIO
 				EXEC [dbo].[SP_BitacoraCambioInsert] @inIdEntityType = 1,@inEntityID = @idModified, @inJsonAntes = NULL,
 													@inJsonDespues = @jsonDespues, @inInsertedBy = @inUsuarioACargo, 
