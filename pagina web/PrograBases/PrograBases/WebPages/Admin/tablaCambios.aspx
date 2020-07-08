@@ -5,7 +5,7 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <div id="tablaCambios" style="margin-left:11%">
+    <div id="tablaCambios" style="margin-left:11%; padding-top:1%">
 
         <asp:GridView runat="server" ID="GridFechas" AutoGenerateColumns="true" Visible="false" ShowFooter="false" CellPadding="3" OnRowDataBound="GridFechas_RowDataBound">
             
@@ -19,13 +19,17 @@
 
             <HeaderStyle BackColor="#222222" Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
         </asp:GridView>
-
-        <asp:GridView runat="server" ID="GridJsonAntes" AutoGenerateColumns="true" Visible="false" ShowFooter="false" CellPadding="3">
-            <HeaderStyle BackColor="#222222" Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
-        </asp:GridView>
-
-        <asp:GridView runat="server" ID="GridJsonDespues" AutoGenerateColumns="true" Visible="false" ShowFooter="false" CellPadding="3">
-            <HeaderStyle BackColor="#222222" Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
-        </asp:GridView>
+        <div runat="server" visible="false" id="DivJsonAntes">
+            <p> Json Antes </p>
+            <asp:GridView runat="server" ID="GridJsonAntes" AutoGenerateColumns="true" Visible="false" ShowFooter="false" CellPadding="3">
+                <HeaderStyle BackColor="#222222" Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
+            </asp:GridView>
+        </div>
+        <div runat="server" visible="false" id="DivJsonDespues">
+            <p> Json Despues </p>
+            <asp:GridView runat="server" ID="GridJsonDespues" AutoGenerateColumns="true" Visible="false" ShowFooter="false" CellPadding="3">
+                <HeaderStyle BackColor="#222222" Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
+            </asp:GridView>
+        </div>
     </div>
 </asp:Content>

@@ -17,7 +17,7 @@ AS
 			DECLARE @fechaDesde DATE , @fechaHasta DATE
 			SET @fechaDesde = CONVERT(DATE,@inFechaDesde,121)
 			SET @fechaHasta = CONVERT(DATE,@inFechaHasta,121)
-			SELECT * FROM [dbo].[BitacoraCambio] 
+			SELECT  FROM [dbo].[BitacoraCambio] 
 			WHERE (insertedAt BETWEEN @fechaDesde AND @fechaHasta) 
 				AND (idEntityType = @inIdEntidad)
 		END TRY

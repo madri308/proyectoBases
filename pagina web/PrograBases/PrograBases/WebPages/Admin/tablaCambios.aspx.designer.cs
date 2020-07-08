@@ -24,6 +24,15 @@ namespace PrograBases.WebPages.Admin
         protected global::System.Web.UI.WebControls.GridView GridFechas;
 
         /// <summary>
+        /// DivJsonAntes control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl DivJsonAntes;
+
+        /// <summary>
         /// GridJsonAntes control.
         /// </summary>
         /// <remarks>
@@ -31,6 +40,15 @@ namespace PrograBases.WebPages.Admin
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView GridJsonAntes;
+
+        /// <summary>
+        /// DivJsonDespues control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl DivJsonDespues;
 
         /// <summary>
         /// GridJsonDespues control.

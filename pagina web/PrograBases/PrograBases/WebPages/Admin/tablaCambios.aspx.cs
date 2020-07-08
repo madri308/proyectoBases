@@ -70,8 +70,8 @@ namespace PrograBases.WebPages.Admin
                     while (dr.Read())
                     {
                         string fechaCambio = ((DateTime)dr[5]).ToString("dd/MM/yyyy");
-                        string JsonAntes = dr[3] == DBNull.Value ? "" : ((string)dr[3]).Trim(trimChars);
-                        string JsonDespues = dr[4] == DBNull.Value ? "" : ((string)dr[4]).Trim(trimChars);
+                        string JsonAntes = dr[3] == DBNull.Value ? "" : ((string)dr[3]);
+                        string JsonDespues = dr[4] == DBNull.Value ? "" : ((string)dr[4]);
 
                         string[] ambosJson = { JsonAntes, JsonDespues};
                         cambiosPorFecha[currentIndex.ToString()] = ambosJson ;
@@ -104,6 +104,22 @@ namespace PrograBases.WebPages.Admin
             string rowIndex = (row.RowIndex).ToString();
             string[] ambosJson = cambiosPorFecha[rowIndex];
 
+            DataTable antes = (DataTable)JsonConvert.DeserializeObject(ambosJson[0], (typeof(DataTable)));
+            DataTable despues = (DataTable)JsonConvert.DeserializeObject(ambosJson[1], (typeof(DataTable)));
+            
+            GridJsonAntes.DataSource = antes;
+            GridJsonAntes.DataBind();
+            GridJsonAntes.Visible = true;
+            DivJsonAntes.Visible = true;
+
+            GridJsonDespues.DataSource = despues;
+            GridJsonDespues.DataBind();
+            GridJsonDespues.Visible = true;
+            DivJsonDespues.Visible = true;
+            
+            GridFechas.Visible = false;
+
+            /*
             Dictionary<string, dynamic> valoresJsonAntes = JsonConvert.DeserializeObject<Dictionary<string, dynamic>>(ambosJson[0]);
             Dictionary<string, dynamic> valoresJsonDespues = JsonConvert.DeserializeObject<Dictionary<string, dynamic>>(ambosJson[1]);
 
@@ -148,6 +164,7 @@ namespace PrograBases.WebPages.Admin
             GridJsonAntes.DataBind();
             GridJsonAntes.Visible = true;
             GridFechas.Visible = false;
+            */
         }
 
         protected void GridFechas_RowDataBound(object sender, GridViewRowEventArgs e)
