@@ -25,7 +25,7 @@ AS
 			SET @insertedAt = GETDATE()
 			--GUARDA EL JSON DEL ROW DE LA RELACION DESPUES
 			SET @jsonDespues = (SELECT [id], [id_Propiedad], [id_Usuario]
-			FROM [dbo].[UsuarioDePropiedad] WHERE [id_Propiedad] = @idPropiedad AND [id_Usuario] = @idUsuario
+			FROM [dbo].[UsuarioDePropiedad] WHERE [id] = @idModified
 			FOR JSON PATH)
 			--INSERTA EL CAMBIO
 			EXEC [dbo].[SP_BitacoraCambioInsert] @inIdEntityType = 1,@inEntityID = @idModified, @inJsonAntes = NULL,

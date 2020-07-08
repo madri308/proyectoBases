@@ -26,7 +26,7 @@ AS
 				SET @idModified = (SELECT [id] FROM [dbo].[Usuario] WHERE [nombre] = @inNombreOriginal)
 				----GUARDA EL JSON DEL ROW DE USUARIO ANTES
 				SET @jsonAntes = (SELECT [id], [nombre], [password], [tipoDeUsuario], [fechaDeIngreso]
-				FROM [dbo].[Usuario] WHERE [nombre] = @inNombreOriginal
+				FROM [dbo].[Usuario] WHERE [id] = @idModified
 				FOR JSON PATH)
 				--ACTUALIZA AL USUARIO
 				UPDATE [dbo].[Usuario]
@@ -45,7 +45,7 @@ AS
 					WHERE [nombre] = @inNombreOriginal AND [activo] = 1
 				--GUARDA EL JSON DEL ROW DE USUARIO DESPUES
 				SET @jsonDespues = (SELECT [id], [nombre], [password], [tipoDeUsuario], [fechaDeIngreso]
-				FROM [dbo].[Usuario] WHERE [nombre] = @inNombreOriginal
+				FROM [dbo].[Usuario] WHERE [id] = @idModified
 				FOR JSON PATH)
 				--INSERTA EL CAMBIO
 				EXEC [dbo].[SP_BitacoraCambioInsert] @inIdEntityType = 1,@inEntityID = @idModified, @inJsonAntes = @jsonAntes,

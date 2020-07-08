@@ -27,10 +27,16 @@ AS
 					SET @tipoCC = (SELECT idTipoRecibo FROM @Pagos WHERE id = @idMenor)
 					SET @idPropiedad = (SELECT pr.id FROM [dbo].[Propiedad] PR INNER JOIN @Pagos P ON P.numFinca = PR.numFinca WHERE P.id = @idMenor)
 					
-					INSERT INTO [dbo].[ComprobantePago](fecha,total)
-					SELECT @fechaOperacion,0
-					SET @idComprobante = IDENT_CURRENT('[dbo].[ComprobantePago]')
-				
+					SET @idComprobante = (SELECT CC.id FROM [dbo].[ComprobantePago] CC 
+															INNER JOIN [dbo].[ReciboPagado] RP ON RP.id_Comprobante = CC.id
+															INNER JOIN [dbo].[Recibos] R ON R.id = RP.id
+															WHERE R.id_Propiedad = @idPropiedad AND CC.fecha = @fechaOperacion)
+					IF @idComprobante IS NULL
+					BEGIN
+						INSERT INTO [dbo].[ComprobantePago](fecha,total)
+						SELECT @fechaOperacion,0
+						SET @idComprobante = IDENT_CURRENT('[dbo].[ComprobantePago]')
+					END
 					--SI ES CONCEPTO DE COBRO 10 (RECONEXION)
 					IF @tipoCC = 10
 						BEGIN
