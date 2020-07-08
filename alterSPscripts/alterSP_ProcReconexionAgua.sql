@@ -11,7 +11,7 @@ GO
 CREATE PROC [dbo].[SP_ProcReconexionAgua] @inFecha DATE
 AS  	
 	BEGIN
-		--BEGIN TRY
+		BEGIN TRY
 		SET NOCOUNT ON 
 		SET XACT_ABORT ON 
 			DECLARE @idPropiedades TABLE(id INT IDENTITY(1,1),idPropiedad int)
@@ -33,12 +33,13 @@ AS
 					SELECT @inFecha,idP.idPropiedad,R.id
 					FROM @idPropiedades idP
 					INNER JOIN [dbo].[Recibos] R ON R.id_Propiedad = idP.idPropiedad
-					WHERE idP.id = @idMenor
+					WHERE idP.id = @idMenor AND R.id_CC = 10
+					SET @idMenor = @idMenor+1
 				END
 			COMMIT
-		/*END TRY
+		END TRY
 		BEGIN CATCH
 			ROLLBACK TRAN;
-			THROW 55004,'Error: No se ha podido procesar reconexiones',1;
-		END CATCH	*/
+			THROW --55004,'Error: No se ha podido procesar reconexiones',1;
+		END CATCH	
 	END

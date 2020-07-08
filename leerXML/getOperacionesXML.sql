@@ -33,7 +33,6 @@ DROP TABLE #TEMP_DATES_TABLE --DEJA LA TABLA
 --INSERTAR DATOS
 WHILE @MinDate<=@MaxDate
 BEGIN		
-		
 		--INSERTAR PROPIEDADES
 		INSERT INTO [dbo].[Propiedad] (valor,direccion,numFinca,fechaDeIngreso)
 			SELECT [valor], [direccion],[numFinca],CONVERT(DATE,[fechaDeIngreso],121)[fechaDeIngreso]
@@ -121,7 +120,7 @@ BEGIN
 		EXEC [dbo].[SP_ProcPropiedadVSUsuario] @PropiedadDelUsuario
 		DELETE @PropiedadDelUsuario
 		
-		--PAGO DE LOS RECIBOS  --No probado
+		--PAGO DE LOS RECIBOS  
 		DECLARE @Pagos PagosTipo  
 		INSERT INTO @Pagos(numFinca,idTipoRecibo, fechaOperacion)  
 			SELECT [NumFinca],[TipoRecibo],CONVERT(DATE,[fechaDeIngreso9],121)[fechaDeIngreso9]
@@ -129,9 +128,10 @@ BEGIN
 				WITH (	[NumFinca]		VARCHAR(30)	'@NumFinca',  
 						[TipoRecibo]	INT			'@TipoRecibo',
 						[fechaDeIngreso9]	VARCHAR(100)	'../@fecha')
-				WHERE fechaDeIngreso9 = @MinDate
+				WHERE [fechaDeIngreso9] = @MinDate
 		EXEC [dbo].[SP_ProcesarPagos] @Pagos
-			
+		DELETE @Pagos
+		
 		--ACTUALIZACION DE VALOR PROPIEDAD
 		DECLARE @nuevosValProp ValorPropiedadTipo  
 		INSERT INTO @nuevosValProp(numFinca,nuevoValor)  
