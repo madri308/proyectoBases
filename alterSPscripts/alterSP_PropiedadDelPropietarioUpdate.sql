@@ -30,22 +30,25 @@ AS
 			SET @jsonAntes = (SELECT [id], [id_Propiedad], [id_Propietario]
 			FROM [dbo].[PropiedadDelPropietario] WHERE [id] = @idModified
 			FOR JSON PATH)
-			--ACTUALIZA LA RELACION
-			UPDATE [dbo].[PropiedadDelPropietario]
-				SET [id_Propietario] = isNull(@idPropietario,[id_Propietario]),
-					[id_Propiedad]	=  isNull(@idPropiedad,[id_Propiedad])
-				WHERE [id_Propiedad] = @idPropiedadOriginal AND [id_Propietario] = @idPropietarioOriginal AND
-						[activo] = 1
-			--GUARDA EL JSON DEL ROW DE LA RELACION DESPUES
-			SET @jsonDespues = (SELECT [id], [id_Propiedad], [id_Propietario]
-			FROM [dbo].[PropiedadDelPropietario] WHERE [id] = @idModified
-			FOR JSON PATH)
-			--INSERTA EL CAMBIO
-			EXEC [dbo].[SP_BitacoraCambioInsert] @inIdEntityType = 1,@inEntityID = @idModified, @inJsonAntes = @jsonAntes,
-												@inJsonDespues = @jsonDespues, @inInsertedBy = @inUsuarioACargo, 
-												@inInsertedIn = @inIPusuario, @inInsertedAt  = @insertedAt
+			BEGIN TRAN
+				--ACTUALIZA LA RELACION
+				UPDATE [dbo].[PropiedadDelPropietario]
+					SET [id_Propietario] = isNull(@idPropietario,[id_Propietario]),
+						[id_Propiedad]	=  isNull(@idPropiedad,[id_Propiedad])
+					WHERE [id_Propiedad] = @idPropiedadOriginal AND [id_Propietario] = @idPropietarioOriginal AND
+							[activo] = 1
+				--GUARDA EL JSON DEL ROW DE LA RELACION DESPUES
+				SET @jsonDespues = (SELECT [id], [id_Propiedad], [id_Propietario]
+				FROM [dbo].[PropiedadDelPropietario] WHERE [id] = @idModified
+				FOR JSON PATH)
+				--INSERTA EL CAMBIO
+				EXEC [dbo].[SP_BitacoraCambioInsert] @inIdEntityType = 4,@inEntityID = @idModified, @inJsonAntes = @jsonAntes,
+													@inJsonDespues = @jsonDespues, @inInsertedBy = @inUsuarioACargo, 
+													@inInsertedIn = @inIPusuario, @inInsertedAt  = @insertedAt
+			COMMIT
 		END TRY
 		BEGIN CATCH
+			ROLLBACK TRAN;
 			THROW 73256,'Error: No se ha podido modificar la relacion entre la propiedad y el propietario.',1;
 		END CATCH
 	END

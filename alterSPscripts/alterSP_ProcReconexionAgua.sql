@@ -26,7 +26,6 @@ AS
 				AND (R.id_CC = 1 OR R.id_CC = 10)
 
 				SELECT @idMenor = MIN(id), @idMayor = MAX(id) FROM @idPropiedades
-				
 				WHILE @idMenor<=@idMayor
 				BEGIN
 					INSERT INTO [dbo].[Reconexion](fecha,id_Propiedad,recRecon)
@@ -40,6 +39,6 @@ AS
 		END TRY
 		BEGIN CATCH
 			ROLLBACK TRAN;
-			THROW --55004,'Error: No se ha podido procesar reconexiones',1;
+			THROW 55004,'Error: No se ha podido procesar reconexiones',1;
 		END CATCH	
 	END

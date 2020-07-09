@@ -8,25 +8,25 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE PROC [dbo].[SP_ProcPropiedadVSPropietario] @PropiedadDelPropietario PropiedadDelPropietarioTipo READONLY
+CREATE PROC [dbo].[SP_ProcPropiedadVSPropietario] @inPropiedadDelPropietario PropiedadDelPropietarioTipo READONLY
 AS  
 	BEGIN 
 		BEGIN TRY
 		SET NOCOUNT ON 
 		SET XACT_ABORT ON 
 			declare @jsonDespues varchar(500), @idMenor int, @idMayor int, @idModified int, @insertedAt DATE
+			SELECT @idMenor = min([id]), @idMayor=max([id]) FROM @inPropiedadDelPropietario
+			SET @insertedAt = (SELECT Fecha FROM @inPropiedadDelPropietario WHERE id = @idMenor)
 			BEGIN TRAN
-				SELECT @idMenor = min([id]), @idMayor=max([id]) FROM @PropiedadDelPropietario
-				SET @insertedAt = (SELECT Fecha FROM @PropiedadDelPropietario WHERE id = @idMenor)
 				WHILE @idMenor<=@idMayor
 				BEGIN
 					--INSERTA LA RELACION
 					INSERT INTO [dbo].[PropiedadDelPropietario] ([id_Propietario], [id_Propiedad])
 					SELECT idPropietario,idPropiedad
-					FROM @PropiedadDelPropietario 
+					FROM @inPropiedadDelPropietario 
 					WHERE id = @idMenor
 					--GUARDA EL ID
-					SET @idModified = @@IDENTITY --(SELECT [id] FROM [dbo].[PropiedadDelPropietario] WHERE [id_Propiedad] IN (SELECT idPropiedad FROM @PropiedadDelPropietario WHERE id = @idMenor) AND [id_Propietario] = @idPropietario)
+					SET @idModified = IDENT_CURRENT('[dbo].[PropiedadDelPropietario]')
 					--GUARDA EL JSON DEL ROW DE LA RELACION DESPUES
 					SET @jsonDespues = (SELECT [id], [id_Propiedad], [id_Propietario]
 					FROM [dbo].[PropiedadDelPropietario] WHERE [id] = @idModified

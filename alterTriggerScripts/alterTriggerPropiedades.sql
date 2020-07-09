@@ -15,21 +15,23 @@ AS
 	SET @insertedAt = (SELECT fechaDeIngreso FROM inserted WHERE [id] = @idMenor)
 	WHILE @idMenor<=@idMayor
 		BEGIN
-			SET @jsonAntes = (SELECT [id], [valor], [direccion], [numFinca], [fechaDeIngreso],[M3acumuladosAgua],[M3AcumuladosUltimoRecibo]
-							FROM deleted WHERE [id] = @idMenor AND activo = 1
-							FOR JSON PATH)
-			SET @jsonDespues = (SELECT [id], [valor], [direccion], [numFinca], [fechaDeIngreso],[M3acumuladosAgua],[M3AcumuladosUltimoRecibo]
-							FROM inserted WHERE [id] = @idMenor AND activo = 1
-							FOR JSON PATH)
-			EXEC [dbo].[SP_BitacoraCambioInsert] 
-			@inIdEntityType = 1,
-			@inEntityID = @idMenor, 
-			@inJsonAntes = @jsonAntes,
-			@inJsonDespues = @jsonDespues, 
-			@inInsertedBy = 'usuario1', 
-			@inInsertedIn = '1.1787.0289',
-			@inInsertedAt = @insertedAt
-		
+			IF @idMenor IN (SELECT id FROM inserted) OR @idMenor IN (SELECT id FROM deleted)
+			BEGIN
+				SET @jsonAntes = (SELECT [id], [valor], [direccion], [numFinca], [fechaDeIngreso],[M3acumuladosAgua],[M3AcumuladosUltimoRecibo]
+								FROM deleted WHERE [id] = @idMenor AND activo = 1
+								FOR JSON PATH)
+				SET @jsonDespues = (SELECT [id], [valor], [direccion], [numFinca], [fechaDeIngreso],[M3acumuladosAgua],[M3AcumuladosUltimoRecibo]
+								FROM inserted WHERE [id] = @idMenor AND activo = 1
+								FOR JSON PATH)
+				EXEC [dbo].[SP_BitacoraCambioInsert] 
+				@inIdEntityType = 1,
+				@inEntityID = @idMenor, 
+				@inJsonAntes = @jsonAntes,
+				@inJsonDespues = @jsonDespues, 
+				@inInsertedBy = 'usuario1', 
+				@inInsertedIn = '1.1787.0289',
+				@inInsertedAt = @insertedAt
+			END
 			SET @idMenor = @idMenor+1 
 		END
 

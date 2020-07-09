@@ -8,14 +8,14 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE PROC [dbo].[SP_ProcesaConsumo] @consumo ConsumoTipo READONLY
+CREATE PROC [dbo].[SP_ProcesaConsumo] @inConsumo ConsumoTipo READONLY
 AS 
 	BEGIN 
 		BEGIN TRY 
 		SET NOCOUNT ON 
 		SET XACT_ABORT ON  
 			DECLARE @idMenor INT, @idMayor INT
-			SELECT @idMenor = min([id]), @idMayor=max([id]) FROM @consumo
+			SELECT @idMenor = min([id]), @idMayor=max([id]) FROM @inConsumo
 			BEGIN TRAN
 				WHILE @idMenor<=@idMayor
 				BEGIN
@@ -35,7 +35,7 @@ AS
 						P.id,
 						C.idTipo
 					FROM [dbo].[Propiedad] P
-					INNER JOIN @consumo C ON C.numFinca = P.[numFinca]
+					INNER JOIN @inConsumo C ON C.numFinca = P.[numFinca]
 					WHERE C.id = @idMenor
 
 					UPDATE [Propiedad]
@@ -44,7 +44,7 @@ AS
 												ELSE M3acumuladosAgua+C.LecturaM3
 					END
 					FROM [Propiedad] P
-					INNER JOIN @consumo C ON C.numFinca = P.[numFinca]
+					INNER JOIN @inConsumo C ON C.numFinca = P.[numFinca]
 					WHERE C.id = @idMenor
 
 					SET @idMenor = @idMenor+1 
