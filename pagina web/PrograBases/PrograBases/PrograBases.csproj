@@ -92,6 +92,7 @@
     <Content Include="WebPages\Admin\tablaPropietarios.aspx" />
     <Content Include="WebPages\Admin\tablaUsuarios.aspx" />
     <Content Include="WebPages\Normal_user\StartPage.aspx" />
+    <Content Include="WebPages\Normal_user\tablaComprobantesDePago.aspx" />
     <Content Include="WebPages\Normal_user\tablaConceptosDeCobro.aspx" />
     <Content Include="WebPages\Normal_user\tablaRecibos.aspx" />
   </ItemGroup>
@@ -181,6 +182,13 @@
     </Compile>
     <Compile Include="WebPages\Normal_user\StartPage.aspx.designer.cs">
       <DependentUpon>StartPage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebPages\Normal_user\tablaComprobantesDePago.aspx.cs">
+      <DependentUpon>tablaComprobantesDePago.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebPages\Normal_user\tablaComprobantesDePago.aspx.designer.cs">
+      <DependentUpon>tablaComprobantesDePago.aspx</DependentUpon>
     </Compile>
     <Compile Include="WebPages\Normal_user\tablaConceptosDeCobro.aspx.cs">
       <DependentUpon>tablaConceptosDeCobro.aspx</DependentUpon>

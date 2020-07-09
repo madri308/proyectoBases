@@ -22,6 +22,7 @@ AS
 			INNER JOIN [dbo].[Usuario] U ON U.id = BC.insertedBy 
 			WHERE (insertedAt BETWEEN @fechaDesde AND @fechaHasta) 
 				AND (idEntityType = @inIdEntidad)
+			ORDER BY [insertedAt] ASC
 		END TRY
 		BEGIN CATCH
 			THROW 60500, 'Error: No se ha podido mostrar los datos de la bitacora.',1;

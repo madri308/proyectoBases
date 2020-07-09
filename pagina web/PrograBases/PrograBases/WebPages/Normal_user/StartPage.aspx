@@ -23,7 +23,19 @@
 
                 <asp:TemplateField HeaderText="" ShowHeader="False">
                     <ItemTemplate>
-                        <asp:LinkButton ID="lnkvVerRecibos" runat="server" CausesValidation="True" Text="Recibos" OnClick="lnkvVerRecibos_Click"></asp:LinkButton>
+                        <asp:LinkButton ID="lnkvVerRecibosPagados" runat="server" CausesValidation="True" Text="Recibos pagados" OnClick="lnkvVerRecibosPagados_Click"></asp:LinkButton>
+                    </ItemTemplate>
+                </asp:TemplateField>
+
+                <asp:TemplateField HeaderText="" ShowHeader="False">
+                    <ItemTemplate>
+                        <asp:LinkButton ID="lnkvVerRecibosPendientes" runat="server" CausesValidation="True" Text="Recibos pendientes" OnClick="lnkvVerRecibosPendientes_Click"></asp:LinkButton>
+                    </ItemTemplate>
+                </asp:TemplateField>
+
+                <asp:TemplateField HeaderText="" ShowHeader="False">
+                    <ItemTemplate>
+                        <asp:LinkButton ID="lnkvVerComprobantesDePago" runat="server" CausesValidation="True" Text="Comprobantes de pago" OnClick="lnkvVerComprobantesDePago_Click"></asp:LinkButton>
                     </ItemTemplate>
                 </asp:TemplateField>
             </Columns>

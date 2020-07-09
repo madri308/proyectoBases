@@ -55,13 +55,33 @@ namespace PrograBases.WebPages.Normal_user
             Session["numFinca"] = numfinca;
             Response.Redirect("~/WebPages/Normal_user/tablaConceptosDeCobro.aspx");
         }
-        protected void lnkvVerRecibos_Click(object sender, EventArgs e)
+        protected void lnkvVerRecibosPagados_Click(object sender, EventArgs e)
         {
             LinkButton btn = (LinkButton)sender;
             GridViewRow row = (GridViewRow)btn.NamingContainer;
             string numfinca = row.Cells[0].Text;
             Session["numFinca"] = numfinca;
+            Session["opcionRecibos"] = 1;
             Response.Redirect("~/WebPages/Normal_user/tablaRecibos.aspx");
+        }
+
+        protected void lnkvVerRecibosPendientes_Click(object sender, EventArgs e)
+        {
+            LinkButton btn = (LinkButton)sender;
+            GridViewRow row = (GridViewRow)btn.NamingContainer;
+            string numfinca = row.Cells[0].Text;
+            Session["numFinca"] = numfinca;
+            Session["opcionRecibos"] = 0;
+            Response.Redirect("~/WebPages/Normal_user/tablaRecibos.aspx");
+        }
+
+        protected void lnkvVerComprobantesDePago_Click(object sender, EventArgs e)
+        {
+            LinkButton btn = (LinkButton)sender;
+            GridViewRow row = (GridViewRow)btn.NamingContainer;
+            string numfinca = row.Cells[0].Text;
+            Session["numFinca"] = numfinca;
+            Response.Redirect("~/WebPages/Normal_user/tablaComprobantesDePago.aspx");
         }
     }
 }

@@ -9,7 +9,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE PROC [dbo].[SP_ComprobantePagoSelect] 
-    @inId int
+     @inNumFinca varchar(100)
 AS 
 	BEGIN 
 		BEGIN TRY

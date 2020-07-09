@@ -9,7 +9,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE PROC [dbo].[SP_RecibosSelect] 
-    @inNumFinca varchar(100)
+    @inNumFinca varchar(100), @inOpcionRecibos int
 AS 
 	BEGIN
 		BEGIN TRY
@@ -18,9 +18,10 @@ AS
 			DECLARE @idPropiedad INT
 			SET @idPropiedad = (SELECT id FROM Propiedad WHERE Propiedad.numFinca = @inNumFinca)
 
-			SELECT [id_CC], [monto], [estado], [fecha], [fechaVence]
+			SELECT [id], [id_CC], [monto], [estado], [fecha], [fechaVence]
 			FROM   [dbo].[Recibos] 
-			WHERE  [id_Propiedad] = @idPropiedad
+			WHERE  [id_Propiedad] = @idPropiedad 
+			AND [estado] = @inOpcionRecibos
 		END TRY
 		BEGIN CATCH
 			THROW 63857,'Error: No se ha podido mostrar los recibos.',1;

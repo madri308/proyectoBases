@@ -24,6 +24,8 @@
 
                 <asp:BoundField HeaderText="Monto" DataField="monto" InsertVisible="False" ReadOnly="True" SortExpression="monto" />
 
+                <asp:BoundField HeaderText="Valor por m3" DataField="valorPorM3" InsertVisible="False" ReadOnly="True" SortExpression="valorPorM3" />
+
             </Columns>
             <HeaderStyle BackColor="#222222" Font-Bold="True" ForeColor="White" HorizontalAlign="Center"/>
         </asp:GridView>
