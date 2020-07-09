@@ -69,16 +69,16 @@ namespace PrograBases.WebPages.Admin
                     char[] trimChars = { '[', ']' };
                     while (dr.Read())
                     {
-                        string fechaCambio = ((DateTime)dr[5]).ToString("dd/MM/yyyy");
-                        string JsonAntes = dr[3] == DBNull.Value ? "" : ((string)dr[3]);
-                        string JsonDespues = dr[4] == DBNull.Value ? "" : ((string)dr[4]);
+                        string fechaCambio = ((DateTime)dr[2]).ToString("dd/MM/yyyy");
+                        string JsonAntes = dr[0] == DBNull.Value ? "" : ((string)dr[0]);
+                        string JsonDespues = dr[1] == DBNull.Value ? "" : ((string)dr[1]);
 
                         string[] ambosJson = { JsonAntes, JsonDespues};
                         cambiosPorFecha[currentIndex.ToString()] = ambosJson ;
                         DataRow newRow = newTable.NewRow();
                         newRow["Fecha De cambio"] = fechaCambio;
-                        newRow["Usuario"] = dr[6];
-                        newRow["Ip"] = dr[7];
+                        newRow["Usuario"] = dr[3];
+                        newRow["Ip"] = dr[4];
                         newTable.Rows.Add(newRow);
 
                         currentIndex++;

@@ -9,18 +9,18 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE PROC [dbo].[SP_UsuarioDePropiedadDelete] 
-    @inUsuario varchar(100), @inNumFinca varchar(30), @inUsuarioACargo varchar(20), @inIPusuario varchar(20), @jsonAntes varchar(500), @idModified int
+    @inUsuario varchar(100), @inNumFinca varchar(30), @inUsuarioACargo varchar(20), @inIPusuario varchar(20)
 AS 
 	BEGIN
 		BEGIN TRY
 		SET NOCOUNT ON 
 		SET XACT_ABORT ON  
-			DECLARE @idUsuario int, @idPropiedad int, @insertedAt DATE
+			DECLARE @idUsuario int, @idPropiedad int, @insertedAt DATE, @jsonAntes varchar(500), @idModified int
 			SET @idPropiedad = (SELECT [id] FROM [dbo].[Propiedad] WHERE [numFinca] = @inNumFinca AND [activo] = 1)
 			SET @idUsuario = (SELECT [id] FROM [dbo].[Usuario] WHERE [nombre] = @inUsuario AND [activo] = 1)
 			--GUARDA EL ID y fecha
 			SET @insertedAt = GETDATE()
-			SET @idModified = (SELECT [id] FROM [dbo].[UsuarioDePropiedad] WHERE [id_Propiedad] = @idPropiedad AND [id_Usuario] = @idUsuario)
+			SET @idModified = (SELECT [id] FROM [dbo].[UsuarioDePropiedad] WHERE [id_Propiedad] = @idPropiedad AND [id_Usuario] = @idUsuario AND [activo]=1)
 			--GUARDA EL JSON DEL ROW DE LA RELACION ANTES
 			SET @jsonAntes = (SELECT [id], [id_Propiedad], [id_Usuario]
 			FROM [dbo].[UsuarioDePropiedad] WHERE [id] = @idModified

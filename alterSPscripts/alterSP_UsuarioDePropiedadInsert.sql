@@ -21,7 +21,7 @@ AS
 			INSERT INTO [dbo].[UsuarioDePropiedad] ([id_Propiedad], [id_Usuario])
 			SELECT @idPropiedad, @idUsuario
 			--GUARDA EL ID
-			SET @idModified = (SELECT [id] FROM [dbo].[UsuarioDePropiedad] WHERE [id_Propiedad] = @idPropiedad AND [id_Usuario] = @idUsuario)
+			SET @idModified = (SELECT [id] FROM [dbo].[UsuarioDePropiedad] WHERE [id_Propiedad] = @idPropiedad AND [id_Usuario] = @idUsuario AND [activo]=1)
 			SET @insertedAt = GETDATE()
 			--GUARDA EL JSON DEL ROW DE LA RELACION DESPUES
 			SET @jsonDespues = (SELECT [id], [id_Propiedad], [id_Usuario]
@@ -33,7 +33,6 @@ AS
 												@inInsertedIn = @inIPusuario, @inInsertedAt = @insertedAt
 		END TRY
 		BEGIN CATCH
-			ROLLBACK TRAN;
 			THROW 83645,'Error: No se ha podido insertar la relacion entre el usuario y la propiedad.',1;
 		END CATCH      
 	END
