@@ -8,7 +8,7 @@ namespace PrograBases.WebPages.Normal_user
 {
     public partial class tablaComprobantesDePago : System.Web.UI.Page
     {
-        private string getComprobantesDePagoSPName = "SP_ComprobantesDePagoSelect";
+        private string getComprobantesDePagoSPName = "SP_ComprobantePagoSelect";
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -20,7 +20,7 @@ namespace PrograBases.WebPages.Normal_user
         protected void fillGridComprobantes()
         {
             string numFinca = (string)Session["numFinca"];
-            int opcionRecibos = (int)Session["opcionRecibos"];
+            int idRecibo = (int)(Session["idRecibo"]);
             try
             {
                 using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
@@ -30,7 +30,8 @@ namespace PrograBases.WebPages.Normal_user
                     SqlCommand cmd = new SqlCommand(procedure, conn);
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add("@inNumfinca", SqlDbType.VarChar).Value = numFinca;
+                    //cmd.Parameters.Add("@inNumfinca", SqlDbType.VarChar).Value = numFinca;
+                    cmd.Parameters.Add("@inIdRecibo", SqlDbType.VarChar).Value = idRecibo;
 
                     cmd.Connection = conn;
                     conn.Open();

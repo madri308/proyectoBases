@@ -75,13 +75,5 @@ namespace PrograBases.WebPages.Normal_user
             Response.Redirect("~/WebPages/Normal_user/tablaRecibos.aspx");
         }
 
-        protected void lnkvVerComprobantesDePago_Click(object sender, EventArgs e)
-        {
-            LinkButton btn = (LinkButton)sender;
-            GridViewRow row = (GridViewRow)btn.NamingContainer;
-            string numfinca = row.Cells[0].Text;
-            Session["numFinca"] = numfinca;
-            Response.Redirect("~/WebPages/Normal_user/tablaComprobantesDePago.aspx");
-        }
     }
 }

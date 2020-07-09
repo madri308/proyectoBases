@@ -3,6 +3,7 @@ using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Web.UI;
+using System.Web.UI.WebControls;
 
 namespace PrograBases.WebPages.Normal_user
 {
@@ -46,6 +47,16 @@ namespace PrograBases.WebPages.Normal_user
                 string alertMessage = Utilidad.mensajeAlerta(ex);
                 ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('" + alertMessage + "')", true);
             }
+        }
+
+        protected void lnkvVerComprobantesDePago_Click(object sender, EventArgs e)
+        {
+            LinkButton btn = (LinkButton)sender;
+            GridViewRow row = (GridViewRow)btn.NamingContainer;
+            int rowIndex = Convert.ToInt32(row.RowIndex);
+            int idRecibo = (int)GridRecibos.DataKeys[rowIndex]["id"];
+            Session["idRecibo"] = idRecibo;
+            Response.Redirect("~/WebPages/Normal_user/tablaComprobantesDePago.aspx");
         }
     }
 }

@@ -9,7 +9,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE PROC [dbo].[SP_ComprobantePagoSelect] 
-     @inNumFinca varchar(100), @inIdRecibo INT
+	@inIdRecibo INT
 AS 
 	BEGIN 
 		BEGIN TRY
@@ -19,8 +19,7 @@ AS
 			FROM   [dbo].[ComprobantePago] CP
 			INNER JOIN [dbo].[ReciboPagado] RP ON RP.id_Comprobante = CP.id
 			INNER JOIN [dbo].[Recibos] R ON R.id = RP.id_Recibo
-			INNER JOIN [dbo].[Propiedad] P ON P.id = R.id_Propiedad
-			WHERE P.numFinca = @inNumFinca AND R.id = @inIdRecibo
+			WHERE R.id = @inIdRecibo
 		END TRY
 		BEGIN CATCH
 			THROW 53901,'Error: No se ha podido mostrar comprobante de pago.',1;
