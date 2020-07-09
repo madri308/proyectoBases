@@ -122,8 +122,8 @@ BEGIN
 		
 		--PAGO DE LOS RECIBOS  
 		DECLARE @Pagos PagosTipo  
-		INSERT INTO @Pagos(numFinca,idTipoRecibo, fechaOperacion)  
-			SELECT [NumFinca],[TipoRecibo],CONVERT(DATE,[fechaDeIngreso9],121)[fechaDeIngreso9]
+		INSERT INTO @Pagos(numFinca,idTipoRecibo,fechaOperaciones)  
+			SELECT [NumFinca],[TipoRecibo],[fechaDeIngreso9]
 			FROM OPENXML (@hdoc, 'Operaciones_por_Dia/OperacionDia/Pago',1)  
 				WITH (	[NumFinca]		VARCHAR(30)	'@NumFinca',  
 						[TipoRecibo]	INT			'@TipoRecibo',
@@ -141,7 +141,7 @@ BEGIN
 						[nuevoValor]		MONEY			'@NuevoValor',
 						[fechaDeIngreso10]	VARCHAR(100)	'../@fecha')
 				WHERE [fechaDeIngreso10] = @MinDate
-		EXEC [dbo].[SP_ProcActualizarValProp] @nuevosValProp;
+		EXEC [dbo].[SP_ProcActualizarValProp] @nuevosValProp,@MinDate
 		DELETE FROM @nuevosValProp
 		DELETE @nuevosValProp
 		
@@ -175,10 +175,10 @@ USE [Progra]
 DELETE Corte
 DELETE BitacoraCambio
 DELETE ReciboPagado
+DELETE Reconexion
 DELETE ReciboReconexion
 DELETE Recibos
 DELETE ComprobantePago
-DELETE Reconexion
 DELETE PropiedadDelPropietario
 DELETE UsuarioDePropiedad
 DELETE CCDePropiedad

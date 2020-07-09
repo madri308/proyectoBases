@@ -30,21 +30,23 @@ AS
 			SET @jsonAntes = (SELECT [id], [id_Propiedad], [id_Usuario]
 			FROM [dbo].[UsuarioDePropiedad] WHERE [id] = @idModified
 			FOR JSON PATH)
-			--ACTUALIZA LA RELACION
-			UPDATE [dbo].[UsuarioDePropiedad]
-				SET [id_Propiedad] = isNull(@idPropiedad,[id_Propiedad]),
-					[id_Usuario]= isNull(@idUsuario,[id_Usuario]) 
-				WHERE  [id_Propiedad] = @idPropiedadOriginal AND 
-						[id_Usuario] = @idUsuarioOriginal AND
-						 [activo] = 1
-			--GUARDA EL JSON DEL ROW DE LA RELACION DESPUES
-			SET @jsonDespues = (SELECT [id], [id_Propiedad], [id_Usuario]
-			FROM [dbo].[UsuarioDePropiedad] WHERE [id] = @idModified
-			FOR JSON PATH)
-			--INSERTA EL CAMBIO
-			EXEC [dbo].[SP_BitacoraCambioInsert] @inIdEntityType = 1,@inEntityID = @idModified, @inJsonAntes = @jsonAntes,
-												@inJsonDespues = @jsonDespues, @inInsertedBy = @inUsuarioACargo, 
-												@inInsertedIn = @inIPusuario, @inInsertedAt = @insertedAt
+			BEGIN TRAN
+				--ACTUALIZA LA RELACION
+				UPDATE [dbo].[UsuarioDePropiedad]
+					SET [id_Propiedad] = isNull(@idPropiedad,[id_Propiedad]),
+						[id_Usuario]= isNull(@idUsuario,[id_Usuario]) 
+					WHERE  [id_Propiedad] = @idPropiedadOriginal AND 
+							[id_Usuario] = @idUsuarioOriginal AND
+							 [activo] = 1
+				--GUARDA EL JSON DEL ROW DE LA RELACION DESPUES
+				SET @jsonDespues = (SELECT [id], [id_Propiedad], [id_Usuario]
+				FROM [dbo].[UsuarioDePropiedad] WHERE [id] = @idModified
+				FOR JSON PATH)
+				--INSERTA EL CAMBIO
+				EXEC [dbo].[SP_BitacoraCambioInsert] @inIdEntityType = 5,@inEntityID = @idModified, @inJsonAntes = @jsonAntes,
+													@inJsonDespues = @jsonDespues, @inInsertedBy = @inUsuarioACargo, 
+													@inInsertedIn = @inIPusuario, @inInsertedAt = @insertedAt
+			COMMIT
 		END TRY
 		BEGIN CATCH;
 			ROLLBACK TRAN;

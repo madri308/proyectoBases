@@ -24,17 +24,19 @@ AS
 			SET @jsonAntes = (SELECT [id], [id_Propiedad], [id_Propietario]
 			FROM [dbo].[PropiedadDelPropietario] WHERE [id] = @idModified
 			FOR JSON PATH)
-			--BORRA LA PROPIEDAD
-			UPDATE [dbo].[PropiedadDelPropietario]
-			SET    [activo] = 0
-			WHERE  [id_Propiedad] = @idPropiedad AND [id_Propietario] = @idPropietario
-			--INSERTA EL CAMBIO
-			EXEC [dbo].[SP_BitacoraCambioInsert] @inIdEntityType = 1,@inEntityID = @idModified, @inJsonAntes = @jsonAntes,
-												@inJsonDespues = NULL, @inInsertedBy = @inUsuarioACargo, 
-												@inInsertedIn = @inIPusuario, @inInsertedAt = @insertedAt
-
+			BEGIN TRAN
+				--BORRA LA PROPIEDAD
+				UPDATE [dbo].[PropiedadDelPropietario]
+				SET    [activo] = 0
+				WHERE  [id_Propiedad] = @idPropiedad AND [id_Propietario] = @idPropietario
+				--INSERTA EL CAMBIO
+				EXEC [dbo].[SP_BitacoraCambioInsert] @inIdEntityType = 4,@inEntityID = @idModified, @inJsonAntes = @jsonAntes,
+													@inJsonDespues = NULL, @inInsertedBy = @inUsuarioACargo, 
+													@inInsertedIn = @inIPusuario, @inInsertedAt = @insertedAt
+			COMMIT
 		END TRY
 		BEGIN CATCH
+			ROLLBACK TRAN;
 			THROW 86784,'Error: No se ha podido eliminar la relacion entre la propiedad y el propietario.',1;
 		END CATCH
 	END

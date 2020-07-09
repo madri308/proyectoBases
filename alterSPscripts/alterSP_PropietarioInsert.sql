@@ -17,8 +17,8 @@ AS
 		BEGIN TRY
 		SET NOCOUNT ON 
 		SET XACT_ABORT ON
+		DECLARE @jsonDespues VARCHAR(500), @idModified INT, @insertedAt DATE
 			BEGIN TRAN	
-				declare @jsonDespues varchar(500), @idModified int, @insertedAt DATE
 				--INSERTA AL PROPIETARIO
 				INSERT INTO [dbo].[Propietario] ([nombre], [valorDocId], [identificacion],[fechaDeIngreso])
 				SELECT @inNombre, @inValorDocId, @inIdentificacion,CONVERT(VARCHAR(10), getdate(), 126)
@@ -33,7 +33,7 @@ AS
 				FROM [dbo].[Propietario] WHERE [id] = @idModified
 				FOR JSON PATH)
 				--INSERTA EL CAMBIO
-				EXEC [dbo].[SP_BitacoraCambioInsert] @inIdEntityType = 1,@inEntityID = @idModified, @inJsonAntes = NULL,
+				EXEC [dbo].[SP_BitacoraCambioInsert] @inIdEntityType = 2,@inEntityID = @idModified, @inJsonAntes = NULL,
 													@inJsonDespues = @jsonDespues, @inInsertedBy = @inUsuarioACargo, 
 													@inInsertedIn = @inIPusuario, @inInsertedAt = @insertedAt
 			COMMIT

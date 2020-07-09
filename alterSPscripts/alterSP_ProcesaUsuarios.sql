@@ -8,24 +8,24 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE PROC [dbo].[SP_ProcesaUsuarios] @Usuario UsuarioTipo READONLY
+CREATE PROC [dbo].[SP_ProcesaUsuarios] @inUsuario UsuarioTipo READONLY
 AS  
 	BEGIN 
 		BEGIN TRY
 		SET NOCOUNT ON 
 		SET XACT_ABORT ON 
 			declare @jsonDespues varchar(500), @idMenor int, @idMayor int, @idModified int, @insertedAt DATE
+			SELECT @idMenor = min([id]), @idMayor=max([id]) FROM @inUsuario
+			SET @insertedAt = (SELECT Fecha FROM @inUsuario WHERE id = @idMenor) 
 			BEGIN TRAN
-				SELECT @idMenor = min([id]), @idMayor=max([id]) FROM @Usuario
-				SET @insertedAt = (SELECT Fecha FROM @Usuario WHERE id = @idMenor) 
 				WHILE @idMenor<=@idMayor
 				BEGIN
 					INSERT INTO [dbo].[Usuario] ([nombre], [password], [tipoDeUsuario],[fechaDeIngreso])
 					SELECT nombre,contrasenna,tipoDeUsuario,Fecha
-					FROM @Usuario 
+					FROM @inUsuario 
 					WHERE id = @idMenor
 
-					SET @idModified = (SELECT id FROM [dbo].[Usuario] WHERE nombre IN (SELECT nombre FROM @Usuario WHERE id = @idMenor))
+					SET @idModified = (SELECT id FROM [dbo].[Usuario] WHERE nombre IN (SELECT nombre FROM @inUsuario WHERE id = @idMenor))
 					SET @jsonDespues = (SELECT [id],[nombre],[password],[tipoDeUsuario],[fechaDeIngreso]
 									FROM [dbo].[Usuario] WHERE [activo] = 1 AND [id] = @idModified
 									FOR JSON PATH)

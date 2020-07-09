@@ -15,8 +15,8 @@ AS
 		BEGIN TRY 
 		SET NOCOUNT ON 
 		SET XACT_ABORT ON  
+		DECLARE @jsonAntes VARCHAR(500), @idModified INT
 			BEGIN TRAN
-				declare @jsonAntes varchar(500), @idModified int
 				--GUARDA EL ID Y FECHA
 				SET @insertedAt = GETDATE()
 				SET @idModified = (SELECT [id] FROM [dbo].[Usuario] WHERE [nombre] = @inUsuario)
@@ -29,7 +29,7 @@ AS
 				SET    [activo] = 0
 				WHERE  [nombre] = @inUsuario
 				--INSERTA EL CAMBIO
-				EXEC [dbo].[SP_BitacoraCambioInsert] @inIdEntityType = 1,@inEntityID = @idModified, @inJsonAntes = @jsonAntes,
+				EXEC [dbo].[SP_BitacoraCambioInsert] @inIdEntityType = 3,@inEntityID = @idModified, @inJsonAntes = @jsonAntes,
 													@inJsonDespues = NULL, @inInsertedBy = @inUsuarioACargo, 
 													@inInsertedIn = @inIPusuario, @inInsertedAt = @insertedAt
 			COMMIT

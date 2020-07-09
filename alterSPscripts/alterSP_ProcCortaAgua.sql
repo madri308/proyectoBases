@@ -35,7 +35,7 @@ AS
 					INNER JOIN [dbo].[ConceptoDeCobro] CC ON CC.id = 10
 					WHERE P.id = @idMenor
 
-					SET @id = (SELECT MAX(id) FROM [dbo].[Recibos])
+					SET @id = IDENT_CURRENT('[dbo].[Recibos]')
 
 					INSERT INTO [dbo].[ReciboReconexion](id)
 					SELECT @id

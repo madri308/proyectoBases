@@ -2,7 +2,7 @@ Pago de recibos: mas valor en la progra esta duro jerry iterativo o sql masivo??
 =============================================================================================================
 Cambio valor propiedad:
 =============================================================================================================
-Registro de consumo de Agua:
+Registro de consumo de Agua: Verificar si se puede hacer masivo
 
 	<consumo NumeroFinca="12345" LecturaMedidorM3="1075"/>
 	consumo: 
