@@ -7,8 +7,14 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
     <div id="divComprobantesDePago" style="margin-left:11%">
-        <asp:GridView runat="server" CssClass="gridNormalUser" id="GridComprobantesDePago" AutoGenerateColumns="true" Visible="false" ShowFooter="false" CellPadding="3">
-        
+        <asp:GridView runat="server" CssClass="gridNormalUser" id="GridComprobantesDePago" AutoGenerateColumns="true" Visible="false" ShowFooter="false" CellPadding="3" DataKeyNames="id">
+            <Columns>
+                <asp:TemplateField HeaderText="" ShowHeader="False">
+                        <ItemTemplate>
+                            <asp:LinkButton ID="lnkvVerRecibosDeComprobante" runat="server" CausesValidation="True" Text="Recibos pagados" OnClick="lnkvVerRecibosDeComprobante_Click"></asp:LinkButton>
+                        </ItemTemplate>
+                </asp:TemplateField>
+            </Columns>
             <HeaderStyle BackColor="#222222" Font-Bold="True" ForeColor="White" HorizontalAlign="Center"/>
         </asp:GridView>
     </div>
