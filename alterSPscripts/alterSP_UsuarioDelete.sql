@@ -9,13 +9,13 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE PROC [dbo].[SP_UsuarioDelete] 
-    @inUsuario varchar(30),@inUsuarioACargo varchar(20), @inIPusuario varchar(20), @insertedAt DATE
+    @inUsuario varchar(30),@inUsuarioACargo varchar(20), @inIPusuario varchar(20)
 AS 
 	BEGIN 
 		BEGIN TRY 
 		SET NOCOUNT ON 
 		SET XACT_ABORT ON  
-		DECLARE @jsonAntes VARCHAR(500), @idModified INT
+		DECLARE @jsonAntes VARCHAR(500), @idModified INT, @insertedAt DATE
 			BEGIN TRAN
 				--GUARDA EL ID Y FECHA
 				SET @insertedAt = GETDATE()
