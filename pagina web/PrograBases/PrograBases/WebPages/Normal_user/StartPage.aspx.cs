@@ -62,6 +62,7 @@ namespace PrograBases.WebPages.Normal_user
             string numfinca = row.Cells[0].Text;
             Session["numFinca"] = numfinca;
             Session["opcionRecibos"] = 1;
+            Session["opcionRecibosDeComprobante"] = 0;
             Response.Redirect("~/WebPages/Normal_user/tablaRecibos.aspx");
         }
 
@@ -72,8 +73,18 @@ namespace PrograBases.WebPages.Normal_user
             string numfinca = row.Cells[0].Text;
             Session["numFinca"] = numfinca;
             Session["opcionRecibos"] = 0;
+            Session["opcionRecibosDeComprobante"] = 0;
             Response.Redirect("~/WebPages/Normal_user/tablaRecibos.aspx");
         }
 
+        protected void lnkvVerComprobantesDePago_Click(object sender, EventArgs e)
+        {
+            LinkButton btn = (LinkButton)sender;
+            GridViewRow row = (GridViewRow)btn.NamingContainer;
+            string numfinca = row.Cells[0].Text;
+            Session["numFinca"] = numfinca;
+            Session["opcionComprobante"] = 2;
+            Response.Redirect("~/WebPages/Normal_user/tablaComprobantesDePago.aspx");
+        }
     }
 }

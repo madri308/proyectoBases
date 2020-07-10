@@ -33,6 +33,12 @@
                     </ItemTemplate>
                 </asp:TemplateField>
 
+                <asp:TemplateField HeaderText="" ShowHeader="False">
+                    <ItemTemplate>
+                        <asp:LinkButton ID="lnkvVerComprobantesDePago" runat="server" CausesValidation="True" Text="Comprobantes de pago" OnClick="lnkvVerComprobantesDePago_Click"></asp:LinkButton>
+                    </ItemTemplate>
+                </asp:TemplateField>
+
             </Columns>
             <HeaderStyle BackColor="#222222" Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
 

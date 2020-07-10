@@ -10,6 +10,7 @@ namespace PrograBases.WebPages.Normal_user
     public partial class tablaRecibos : System.Web.UI.Page
     {
         private string selectRecibosSpName = "SP_RecibosSelect";
+        private string selectRecibosDeComprobanteSPName = "SP_ReciboDeComprobanteSelect";
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -20,32 +21,64 @@ namespace PrograBases.WebPages.Normal_user
 
         protected void fillGridRecibos()
         {
-            string numFinca = (string)Session["numFinca"];
-            int opcionRecibos = (int)Session["opcionRecibos"];
-            try
+            int opcionRecibosDeComprobante = (int)Session["opcionRecibosDeComprobante"];
+            if (opcionRecibosDeComprobante == 1)
             {
-                using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
+                int idComprobante = (int)Session["idComprobante"];
+                try
                 {
-                    string procedure = selectRecibosSpName;
+                    using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
+                    {
+                        string procedure = selectRecibosDeComprobanteSPName;
 
-                    SqlCommand cmd = new SqlCommand(procedure, conn);
-                    cmd.CommandType = CommandType.StoredProcedure;
+                        SqlCommand cmd = new SqlCommand(procedure, conn);
+                        cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add("@inNumfinca", SqlDbType.VarChar).Value = numFinca;
-                    cmd.Parameters.Add("@inOpcionRecibos", SqlDbType.Int).Value = opcionRecibos;
+                        cmd.Parameters.Add("@inIdComprobantePago", SqlDbType.VarChar).Value = idComprobante;
 
-                    cmd.Connection = conn;
-                    conn.Open();
+                        cmd.Connection = conn;
+                        conn.Open();
 
-                    GridRecibos.DataSource = cmd.ExecuteReader();
-                    GridRecibos.DataBind();
-                    GridRecibos.Visible = true;
+                        GridRecibos.DataSource = cmd.ExecuteReader();
+                        GridRecibos.DataBind();
+                        GridRecibos.Visible = true;
+                    }
+                }
+                catch (SqlException ex)
+                {
+                    string alertMessage = Utilidad.mensajeAlerta(ex);
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('" + alertMessage + "')", true);
                 }
             }
-            catch (SqlException ex)
-            {
-                string alertMessage = Utilidad.mensajeAlerta(ex);
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('" + alertMessage + "')", true);
+            else
+            { 
+                string numFinca = (string)Session["numFinca"];
+                int opcionRecibos = (int)Session["opcionRecibos"];
+                try
+                {
+                    using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
+                    {
+                        string procedure = selectRecibosSpName;
+
+                        SqlCommand cmd = new SqlCommand(procedure, conn);
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        cmd.Parameters.Add("@inNumfinca", SqlDbType.VarChar).Value = numFinca;
+                        cmd.Parameters.Add("@inOpcionRecibos", SqlDbType.Int).Value = opcionRecibos;
+
+                        cmd.Connection = conn;
+                        conn.Open();
+
+                        GridRecibos.DataSource = cmd.ExecuteReader();
+                        GridRecibos.DataBind();
+                        GridRecibos.Visible = true;
+                    }
+                }
+                catch (SqlException ex)
+                {
+                    string alertMessage = Utilidad.mensajeAlerta(ex);
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('" + alertMessage + "')", true);
+                }
             }
         }
 
@@ -56,6 +89,7 @@ namespace PrograBases.WebPages.Normal_user
             int rowIndex = Convert.ToInt32(row.RowIndex);
             int idRecibo = (int)GridRecibos.DataKeys[rowIndex]["id"];
             Session["idRecibo"] = idRecibo;
+            Session["opcionComprobante"] = 1;
             Response.Redirect("~/WebPages/Normal_user/tablaComprobantesDePago.aspx");
         }
     }
