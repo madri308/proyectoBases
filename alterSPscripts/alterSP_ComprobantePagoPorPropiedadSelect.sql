@@ -15,7 +15,7 @@ AS
 		BEGIN TRY
 		SET NOCOUNT ON 
 		SET XACT_ABORT ON  
-			SELECT CP.id,CP.fecha, CP.total 
+			SELECT DISTINCT CP.id,CP.fecha, CP.total 
 			FROM   [dbo].[ComprobantePago] CP
 			INNER JOIN [dbo].[ReciboPagado] RP ON RP.id_Comprobante = CP.id
 			INNER JOIN [dbo].[Recibos] R ON R.id = RP.id_Recibo
