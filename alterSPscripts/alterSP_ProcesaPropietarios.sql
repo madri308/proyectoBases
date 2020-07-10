@@ -38,7 +38,8 @@ AS
 			COMMIT
 		END TRY
 		BEGIN CATCH
-			ROLLBACK TRAN;
+			If @@TRANCOUNT > 0 
+				ROLLBACK TRAN;
 			THROW 982734,'Error: No se han podido procesar los propietarios.',1;
 		END CATCH
 	END

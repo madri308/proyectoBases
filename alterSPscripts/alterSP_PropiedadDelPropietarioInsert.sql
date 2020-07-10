@@ -36,7 +36,8 @@ AS
 			COMMIT
 		END TRY
 		BEGIN CATCH
-			ROLLBACK TRAN;
+			If @@TRANCOUNT > 0 
+				ROLLBACK TRAN;
 			THROW 73654,'Error: No se ha podido insertar una relacion entre el propietario y la propiedad',1;
 		END CATCH
 	END

@@ -128,7 +128,8 @@ AS
 			COMMIT
 		END TRY
 		BEGIN CATCH
-			ROLLBACK TRAN;
+			If @@TRANCOUNT > 0 
+				ROLLBACK TRAN;
 			THROW --600021, 'Error: No se ha podido crear los pago.',1;
 		END CATCH
 	END

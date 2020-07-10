@@ -49,7 +49,8 @@ AS
 			COMMIT
 		END TRY
 		BEGIN CATCH;
-			ROLLBACK TRAN;
+			If @@TRANCOUNT > 0 
+				ROLLBACK TRAN;
 			THROW 82736,'Error: No se ha podido modificar la relacion entre la propiedad y el usuario',1;
 		END CATCH
 	END

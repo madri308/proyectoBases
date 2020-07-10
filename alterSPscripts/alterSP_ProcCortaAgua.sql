@@ -50,7 +50,8 @@ AS
 			COMMIT
 		END TRY
 		BEGIN CATCH
-			ROLLBACK TRAN;
+			If @@TRANCOUNT > 0 
+				ROLLBACK TRAN;
 			THROW 554004,'Error: No se ha podido procesas las cortas de agua',1;
 		END CATCH	
 	END

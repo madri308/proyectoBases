@@ -53,7 +53,8 @@ AS
 			COMMIT
 		END TRY
 		BEGIN CATCH
-			ROLLBACK TRAN;
+			If @@TRANCOUNT > 0 
+				ROLLBACK TRAN;
 			THROW 55001,'Error: No se ha podido modificar el propietario.',1;
 		END CATCH
 	END

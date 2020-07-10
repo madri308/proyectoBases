@@ -31,7 +31,8 @@ AS
 			COMMIT
 		END TRY
 		BEGIN CATCH
-			ROLLBACK TRAN;
+			If @@TRANCOUNT > 0 
+				ROLLBACK TRAN;
 			THROW 600210, 'Error: No se ha podido actualizar la propiedad.',1;
 		END CATCH
 	END

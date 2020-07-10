@@ -34,6 +34,8 @@ AS
 				COMMIT
 		END TRY
 		BEGIN CATCH
+			If @@TRANCOUNT > 0 
+				ROLLBACK TRAN;
 			THROW 73693,'Error: No se pudo crear el concepto de cobro.',1;
 		END CATCH
 	END

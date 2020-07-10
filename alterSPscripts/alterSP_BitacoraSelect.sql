@@ -17,6 +17,7 @@ AS
 			DECLARE @fechaDesde DATE , @fechaHasta DATE
 			SET @fechaDesde = CONVERT(DATE,@inFechaDesde,121)
 			SET @fechaHasta = CONVERT(DATE,@inFechaHasta,121)
+
 			SELECT [jsonAntes],[jsonDespues],[insertedAt],U.nombre,[insertedIn] 
 			FROM [dbo].[BitacoraCambio] BC
 			INNER JOIN [dbo].[Usuario] U ON U.id = BC.insertedBy 

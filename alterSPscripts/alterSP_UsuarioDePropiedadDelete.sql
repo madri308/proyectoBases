@@ -37,7 +37,8 @@ AS
 			COMMIT
 		END TRY
 		BEGIN CATCH
-			ROLLBACK TRAN;
+			If @@TRANCOUNT > 0 
+				ROLLBACK TRAN;
 			THROW 92836,'Error: No se ha podido eliminar la relacion entre el usuario y la propiedad.',1;
 		END CATCH
 	END

@@ -39,7 +39,8 @@ AS
 			COMMIT
 		 END TRY
 		BEGIN CATCH
-			ROLLBACK TRAN;
+			If @@TRANCOUNT > 0 
+				ROLLBACK TRAN;
 			THROW 98762, 'Error: No se ha podido insertar el propietario.',1;
 		END CATCH;
 	END

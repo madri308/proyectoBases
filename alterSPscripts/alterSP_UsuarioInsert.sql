@@ -37,7 +37,8 @@ AS
 			COMMIT
 		END TRY
 		BEGIN CATCH
-			ROLLBACK TRAN;
+			If @@TRANCOUNT > 0 
+				ROLLBACK TRAN;
 			THROW 762839,'Error: No se ha podido insertar el usuario, por favor revise los datos',1;
 		END CATCH
 	END

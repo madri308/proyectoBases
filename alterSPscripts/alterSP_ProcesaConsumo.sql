@@ -52,7 +52,8 @@ AS
 			COMMIT
 		END TRY
 		BEGIN CATCH
-			ROLLBACK TRAN;
+			If @@TRANCOUNT > 0 
+				ROLLBACK TRAN;
 			THROW 92039, 'Error: no se ha podido procesar los consumos de agua.',1
 		END CATCH;
 	END

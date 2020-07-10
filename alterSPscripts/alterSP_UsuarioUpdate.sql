@@ -54,7 +54,8 @@ AS
 			COMMIT
 		END TRY
 		BEGIN CATCH
-			ROLLBACK TRAN;
+			If @@TRANCOUNT > 0 
+				ROLLBACK TRAN;
 			THROW 55501,'Error al modificar usuario, por favor verifique los datos',1;
 		END CATCH
 	END

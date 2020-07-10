@@ -35,7 +35,8 @@ AS
 			COMMIT
 		END TRY
 		BEGIN CATCH
-			ROLLBACK TRAN;
+			If @@TRANCOUNT > 0 
+				ROLLBACK TRAN;
 			THROW 55004,'Error: No se ha podido eliminar el propietario',1;
 		END CATCH	
 	END
