@@ -25,7 +25,7 @@ AS
 			SET @idUsuarioOriginal = (SELECT [id] FROM [dbo].[Usuario] WHERE [nombre] = @inUsuarioOriginal AND [activo]=1)
 			--GUARDA EL ID y fecha
 			SET @insertedAt = GETDATE()
-			SET @idModified = (SELECT [id] FROM [dbo].[UsuarioDePropiedad] WHERE [id_Propiedad] = @idPropiedadOriginal AND [id_Usuario] = @idUsuarioOriginal)
+			SET @idModified = (SELECT [id] FROM [dbo].[UsuarioDePropiedad] WHERE [id_Propiedad] = @idPropiedadOriginal AND [id_Usuario] = @idUsuarioOriginal AND [activo]=1)
 			--GUARDA EL JSON DEL ROW DE LA RELACION ANTES
 			SET @jsonAntes = (SELECT [id], [id_Propiedad], [id_Usuario]
 			FROM [dbo].[UsuarioDePropiedad] WHERE [id] = @idModified

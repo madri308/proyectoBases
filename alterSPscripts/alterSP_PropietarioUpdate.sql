@@ -22,7 +22,7 @@ AS
 			BEGIN TRAN
 				--GUARDA EL ID
 				SET @insertedAt = GETDATE()
-				SET @idModified = (SELECT [id] FROM [dbo].[Propietario] WHERE [identificacion] = @inIdentificacionOriginal)
+				SET @idModified = (SELECT [id] FROM [dbo].[Propietario] WHERE [identificacion] = @inIdentificacionOriginal AND [activo] = 1)
 				--GUARDA EL JSON DEL ROW DE PROPIETARIO ANTES
 				SET @jsonAntes = (SELECT [id], [nombre], [valorDocId], [identificacion], [fechaDeIngreso]
 				FROM [dbo].[Propietario] WHERE [id] = @idModified

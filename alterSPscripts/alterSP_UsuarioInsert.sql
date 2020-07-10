@@ -24,7 +24,7 @@ AS
 						(@inPassword != '-1') AND 
 						(@inTipoDeUsuario != '-1' )
 				--GUARDA EL ID y fecha
-				SET @idModified = (SELECT [id] FROM [dbo].[Usuario] WHERE [nombre] = @inNombre)
+				SET @idModified = (SELECT [id] FROM [dbo].[Usuario] WHERE [nombre] = @inNombre AND [activo] = 1)
 				SET @insertedBy = GETDATE()
 				--GUARDA EL JSON DEL ROW DE USUARIO
 				SET @jsonDespues = (SELECT [id], [nombre], [password], [tipoDeUsuario], [fechaDeIngreso]
