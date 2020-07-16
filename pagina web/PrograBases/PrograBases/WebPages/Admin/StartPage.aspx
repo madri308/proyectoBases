@@ -42,11 +42,9 @@
                 <asp:ListItem Value="3"> Usuario </asp:ListItem>
                 <asp:ListItem Value="4"> Propiedad vs Propietario </asp:ListItem>
                 <asp:ListItem Value="5"> Propiedad vs Usuario </asp:ListItem>
-                <asp:ListItem Value="6"> Propietario Juridico </asp:ListItem>
-                <asp:ListItem Value="7"> Concepto de Cobro </asp:ListItem>
             </asp:DropDownList>
 
-            <p style="color:white">Date: <input type="text" name="fromDate" id="fromDate"> TO <input type="text" name="toDate" id="toDate"></p>
+            <p style="color:white">Fecha inicio: <input type="text" name="fromDate" id="fromDate1"> Fecha final <input type="text" name="toDate" id="toDate1"></p>
 
             <asp:Button runat="server" CssClass="botonConsulta" ID="botonConsultaCambiosEnEntidad" Text="Realizar consulta" OnClick="botonConsultaCambiosEnEntidad_Click"/>
         </div>
@@ -54,7 +52,7 @@
 
     <script>
         $(function () {
-            var from = $("#fromDate")
+            var from = $("#fromDate1")
                 .datepicker({
                     dateFormat: "yy-mm-dd",
                     changeMonth: true
@@ -62,7 +60,7 @@
                 .on("change", function () {
                     to.datepicker("option", "minDate", getDate(this));
                 }),
-                to = $("#toDate").datepicker({
+                to = $("#toDate1").datepicker({
                     dateFormat: "yy-mm-dd",
                     changeMonth: true
                 })

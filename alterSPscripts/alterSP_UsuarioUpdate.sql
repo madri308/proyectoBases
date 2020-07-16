@@ -23,7 +23,7 @@ AS
 			BEGIN TRAN
 				--GUARDA EL ID y fecha
 				SET @insertedAt = GETDATE()
-				SET @idModified = (SELECT [id] FROM [dbo].[Usuario] WHERE [nombre] = @inNombreOriginal)
+				SET @idModified = (SELECT [id] FROM [dbo].[Usuario] WHERE [nombre] = @inNombreOriginal  AND [activo] = 1)
 				----GUARDA EL JSON DEL ROW DE USUARIO ANTES
 				SET @jsonAntes = (SELECT [id], [nombre], [password], [tipoDeUsuario], [fechaDeIngreso]
 				FROM [dbo].[Usuario] WHERE [id] = @idModified
