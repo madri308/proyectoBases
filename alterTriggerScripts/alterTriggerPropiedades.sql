@@ -1,12 +1,12 @@
 USE [Progra]
 GO
 
-IF OBJECT_ID('[dbo].[cambiosPropiedad]') IS NOT NULL
+IF OBJECT_ID('[dbo].[trigger_cambiosPropiedad]') IS NOT NULL
 BEGIN 
-    DROP TRIGGER [dbo].[cambiosPropiedad]  
+    DROP TRIGGER [dbo].[trigger_cambiosPropiedad]  
 END 
 GO
-CREATE TRIGGER [dbo].[cambiosPropiedad]
+CREATE TRIGGER [dbo].[trigger_cambiosPropiedad]
 ON [dbo].[Propiedad]
 AFTER  INSERT,UPDATE
 AS				
