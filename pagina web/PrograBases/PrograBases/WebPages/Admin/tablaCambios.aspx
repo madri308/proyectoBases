@@ -7,7 +7,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div id="tablaCambios" style="margin-left:11%; padding-top:1%">
 
-        <asp:GridView runat="server" ID="GridFechas" AutoGenerateColumns="true" Visible="false" ShowFooter="false" CellPadding="3" OnRowDataBound="GridFechas_RowDataBound">
+        <asp:GridView runat="server" ID="GridFechas" AutoGenerateColumns="true" Visible="false" ShowFooter="false" CellPadding="3">
             
             <columns>
                 <asp:TemplateField HeaderText="" ShowHeader="False">
