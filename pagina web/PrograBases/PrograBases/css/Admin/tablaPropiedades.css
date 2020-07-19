@@ -1,18 +1,67 @@
 ﻿body {
 }
 
-#divPropiedades {
-    margin-left: 11%;
+@font-face {
+    font-family: Lato-Regular;
+    src: url('/fonts/Lato/Lato-Regular.ttf');
+}
+
+@font-face {
+    font-family: Lato-Bold;
+    src: url('/fonts/Lato/Lato-Bold.ttf');
+}
+
+#flexBoxPropiedadesContainer {
     display: flex;
     flex-direction: row;
-    width: 67%;
+    margin-left: 11%;
+    height: 100%;
+    padding-top: 1%;
+}
+
+#flexBoxPropiedadesContainer > div {
+    margin: 10px;
+}
+
+#divPropiedades {
+    width: 100%;
+    display: inline-block;
+    overflow-y: scroll;
+    max-height: 90%;
+}
+
+#wrap-table td {
+    font-family: Lato-Regular;
+    font-size: 15px;
+    color: #808080;
+    line-height: 1.4;
+}
+
+#wrap-table tr:nth-child(even) {
+    background-color: red;
+}
+
+#ContentPlaceHolder1_GridPropiedades {
+    text-align: center;
+    margin: auto;
+}
+
+#tableHeader {
+    font-size: 10pt;
+    width: 100%;
+    border-collapse: collapse;
+    height: 50px;
+
+    font-family: Lato-Bold;
+    font-size: 18px;
+    color: #fff;
+    line-height: 1.4;
+    background-color: #6c7ae0;
 }
 
 #divUpdatePropiedad {
     display: flex;
     flex-direction: column;
-    position: fixed;
-    margin-left: 68%;
     background-color: #474e5d;
     height: 40%;
     width: 20%;

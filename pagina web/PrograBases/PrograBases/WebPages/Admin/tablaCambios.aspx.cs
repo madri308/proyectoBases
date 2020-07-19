@@ -118,62 +118,6 @@ namespace PrograBases.WebPages.Admin
             DivJsonDespues.Visible = true;
             
             GridFechas.Visible = false;
-
-            /*
-            Dictionary<string, dynamic> valoresJsonAntes = JsonConvert.DeserializeObject<Dictionary<string, dynamic>>(ambosJson[0]);
-            Dictionary<string, dynamic> valoresJsonDespues = JsonConvert.DeserializeObject<Dictionary<string, dynamic>>(ambosJson[1]);
-
-            Dictionary<string, dynamic> jsonNoNulo = valoresJsonAntes is null ? valoresJsonDespues : valoresJsonAntes;
-
-            DataTable newTable = new DataTable();
-            List<string> columnas = new List<string>();
-
-            foreach(KeyValuePair<string, dynamic> entry in jsonNoNulo)
-            {
-                DataColumn col1 = new DataColumn(entry.Key);
-                col1.DataType = System.Type.GetType("System.String");
-                newTable.Columns.Add(col1);
-
-                columnas.Add(entry.Key);
-            }
-            int columnaActual = 0;
-            if ( valoresJsonAntes != null)
-            {
-                DataRow newRow = newTable.NewRow();
-                foreach(KeyValuePair<string, dynamic> entry in valoresJsonAntes)
-                {
-                    newRow[columnas.ElementAt(columnaActual)] = entry.Value;
-                    columnaActual++;
-                }
-                newTable.Rows.Add(newRow);
-
-                columnaActual = 0;
-            }
-            if (valoresJsonDespues != null)
-            {
-                DataRow newRow2 = newTable.NewRow();
-                foreach (KeyValuePair<string, dynamic> entry in valoresJsonDespues)
-                {
-                    newRow2[columnas.ElementAt(columnaActual)] = entry.Value;
-                    columnaActual++;
-                }
-                newTable.Rows.Add(newRow2);
-            }    
-
-            GridJsonAntes.DataSource = newTable;
-            GridJsonAntes.DataBind();
-            GridJsonAntes.Visible = true;
-            GridFechas.Visible = false;
-            */
-        }
-
-        protected void GridFechas_RowDataBound(object sender, GridViewRowEventArgs e)
-        {
-            /*
-            TableCell cell = e.Row.Cells[0];
-            e.Row.Cells.RemoveAt(0);
-            e.Row.Cells.Add(cell);
-            */
         }
     }
 }
