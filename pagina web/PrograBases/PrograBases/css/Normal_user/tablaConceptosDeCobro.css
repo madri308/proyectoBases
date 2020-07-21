@@ -1,29 +1,29 @@
 ﻿body {
 }
 
-#flexBoxPropiedadesContainer {
-    margin-left: 11%;
+#flexBoxConceptosDeCobroContainer {
+    margin-left: 10%;
     height: 97%;
 }
 
-    #flexBoxPropiedadesContainer > div {
+    #flexBoxConceptosDeCobroContainer > div {
         padding: 10px;
     }
 
-#wrap-table{
+#wrap-table {
     height: 100%;
 }
 
-#wrap-table td {
-    font-family: Lato-Regular;
-    font-size: 15px;
-    color: black;
-    line-height: 1.4;
-}
+    #wrap-table td {
+        font-family: Lato-Regular;
+        font-size: 15px;
+        color: black;
+        line-height: 1.4;
+    }
 
-#wrap-table tr:nth-child(even) {
-    background-color: #f8f6ff;
-}
+    #wrap-table tr:nth-child(even) {
+        background-color: #f8f6ff;
+    }
 
 #tableHeader {
     font-size: 10pt;
@@ -38,14 +38,14 @@
     border-color: white;
 }
 
-#divTablaPropiedades {
+#divTablaConceptosDeCobro {
     width: 100%;
     display: inline-block;
     overflow-y: auto;
     max-height: 90%;
 }
 
-#ContentPlaceHolder1_GridPropiedades {
+#ContentPlaceHolder1_GridConceptosDeCobro {
     text-align: center;
     margin: auto;
     border-color: transparent;

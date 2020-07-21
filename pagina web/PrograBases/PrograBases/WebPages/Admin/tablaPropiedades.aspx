@@ -1,6 +1,8 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/WebPages/Admin/Admin_Site.master" AutoEventWireup="true" CodeBehind="tablaPropiedades.aspx.cs" Inherits="PrograBases.WebPages.tablaPropiedades" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+
     <link rel="stylesheet" href="/css/Admin/tablaPropiedades.css" type="text/css" media="screen" />
+
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -18,7 +20,7 @@
 			    </thead>        
             </table>
 
-            <div id="divPropiedades" >
+            <div id="divTablaPropiedades" >
                 <asp:GridView runat="server" CssClass="gridAdmin" id="GridPropiedades" AutoGenerateColumns="false" Visible="false" ShowFooter="true" ShowHeader="false" CellPadding="3" DataKeyNames="numFinca" OnRowDeleting="GridPropiedades_RowDeleting">
                     <Columns>
                         <asp:TemplateField HeaderText="Numero de Finca" > 

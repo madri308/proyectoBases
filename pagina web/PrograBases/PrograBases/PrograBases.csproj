@@ -81,6 +81,9 @@
     <Content Include="css\Admin\tablaPropietarios.css" />
     <Content Include="css\Admin\tablaUsuarios.css" />
     <Content Include="css\Normal_user\StartPage.css" />
+    <Content Include="css\Normal_user\tablaComprobantesDePago.css" />
+    <Content Include="css\Normal_user\tablaConceptosDeCobro.css" />
+    <Content Include="css\Normal_user\tablaRecibos.css" />
     <Content Include="fonts\font-awesome-4.7.0\css\font-awesome.css" />
     <Content Include="fonts\font-awesome-4.7.0\css\font-awesome.min.css" />
     <Content Include="fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.svg" />
