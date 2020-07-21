@@ -72,6 +72,7 @@ AS
 			COMMIT
 			SELECT [id_CC],[monto],[fecha],[fechaVence] FROM [dbo].[Recibos] R
 			INNER JOIN ##idRecibosPagar RP ON R.id = RP.idRecibo
+			ORDER BY [fecha]
 		END TRY
 		BEGIN CATCH
 			THROW 92039, 'Error: no se ha podido calcular el total.',1

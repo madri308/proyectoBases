@@ -21,6 +21,7 @@ AS
 			INNER JOIN [dbo].[Recibos] R ON R.id = RP.id_Recibo
 			INNER JOIN [dbo].[Propiedad] P ON P.id = R.id_Propiedad
 			WHERE P.numFinca = @inNumFinca
+			ORDER BY CP.fecha
 		END TRY
 		BEGIN CATCH
 			THROW 533901,'Error: No se ha podido mostrar comprobante de pago de la propiedad.',1;
