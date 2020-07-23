@@ -2,6 +2,16 @@
     --div-width: 10%;
 }
 
+@font-face {
+    font-family: Lato-Regular;
+    src: url('/fonts/Lato/Lato-Regular.ttf');
+}
+
+@font-face {
+    font-family: Lato-Bold;
+    src: url('/fonts/Lato/Lato-Bold.ttf');
+}
+
 html, body, #form1 {
     height: 100%;
     margin: 0;
