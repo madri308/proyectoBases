@@ -40,7 +40,7 @@ AS
 
 				--INSERTA LOS RECIBOS EN RECIBOS PAGADOS
 				INSERT INTO [dbo].[ReciboPagado](id_Recibo,id_Comprobante)
-				SELECT idRP.idRecibo,IDENT_CURRENT('[dbo].[ComprobantePago]')
+				SELECT idRP.idRecibo,@idComprobante
 				FROM ##idRecibosPagarAP idRP
 				DROP TABLE ##idRecibosPagarAP
 
@@ -51,7 +51,9 @@ AS
 
 				--ACTUALIZA EL COMPROBANTE DE PAGO CON EL ID DEL AP
 				UPDATE [dbo].[ComprobantePago]
-				SET medioDePago += @idAP
+				SET medioDePago += CAST(@idAP AS VARCHAR(30))
+				FROM [dbo].[ComprobantePago]
+				WHERE id = @idComprobante
 
 				--GENERA UN MOVIMIENTO DE DEBITO, EL UNICO
 				INSERT INTO [dbo].[MovimientosAP](idAP,idTipoMov,Monto,interesDelMes,plazoResta,nuevoSaldo,fecha,insertedAt)

@@ -165,7 +165,21 @@ BEGIN
 		
 		--GENERACION DE RECIBOS
 		EXEC [dbo].[SP_ProcGeneraRecibos] @MinDate
-		
+
+		EXEC [dbo].[SP_GenerarAPRecibos] @MinDate
+
+		DECLARE @APs APTipo
+		INSERT INTO @APs(numFinca,plazo) 
+			SELECT [NumFinca],[plazo],CONVERT(DATE,[fechaDeIngreso12],121)[fechaDeIngreso12]
+			FROM OPENXML (@hdoc, 'Operaciones_por_Dia/OperacionDia/AP',1)  
+				WITH (	[NumFinca]	VARCHAR(30)	'@NumFinca',  
+						[plazo]		INT			'@Plazo',
+						[fechaDeIngreso12] DATE	'../@fecha')
+				WHERE [fechaDeIngreso12] = @MinDate
+		EXEC [dbo].[SP_ProcesaAPs] @APs
+		DELETE @APs
+
+
 	SET @MinDate = dateadd(d,1,@MinDate) --INCREMENTA LA FECHA
 	
 END

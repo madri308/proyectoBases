@@ -1,4 +1,7 @@
 ﻿USE [Progra]
+CREATE TYPE APTipo AS TABLE (id INT IDENTITY(1,1),numFinca VARCHAR(30),plazo INT) 
+
+
 CREATE TYPE PagosTipo AS TABLE (id INT IDENTITY(1,1),numFinca VARCHAR(30),idTipoRecibo INT) 
 
 CREATE TYPE PropiedadDelUsuarioTipo AS TABLE (id INT IDENTITY(1,1),idUsuario INT,idPropiedad INT,Fecha DATE) 

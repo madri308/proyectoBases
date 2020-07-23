@@ -32,6 +32,7 @@ AS
 				INSERT INTO [dbo].[ReciboPagado](id_Recibo,id_Comprobante)
 				SELECT idRP.idRecibo,IDENT_CURRENT('[dbo].[ComprobantePago]')
 				FROM ##idRecibosPagar idRP
+				--ELIMINA LA TABLA YA QUE NO LA NECESITO MAS
 				DROP TABLE ##idRecibosPagar
 			COMMIT
 		END TRY
