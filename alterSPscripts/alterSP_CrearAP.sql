@@ -14,9 +14,15 @@ AS
 		BEGIN TRY
 		SET NOCOUNT ON 
 		SET XACT_ABORT ON
-			DECLARE @montoAP MONEY, @idPropiedad INT, @idComprobante INT,@TasaInteresAnual FLOAT, @idAP INT
+			DECLARE 
+			@montoAP MONEY
+			,@idPropiedad INT
+			,@idComprobante INT
+			,@TasaInteresAnual FLOAT
+			,@idAP INT
+
 			--SACA LA TASA ANUAL DE LA TABLA DE CONFIG
-			SET @TasaInteresAnual = convert(float,(SELECT valor FROM [dbo].[ValoresConfig] WHERE nombre = 'TasaInteres AP'))
+			SET @TasaInteresAnual = CONVERT(FLOAT,(SELECT valor FROM [dbo].[ValoresConfig] WHERE id = 1))
 			
 			--GUARDA EL ID DE LA PROPIEDAD
 			SET @idPropiedad = (SELECT DISTINCT id_Propiedad FROM [dbo].[Recibos] R
@@ -42,6 +48,8 @@ AS
 				INSERT INTO [dbo].[ReciboPagado](id_Recibo,id_Comprobante)
 				SELECT idRP.idRecibo,@idComprobante
 				FROM ##idRecibosPagarAP idRP
+
+				--ELIMINO LA TABLA YA QUE NO LA USO MAS
 				DROP TABLE ##idRecibosPagarAP
 
 				--CREA UN AP
@@ -70,6 +78,6 @@ AS
 		BEGIN CATCH
 			If @@TRANCOUNT > 0 
 				ROLLBACK TRAN;
-			THROW 55501,'Error al modificar usuario, por favor verifique los datos',1;
+			THROW 55501,'Error al crear el arreglo de pago.',1;
 		END CATCH
 	END

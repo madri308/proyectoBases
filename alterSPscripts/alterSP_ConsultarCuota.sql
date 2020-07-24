@@ -12,16 +12,28 @@ CREATE PROC [dbo].[SP_ConsultarCuota] @inIdRecibos VARCHAR(MAX), @inMeses INT
 AS 
 	BEGIN
 		BEGIN TRY
-			DECLARE @idMenor INT, @idMayor INT,@sumaRecibos MONEY=0, @cuota MONEY, @tasaInteres FLOAT,@montoMoratorio MONEY,@fechaOperacion DATE,
-			@idPropiedad INT,@fechaVence DATE,@montoRecibo MONEY,@tasaMoratoria FLOAT
-			CREATE TABLE ##idRecibosPagarAP (id INT IDENTITY(1,1),idRecibo INT);
+			DECLARE 
+			@idMenor INT
+			,@idMayor INT
+			,@sumaRecibos MONEY = 0
+			,@cuota MONEY
+			,@tasaInteres FLOAT
+			,@montoMoratorio MONEY
+			,@fechaOperacion DATE
+			,@idPropiedad INT
+			,@fechaVence DATE
+			,@montoRecibo MONEY
+			,@tasaMoratoria FLOAT
+
 			--GUARDA LOS IDS DE LOS RECIBOS QUE QUIERO PAGAR
+			CREATE TABLE ##idRecibosPagarAP (id INT IDENTITY(1,1),idRecibo INT);
 			INSERT INTO ##idRecibosPagarAP(idRecibo)
 			SELECT id
 			FROM OPENJSON(@inIdRecibos)
 			WITH(id INT)
-			--SET @sumaRecibos = 0
-			SELECT @idMenor = MIN([id]), @idMayor=MAX([id]) FROM ##idRecibosPagarAP--SACA ID MAYOR Y MENOR PARA ITERAR LA TABLA
+
+			--SACA ID MAYOR Y MENOR PARA ITERAR LA TABLA
+			SELECT @idMenor = MIN([id]), @idMayor=MAX([id]) FROM ##idRecibosPagarAP
 			BEGIN TRAN
 				WHILE @idMenor<=@idMayor--RECORRE LOS RECIBOS
 				BEGIN
@@ -61,13 +73,13 @@ AS
 					SET @idMenor += 1
 				END
 			COMMIT
-			SET @tasaInteres = convert(float,(SELECT valor FROM [dbo].[ValoresConfig] WHERE nombre = 'TasaInteres AP'))
+			SET @tasaInteres = CONVERT(FLOAT,(SELECT valor FROM [dbo].[ValoresConfig] WHERE id = 1))
 			SET @cuota = @sumaRecibos*((@tasaInteres*POWER((1+@tasaInteres),@inMeses))/(POWER((1+@tasaInteres),@inMeses)-1))
 			SELECT @cuota
 		END TRY
 		BEGIN CATCH
 			If @@TRANCOUNT > 0 
 				ROLLBACK TRAN;
-			THROW 55501,'Error al modificar usuario, por favor verifique los datos',1;
+			THROW 55501,'Error no hemos podido generar la cuota.',1;
 		END CATCH
 	END

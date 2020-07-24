@@ -62,6 +62,7 @@ EXEC sp_xml_preparedocument @hdoc OUTPUT, @XMLData
 			WHERE [tipo] = 'CC Interes Moratorio';
 
 /*
+USE [Progra]
 DELETE [dbo].[CCConsumo]
 DELETE [dbo].[CCFijo]
 DELETE [dbo].[CCImpMoratorio]

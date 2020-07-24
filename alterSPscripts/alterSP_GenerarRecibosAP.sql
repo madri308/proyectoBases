@@ -26,7 +26,7 @@ AS
 			,@idMov INT
 			DECLARE @idAPs TABLE(id INT IDENTITY(1,1),idAP int)
 
-			SET @TasaInteresAnual = convert(float,(SELECT valor FROM [dbo].[ValoresConfig] WHERE nombre = 'TasaInteres AP'))
+			SET @TasaInteresAnual = CONVERT(FLOAT,(SELECT valor FROM [dbo].[ValoresConfig] WHERE id = 1))
 			SET @dia  = DAY(@inFecha)
 
 			--GUARDA LOS IDS DE LOS APS QUE SE GENERARON ESTE DIA
@@ -34,6 +34,7 @@ AS
 			SELECT id 
 			FROM [dbo].[ArregloPago]
 			WHERE DAY(insertedAt) = @dia AND PlazoResta != 0
+
 			--GUARDA LOS IDS MENOR Y MAYOR PARA ITERAR
 			SELECT @idMenor = MIN(id), @idMayor = MAX(id) FROM @idAPs
 			BEGIN TRAN
@@ -52,7 +53,6 @@ AS
 					SET Saldo = Saldo - @amortizacion,
 					PlazoResta = PlazoResta-1
 					FROM [dbo].[ArregloPago] AP 
-					INNER JOIN [dbo].[ValoresConfig] Config ON Config.nombre = 'TasaInteres AP' 
 					INNER JOIN @idAPs idAPs ON AP.id = idAPs.idAP
 					WHERE idAPs.id = @idMenor
 
@@ -66,13 +66,13 @@ AS
 											WHERE idAPs.id = @idMenor )
 					--SE GENERA EL MOVIMIENTO
 					INSERT INTO [dbo].[MovimientosAP](idAP,idTipoMov,Monto,interesDelMes,plazoResta,nuevoSaldo,fecha,insertedAt)
-					SELECT AP.id,1,@amortizacion,@interesDelMes,@plazoRestante,@nuevoSaldo,@inFecha,@inFecha
+					SELECT AP.id,0,@amortizacion,@interesDelMes,@plazoRestante,@nuevoSaldo,@inFecha,@inFecha
 					FROM [dbo].[ArregloPago] AP
 					INNER JOIN @idAPs idAPs ON AP.id = idAPs.idAP
 					WHERE idAPs.id = @idMenor
 					SET @idMov = IDENT_CURRENT('[dbo].[MovimientosAP]')
 
-					--SE GENERA EL RECIBOS DEL AP
+					--SE GENERA EL RECIBO DEL AP
 					INSERT INTO [dbo].[Recibos](id_CC,monto,estado,id_Propiedad,fecha,fechaVence)
 					SELECT CC.id,AP.Cuota,0,AP.IdPropiedad,@inFecha,DATEADD(D,CC.diasParaVencer,@inFecha)
 					FROM @idAPs idAPs 

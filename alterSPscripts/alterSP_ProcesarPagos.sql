@@ -40,8 +40,8 @@ AS
 					--SI NO EXISTE ENTONCES LO CREA
 					IF @idComprobante IS NULL
 					BEGIN
-						INSERT INTO [dbo].[ComprobantePago](fecha,total)
-						SELECT @fechaOperacion,0
+						INSERT INTO [dbo].[ComprobantePago](fecha,total,medioDePago)
+						SELECT @fechaOperacion,0,'Corriente'
 						SET @idComprobante = IDENT_CURRENT('[dbo].[ComprobantePago]')
 					END
 					
@@ -130,6 +130,6 @@ AS
 		BEGIN CATCH
 			If @@TRANCOUNT > 0 
 				ROLLBACK TRAN;
-			THROW --600021, 'Error: No se ha podido crear los pago.',1;
+			THROW 600021, 'Error: No se ha podido crear los pago.',1;
 		END CATCH
 	END

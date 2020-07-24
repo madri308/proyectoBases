@@ -136,7 +136,7 @@ BEGIN
 		DECLARE @nuevosValProp ValorPropiedadTipo  
 		INSERT INTO @nuevosValProp(numFinca,nuevoValor)  
 			SELECT [NumFinca],[nuevoValor]
-			FROM OPENXML (@hdoc, 'Operaciones_por_Dia/OperacionDia/CambioPropiedad ',1)  
+			FROM OPENXML (@hdoc, 'Operaciones_por_Dia/OperacionDia/CambioPropiedad',1)  
 				WITH (	[NumFinca]			VARCHAR(30)		'@NumFinca',  
 						[nuevoValor]		MONEY			'@NuevoValor',
 						[fechaDeIngreso10]	VARCHAR(100)	'../@fecha')
@@ -165,20 +165,21 @@ BEGIN
 		
 		--GENERACION DE RECIBOS
 		EXEC [dbo].[SP_ProcGeneraRecibos] @MinDate
-
-		EXEC [dbo].[SP_GenerarAPRecibos] @MinDate
-
+		
+		--GENERACION DE RECIBOS DE AP
+		EXEC [dbo].[SP_GenerarRecibosAP] @MinDate
+		
+		--PROCESAMIENTO DE APS
 		DECLARE @APs APTipo
 		INSERT INTO @APs(numFinca,plazo) 
-			SELECT [NumFinca],[plazo],CONVERT(DATE,[fechaDeIngreso12],121)[fechaDeIngreso12]
+			SELECT [NumFinca],[plazo]
 			FROM OPENXML (@hdoc, 'Operaciones_por_Dia/OperacionDia/AP',1)  
 				WITH (	[NumFinca]	VARCHAR(30)	'@NumFinca',  
 						[plazo]		INT			'@Plazo',
 						[fechaDeIngreso12] DATE	'../@fecha')
 				WHERE [fechaDeIngreso12] = @MinDate
-		EXEC [dbo].[SP_ProcesaAPs] @APs
+		EXEC [dbo].[SP_ProcesaAPs] @APs,@MinDate
 		DELETE @APs
-
 
 	SET @MinDate = dateadd(d,1,@MinDate) --INCREMENTA LA FECHA
 	
@@ -191,14 +192,17 @@ DELETE BitacoraCambio
 DELETE ReciboPagado
 DELETE Reconexion
 DELETE ReciboReconexion
+DELETE RecibosAP
 DELETE Recibos
-DELETE ComprobantePago
 DELETE PropiedadDelPropietario
 DELETE UsuarioDePropiedad
 DELETE CCDePropiedad
+DELETE Propiedad
+DELETE MovimientosAP
+DELETE ArregloPago
+DELETE ComprobantePago
 DELETE PropietarioJuridico
 DELETE Propietario
 DELETE MovConsumo
-DELETE Propiedad
 DELETE Usuario WHERE tipoDeUsuario = 'cliente'
 */
