@@ -17,15 +17,9 @@ AS
 			SET @idFinca = (	SELECT [id]
 								FROM [dbo].[Propiedad] 
 								WHERE [numFinca] = @inNumfinca AND [activo] = 1)
-			SELECT [dbo].[CCConsumo].[valorPorM3],[dbo].[ConceptoDeCobro].[esImpuesto],[dbo].[ConceptoDeCobro].[esRecurrente],[dbo].[ConceptoDeCobro].[esFijo],[dbo].[ConceptoDeCobro].[monto],[dbo].[ConceptoDeCobro].[nombre],
-					[dbo].[ConceptoDeCobro].[tasaImpuestoMoratorio],[dbo].[ConceptoDeCobro].[id],[dbo].[ConceptoDeCobro].[diasParaVencer],
-					[dbo].[ConceptoDeCobro].[diaDeCobro], [dbo].[CCFijo].[Monto],[dbo].[CCPorcentaje].[valorPorcentual]
-			FROM   [dbo].[ConceptoDeCobro]
-			LEFT OUTER JOIN [dbo].[CCConsumo] ON [dbo].[ConceptoDeCobro].[id] = [dbo].[CCConsumo].[id]
-			LEFT OUTER JOIN [dbo].[CCFijo] ON [dbo].[ConceptoDeCobro].[id] = [dbo].[CCFijo].[id]
-			LEFT OUTER JOIN [dbo].[CCImpMoratorio] ON [ConceptoDeCobro].[id] = [dbo].[CCImpMoratorio].[id]
-			LEFT OUTER JOIN [dbo].[CCPorcentaje] ON [dbo].[ConceptoDeCobro].[id] = [dbo].[CCPorcentaje].[id]
-			WHERE [dbo].[ConceptoDeCobro].[activo] = 1 AND [dbo].[ConceptoDeCobro].[id] IN (SELECT [id_CC] FROM [dbo].[CCDePropiedad] WHERE [id_Propiedad] = @idFinca AND [activo] = 1)
+			SELECT *
+			FROM [CCdePropiedadView]
+			WHERE [id_Propiedad] = @idFinca 
 		END TRY
 		BEGIN CATCH
 			THROW 66900,'Error: No se han podido mostrar los conceptos de cobro de la propiedad',1
