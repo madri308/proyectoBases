@@ -33,7 +33,7 @@ AS
 				SELECT idRP.idRecibo,IDENT_CURRENT('[dbo].[ComprobantePago]')
 				FROM [idRecibosPagarTable] idRP
 				--ELIMINA LA TABLA YA QUE NO LA NECESITO MAS
-				DROP TABLE [idRecibosPagarTable]
+				delete [idRecibosPagarTable]
 			COMMIT
 		END TRY
 		BEGIN CATCH

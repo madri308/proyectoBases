@@ -101,9 +101,7 @@ namespace PrograBases.WebPages.Normal_user
 
         protected void botonPagarRecibos_Click(object sender, EventArgs e)
         {
-            //"[{\"id\":3663,\"valor\":30565427.0000,\"direccion\":\"Hacienda Vieja, Condominio la Estancia, Finca Filial No 3-12, edificio No 3, primer nivel\",\"numFinca\":\"1118180\",\"fechaDeIngreso\":\"2020-02-28\",\"M3acumuladosAgua\":0.000000000000000e+000,\"M3AcumuladosUltimoRecibo\":0.000000000000000e+000}]"
-            //
-            //List<string> idRecibos = new List<string>();
+
             DataTable idRecibos = new DataTable();
 
             idRecibos.Columns.Add(new DataColumn("id", typeof(int)) { AutoIncrement = true, AutoIncrementSeed = 1, AutoIncrementStep = 1 }) ;
@@ -188,7 +186,7 @@ namespace PrograBases.WebPages.Normal_user
                 ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('" + alertMessage + "')", true);
             }
             divTablaConfirmacionDePago.Visible = false;
-            //fillGridRecibos();
+            fillGridRecibos();
         }
 
         protected void botonConfirmarPago_Click(object sender, EventArgs e)
