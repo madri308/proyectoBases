@@ -7,16 +7,19 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div id="flexBoxRecibosContainer">
+        <div runat="server" CssClass="BlurHelper" id="divBlur" visible="false"></div>
+
         <div id="wrap-table">
-            <table border="1" id="tableHeader">
+            <table border="1" class="tableHeader">
                 <thead>
 				    <tr class="row100 head">
 					    <th class="cell100 column1" style="width:10%">Id Concepto de cobro</th>
-					    <th class="cell100 column2" style="width:19%">Monto</th>
-					    <th class="cell100 column3" style="width:15%">Estado</th>
-					    <th class="cell100 column4" style="width:15%">Fecha</th>
-					    <th class="cell100 column5" style="width:15%">Fecha Vencimiento</th>
+					    <th class="cell100 column3" style="width:14%">Estado</th>
+					    <th class="cell100 column4" style="width:14%">Fecha</th>
+					    <th class="cell100 column5" style="width:14%">Fecha Vencimiento</th>
 					    <th class="cell100 column5" style="width:12%">Comprobantes de pago</th>
+					    <th class="cell100 column2" style="width:19%">Monto</th>
+                        <th class="cell100 column5" style="width:3%"></th>
 				    </tr>
 			    </thead>        
             </table>
@@ -26,19 +29,62 @@
                     <Columns>
                         <asp:BoundField HeaderText="Id" DataField="id" InsertVisible="False" ReadOnly="True" SortExpression="id" Visible="false"/>
                         <asp:BoundField HeaderText="Id Concepto de cobro" DataField="id_CC" InsertVisible="False" ReadOnly="True" SortExpression="id_CC" ItemStyle-Width="10%"/>
+                        <asp:BoundField HeaderText="Estado" DataField="estado" InsertVisible="False" ReadOnly="True" SortExpression="estado" ItemStyle-Width="14%"/>
+                        <asp:BoundField HeaderText="Fecha" DataField="fecha" InsertVisible="False" ReadOnly="True" SortExpression="fecha" ItemStyle-Width="14%"/>
+                        <asp:BoundField HeaderText="Fecha Vencimiento" DataField="fechaVence" InsertVisible="False" ReadOnly="True" SortExpression="fechaVence" ItemStyle-Width="14%"/>
                         <asp:BoundField HeaderText="Monto" DataField="monto" InsertVisible="False" ReadOnly="True" SortExpression="monto" ItemStyle-Width="19%"/>
-                        <asp:BoundField HeaderText="Estado" DataField="estado" InsertVisible="False" ReadOnly="True" SortExpression="estado" ItemStyle-Width="15%"/>
-                        <asp:BoundField HeaderText="Fecha" DataField="fecha" InsertVisible="False" ReadOnly="True" SortExpression="fecha" ItemStyle-Width="15%"/>
-                        <asp:BoundField HeaderText="Fecha Vencimiento" DataField="fechaVence" InsertVisible="False" ReadOnly="True" SortExpression="fechaVence" ItemStyle-Width="15%"/>
                         <asp:TemplateField HeaderText="" ShowHeader="False">
                             <ItemTemplate>
                                 <asp:LinkButton ID="lnkvVerComprobantesDePago" runat="server" CausesValidation="True" Text="Comprobantes de pago" OnClick="lnkvVerComprobantesDePago_Click"></asp:LinkButton>
                             </ItemTemplate>
                             <ItemStyle Width="12%"/>
                         </asp:TemplateField>
+                        <asp:TemplateField HeaderText="" ShowHeader="False">
+                            <ItemTemplate>
+                                <asp:CheckBox runat="server" ID="checkBoxRecibo"/>
+                            </ItemTemplate>
+                            <ItemStyle Width="3%"/>
+                        </asp:TemplateField>
                     </Columns>
                     <HeaderStyle BackColor="#222222" Font-Bold="True" ForeColor="White" HorizontalAlign="Center"/>
                 </asp:GridView>
+            </div>
+            <asp:Button runat="server" CssClass="botonRecibos" ID="botonPagarRecibos" onClick="botonPagarRecibos_Click" Text="Pagar"/>
+            
+            <div runat="server" id="divTablaConfirmacionDePago" visible="false">
+                <table border="1" class="tableHeader">
+                    <thead>
+				        <tr class="row100 head">
+					        <th class="cell100 column1" style="width:10%">Id Concepto de cobro</th>
+					        <th class="cell100 column4" style="width:14%">Fecha</th>
+					        <th class="cell100 column5" style="width:14%">Fecha Vencimiento</th>
+					        <th class="cell100 column2" style="width:19%">Monto</th>
+				        </tr>
+			        </thead>        
+                </table>
+
+                <asp:GridView runat="server" CssClass="gridNormalUser" id="GridComfirmacionDePago" AutoGenerateColumns="false" Visible="false" ShowFooter="true" ShowHeader="false" CellPadding="3">
+                    <Columns>
+                        <asp:BoundField HeaderText="Id Concepto de cobro" DataField="id_CC" InsertVisible="False" ReadOnly="True" SortExpression="id_CC" ItemStyle-Width="10%"/>
+                        <asp:BoundField HeaderText="Fecha" DataField="fecha" InsertVisible="False" ReadOnly="True" SortExpression="fecha" ItemStyle-Width="14%"/>
+                        <asp:BoundField HeaderText="Fecha Vencimiento" DataField="fechaVence" InsertVisible="False" ReadOnly="True" SortExpression="fechaVence" ItemStyle-Width="14%"/>
+                        <asp:TemplateField HeaderText="Monto">
+                            <ItemTemplate>
+                                <asp:Label runat="server" ID="labelMonto" Text='<%# Bind("monto") %>'></asp:Label>
+                            </ItemTemplate>
+                            <FooterTemplate>
+                                <asp:Label runat="server" id="labelTotal" Text="Total"></asp:Label>
+                            </FooterTemplate>
+
+                            <ItemStyle Width="19%" />
+                        </asp:TemplateField>
+                    </Columns>
+                    <HeaderStyle BackColor="#222222" Font-Bold="True" ForeColor="White" HorizontalAlign="Center"/>
+                </asp:GridView>
+                <div id="divButtonContainer">
+                    <asp:Button runat="server" CssClass="botonRecibos botonCancelar" ID="botonCancelarPago" onClick="botonCancelarPago_Click" Text="Cancelar Pago"/>
+                    <asp:Button runat="server" CssClass="botonRecibos botonConfirmar" ID="botonConfirmarPago" onClick="botonConfirmarPago_Click" Text="Confirmar pago"/>
+                </div>
             </div>
         </div>
     </div>

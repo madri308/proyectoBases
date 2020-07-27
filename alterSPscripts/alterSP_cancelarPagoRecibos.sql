@@ -11,19 +11,14 @@ GO
 CREATE PROC [dbo].[SP_cancelarPagoRecibos]
 AS 
 	BEGIN 
-		BEGIN TRY 
 		SET NOCOUNT ON 
 		SET XACT_ABORT ON  
 			--ANULA LOS RECIBOS MORATORIOS QUE ESTABAN EN LA TABLA
 			UPDATE [dbo].[Recibos]
 			SET estado = 2
 			FROM [dbo].[Recibos] R
-			INNER JOIN ##idRecibosPagar idRP ON R.id = idRP.idRecibo
+			INNER JOIN idRecibosPagarTable idRP ON R.id = idRP.idRecibo
 			WHERE R.id_CC = 11
 			--ELIMINA LA TABLA YA QUE NO LA NECESITO MAS
-			DROP TABLE ##idRecibosPagar
-		END TRY
-		BEGIN CATCH
-			THROW 92039, 'Error: no se han podido cancelar los pagos de los recibos.',1
-		END CATCH;
+			delete [idRecibosPagarTable]
 	END

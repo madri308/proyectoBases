@@ -15,6 +15,15 @@ namespace PrograBases.WebPages.Normal_user
     {
 
         /// <summary>
+        /// divBlur control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divBlur;
+
+        /// <summary>
         /// GridRecibos control.
         /// </summary>
         /// <remarks>
@@ -22,5 +31,50 @@ namespace PrograBases.WebPages.Normal_user
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView GridRecibos;
+
+        /// <summary>
+        /// botonPagarRecibos control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button botonPagarRecibos;
+
+        /// <summary>
+        /// divTablaConfirmacionDePago control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divTablaConfirmacionDePago;
+
+        /// <summary>
+        /// GridComfirmacionDePago control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView GridComfirmacionDePago;
+
+        /// <summary>
+        /// botonCancelarPago control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button botonCancelarPago;
+
+        /// <summary>
+        /// botonConfirmarPago control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button botonConfirmarPago;
     }
 }

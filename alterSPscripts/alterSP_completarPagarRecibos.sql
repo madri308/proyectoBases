@@ -20,20 +20,20 @@ AS
 				UPDATE [dbo].[Recibos]
 				SET estado = 1
 				FROM [dbo].[Recibos] R
-				INNER JOIN ##idRecibosPagar idRP ON R.id = idRP.idRecibo
+				INNER JOIN [idRecibosPagarTable] idRP ON R.id = idRP.idRecibo
 				--GUARDA EL MONTO TOTAL
 				SET @montoComprobante = (SELECT SUM(monto) 
 											FROM [dbo].[Recibos] R 
-											INNER JOIN ##idRecibosPagar idRP ON R.id = idRP.idRecibo)
+											INNER JOIN [idRecibosPagarTable] idRP ON R.id = idRP.idRecibo)
 				--CREA UN COMPROBANTE DE PAGO
 				INSERT INTO [dbo].[ComprobantePago](fecha,total,medioDePago)
 				SELECT GETDATE(),@montoComprobante,'Corriente'
 				--INSERTA LOS RECIBOS EN RECIBOS PAGADOS
 				INSERT INTO [dbo].[ReciboPagado](id_Recibo,id_Comprobante)
 				SELECT idRP.idRecibo,IDENT_CURRENT('[dbo].[ComprobantePago]')
-				FROM ##idRecibosPagar idRP
+				FROM [idRecibosPagarTable] idRP
 				--ELIMINA LA TABLA YA QUE NO LA NECESITO MAS
-				DROP TABLE ##idRecibosPagar
+				DROP TABLE [idRecibosPagarTable]
 			COMMIT
 		END TRY
 		BEGIN CATCH

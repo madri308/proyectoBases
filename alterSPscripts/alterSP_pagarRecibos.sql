@@ -11,8 +11,9 @@ GO
 --[
  --{ "id" : 2},
  --{ "id" : 5}
+
 --]
-CREATE PROC [dbo].[SP_pagarRecibos] @inIdRecibos varchar(MAX)
+CREATE PROC [dbo].[SP_pagarRecibos] @inIdRecibos TablaRecibosAPagarTipo READONLY
 AS 
 	BEGIN 
 		BEGIN TRY 
@@ -21,36 +22,34 @@ AS
 			DECLARE @idMenor INT, @idMayor INT, @montoRecibo MONEY, 
 					@montoMoratorio MONEY,@fechaOperacion DATE, @montoTotal MONEY,
 					@fechaVence DATE, @tasaMoratoria FLOAT,@idPropiedad int
-			CREATE TABLE ##idRecibosPagar (id INT IDENTITY(1,1),idRecibo INT);
 			--GUARDA LOS IDS DE LOS RECIBOS QUE QUIERO PAGAR
-			INSERT INTO ##idRecibosPagar(idRecibo)
-			SELECT id
-			FROM OPENJSON(@inIdRecibos)
-			WITH(id INT)
+			INSERT INTO idRecibosPagarTable(idRecibo)
+			SELECT idRecibo
+			FROM @inIdRecibos
 
 			SET @montoTotal = 0
 
-			SELECT @idMenor = MIN([id]), @idMayor=MAX([id]) FROM ##idRecibosPagar--SACA ID MAYOR Y MENOR PARA ITERAR LA TABLA
+			SELECT @idMenor = MIN([id]), @idMayor=MAX([id]) FROM idRecibosPagarTable--SACA ID MAYOR Y MENOR PARA ITERAR LA TABLA
 			BEGIN TRAN
 				WHILE @idMenor<=@idMayor--RECORRE LOS RECIBOS
 				BEGIN
 					SET @montoMoratorio = 0
 					SET @fechaOperacion = GETDATE()
 					SET @idPropiedad = (SELECT id_Propiedad FROM [Recibos] R 
-											INNER JOIN ##idRecibosPagar idRP ON idRP.idRecibo = R.id
+											INNER JOIN idRecibosPagarTable idRP ON idRP.idRecibo = R.id
 											WHERE @idMenor = idRP.id)
 					SET @fechaVence = (SELECT fechaVence FROM [dbo].[Recibos] R
-										   INNER JOIN ##idRecibosPagar idRP ON idRP.idRecibo = R.id
+										   INNER JOIN idRecibosPagarTable idRP ON idRP.idRecibo = R.id
 										   WHERE @idMenor = idRP.id)
 					SET @montoRecibo = (SELECT R.monto FROM [dbo].[Recibos] R
-											INNER JOIN ##idRecibosPagar idRP ON R.id = idRP.idRecibo
+											INNER JOIN idRecibosPagarTable idRP ON R.id = idRP.idRecibo
 											WHERE idRP.id = @idMenor)
 					IF @fechaVence < @fechaOperacion
 					BEGIN
 						--SACA LA TASA MORATORIA DEL RECIBO
 						SET @tasaMoratoria = (SELECT CC.tasaImpuestoMoratorio FROM [dbo].[ConceptoDeCobro] CC
 												INNER JOIN [dbo].[Recibos] R ON R.id_CC = CC.id 
-												INNER JOIN  ##idRecibosPagar idRP ON idRP.idRecibo = R.id
+												INNER JOIN  idRecibosPagarTable idRP ON idRP.idRecibo = R.id
 												WHERE idRP.id = @idMenor)
 
 						--AQUI CAMBIA EL MONTO MORATORIO YA QUE SI SE DEBE CREAR RECIBO MORATORIO
@@ -63,7 +62,7 @@ AS
 						WHERE CC.id = 11
 
 						--GUARDA ADEMAS LOS RECIBOS MORATORIOS A PAGAR
-						INSERT INTO ##idRecibosPagar(idRecibo)
+						INSERT INTO idRecibosPagarTable(idRecibo)
 						SELECT IDENT_CURRENT('[dbo].[Recibos]')
 					END
 					SET @montoTotal += @montoMoratorio+@montoRecibo
@@ -71,7 +70,7 @@ AS
 				END
 			COMMIT
 			SELECT [id_CC],[monto],[fecha],[fechaVence] FROM [dbo].[Recibos] R
-			INNER JOIN ##idRecibosPagar RP ON R.id = RP.idRecibo
+			INNER JOIN idRecibosPagarTable RP ON R.id = RP.idRecibo
 			ORDER BY [fecha]
 		END TRY
 		BEGIN CATCH
