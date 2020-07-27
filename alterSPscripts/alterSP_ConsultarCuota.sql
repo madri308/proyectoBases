@@ -26,34 +26,33 @@ AS
 			,@tasaMoratoria FLOAT
 
 			--GUARDA LOS IDS DE LOS RECIBOS QUE QUIERO PAGAR
-			CREATE TABLE ##idRecibosPagarAP (id INT IDENTITY(1,1),idRecibo INT);
-			INSERT INTO ##idRecibosPagarAP(idRecibo)
+			INSERT INTO idRecibosPagarAP(idRecibo)
 			SELECT id
 			FROM OPENJSON(@inIdRecibos)
 			WITH(id INT)
 
 			--SACA ID MAYOR Y MENOR PARA ITERAR LA TABLA
-			SELECT @idMenor = MIN([id]), @idMayor=MAX([id]) FROM ##idRecibosPagarAP
+			SELECT @idMenor = MIN([id]), @idMayor=MAX([id]) FROM idRecibosPagarAP
 			BEGIN TRAN
 				WHILE @idMenor<=@idMayor--RECORRE LOS RECIBOS
 				BEGIN
 					SET @montoMoratorio = 0
 					SET @fechaOperacion = GETDATE()
 					SET @idPropiedad = (SELECT id_Propiedad FROM [Recibos] R 
-											INNER JOIN ##idRecibosPagarAP idRP ON idRP.idRecibo = R.id
+											INNER JOIN idRecibosPagarAP idRP ON idRP.idRecibo = R.id
 											WHERE @idMenor = idRP.id)
 					SET @fechaVence = (SELECT fechaVence FROM [dbo].[Recibos] R
-											INNER JOIN ##idRecibosPagarAP idRP ON idRP.idRecibo = R.id
+											INNER JOIN idRecibosPagarAP idRP ON idRP.idRecibo = R.id
 											WHERE @idMenor = idRP.id)
 					SET @montoRecibo = (SELECT R.monto FROM [dbo].[Recibos] R
-											INNER JOIN ##idRecibosPagarAP idRP ON R.id = idRP.idRecibo
+											INNER JOIN idRecibosPagarAP idRP ON R.id = idRP.idRecibo
 											WHERE idRP.id = @idMenor)
 					IF @fechaVence < @fechaOperacion
 					BEGIN
 						--SACA LA TASA MORATORIA DEL RECIBO
 						SET @tasaMoratoria = (SELECT CC.tasaImpuestoMoratorio FROM [dbo].[ConceptoDeCobro] CC
 												INNER JOIN [dbo].[Recibos] R ON R.id_CC = CC.id 
-												INNER JOIN  ##idRecibosPagarAP idRP ON idRP.idRecibo = R.id
+												INNER JOIN  idRecibosPagarAP idRP ON idRP.idRecibo = R.id
 												WHERE idRP.id = @idMenor)
 
 						--AQUI CAMBIA EL MONTO MORATORIO YA QUE SI SE DEBE CREAR RECIBO MORATORIO
@@ -66,7 +65,7 @@ AS
 						WHERE CC.id = 11
 
 						--GUARDA ADEMAS LOS RECIBOS MORATORIOS A PAGAR
-						INSERT INTO ##idRecibosPagarAP(idRecibo)
+						INSERT INTO idRecibosPagarAP(idRecibo)
 						SELECT IDENT_CURRENT('[dbo].[Recibos]')
 					END
 					SET @sumaRecibos += @montoMoratorio+@montoRecibo

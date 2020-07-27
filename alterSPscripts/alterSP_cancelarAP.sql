@@ -18,10 +18,10 @@ AS
 			UPDATE [dbo].[Recibos]
 			SET estado = 2
 			FROM [dbo].[Recibos] R
-			INNER JOIN ##idRecibosPagarAP idRP ON R.id = idRP.idRecibo
+			INNER JOIN idRecibosPagarAP idRP ON R.id = idRP.idRecibo
 			WHERE R.id_CC = 11
 			--ELIMINA LA TABLA YA QUE NO LA NECESITO MAS
-			DROP TABLE ##idRecibosPagarAP
+			DELETE idRecibosPagarAP
 		END TRY
 		BEGIN CATCH
 			THROW 92039, 'Error: no se han podido cancelar los pagos de los recibos.',1

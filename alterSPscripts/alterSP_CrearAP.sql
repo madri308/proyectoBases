@@ -26,18 +26,18 @@ AS
 			
 			--GUARDA EL ID DE LA PROPIEDAD
 			SET @idPropiedad = (SELECT DISTINCT id_Propiedad FROM [dbo].[Recibos] R
-								INNER JOIN ##idRecibosPagarAP idRP ON R.id = idRP.idRecibo)
+								INNER JOIN idRecibosPagarAP idRP ON R.id = idRP.idRecibo)
 			
 			--GUARDA EL MONTO TOTAL
 			SET @montoAP = (SELECT SUM(monto) 
 							FROM [dbo].[Recibos] R 
-							INNER JOIN ##idRecibosPagarAP idRP ON R.id = idRP.idRecibo)
+							INNER JOIN idRecibosPagarAP idRP ON R.id = idRP.idRecibo)
 			BEGIN TRAN
 				--ACTUALIZA EL ESTADO A PAGADOS
 				UPDATE [dbo].[Recibos]
 				SET estado = 1
 				FROM [dbo].[Recibos] R
-				INNER JOIN ##idRecibosPagarAP idRP ON R.id = idRP.idRecibo
+				INNER JOIN idRecibosPagarAP idRP ON R.id = idRP.idRecibo
 
 				--CREA UN COMPROBANTE DE PAGO
 				INSERT INTO [dbo].[ComprobantePago](fecha,total,medioDePago)
@@ -47,10 +47,10 @@ AS
 				--INSERTA LOS RECIBOS EN RECIBOS PAGADOS
 				INSERT INTO [dbo].[ReciboPagado](id_Recibo,id_Comprobante)
 				SELECT idRP.idRecibo,@idComprobante
-				FROM ##idRecibosPagarAP idRP
+				FROM idRecibosPagarAP idRP
 
 				--ELIMINO LA TABLA YA QUE NO LA USO MAS
-				DROP TABLE ##idRecibosPagarAP
+				DELETE idRecibosPagarAP
 
 				--CREA UN AP
 				INSERT INTO [dbo].[ArregloPago](IdPropiedad,IdComprobante,MontoOriginal,Saldo,TasaInteresAnual,PlazoOriginal,PlazoResta,Cuota,insertedAt,updatedAt)
