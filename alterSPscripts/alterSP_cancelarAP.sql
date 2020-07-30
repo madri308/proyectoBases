@@ -19,7 +19,7 @@ AS
 			SET estado = 3
 			FROM [dbo].[Recibos] R
 			INNER JOIN idRecibosPagarAP idRP ON R.id = idRP.idRecibo
-			WHERE R.id_CC = 11
+			WHERE R.id_CC = 11 AND R.estado = 3
 			--ELIMINA LA TABLA YA QUE NO LA NECESITO MAS
 			DELETE idRecibosPagarAP
 		END TRY
