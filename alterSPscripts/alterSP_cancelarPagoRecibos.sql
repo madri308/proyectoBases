@@ -15,10 +15,10 @@ AS
 		SET XACT_ABORT ON  
 			--ANULA LOS RECIBOS MORATORIOS QUE ESTABAN EN LA TABLA
 			UPDATE [dbo].[Recibos]
-			SET estado = 2
+			SET estado = 3
 			FROM [dbo].[Recibos] R
 			INNER JOIN idRecibosPagarTable idRP ON R.id = idRP.idRecibo
-			WHERE R.id_CC = 11
+			WHERE R.id_CC = 11 
 			--ELIMINA LA TABLA YA QUE NO LA NECESITO MAS
 			delete [idRecibosPagarTable]
 	END

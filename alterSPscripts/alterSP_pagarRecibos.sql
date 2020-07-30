@@ -57,7 +57,7 @@ AS
 						
 						--CREA UN RECIBO DE TIPO MORATORIO
 						INSERT INTO [dbo].[Recibos](id_CC,monto,estado,id_Propiedad,fecha,fechaVence)
-						SELECT CC.id,@montoMoratorio,0,@idPropiedad,@fechaOperacion,DATEADD(d,CC.diasParaVencer,@fechaOperacion)
+						SELECT CC.id,@montoMoratorio,3,@idPropiedad,@fechaOperacion,DATEADD(d,CC.diasParaVencer,@fechaOperacion)
 						FROM [dbo].[ConceptoDeCobro] CC
 						WHERE CC.id = 11
 
