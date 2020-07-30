@@ -11,13 +11,14 @@
             <table border="1" id="tableHeader">
                 <thead>
 				    <tr class="row100 head">
-					    <th class="cell100 column1" style="width:14%">Numero de Finca</th>
-					    <th class="cell100 column2" style="width:14%">Valor</th>
-					    <th class="cell100 column3" style="width:26%">Direccion</th>
+					    <th class="cell100 column1" style="width:10%">Numero de Finca</th>
+					    <th class="cell100 column2" style="width:12%">Valor</th>
+					    <th class="cell100 column3" style="width:24%">Direccion</th>
 					    <th class="cell100 column4" style="width:11%">Conceptos de cobro</th>
 					    <th class="cell100 column5" style="width:11%">Recibos pagados</th>
 					    <th class="cell100 column5" style="width:11%">Recibos pendientes</th>
 					    <th class="cell100 column5" style="width:11%">Comprobantes de pago</th>
+                        <th class="cell100 column5" style="width:11%">Arreglos de pago</th>
 				    </tr>
 			    </thead>        
             </table>
@@ -25,11 +26,11 @@
             <div id="divTablaPropiedades">
                 <asp:GridView runat="server" CssClass="gridNormalUser" id="GridPropiedades" AutoGenerateColumns="false" Visible="false" ShowFooter="false" ShowHeader="false" CellPadding="3" DataKeyNames="numFinca" >
                     <Columns>
-                        <asp:BoundField HeaderText="Numero de Finca" DataField="numFinca" InsertVisible="False" ReadOnly="True" SortExpression="numFinca" ItemStyle-Width="14%"/>
+                        <asp:BoundField HeaderText="Numero de Finca" DataField="numFinca" InsertVisible="False" ReadOnly="True" SortExpression="numFinca" ItemStyle-Width="10%"/>
 
-                        <asp:BoundField HeaderText="Valor" DataField="valor"  InsertVisible="False" ReadOnly="True" SortExpression="valor" ItemStyle-Width="14%"/>
+                        <asp:BoundField HeaderText="Valor" DataField="valor"  InsertVisible="False" ReadOnly="True" SortExpression="valor" ItemStyle-Width="12%"/>
 
-                        <asp:BoundField HeaderText="Direccion" DataField="direccion" InsertVisible="False" ReadOnly="True" SortExpression="direccion" ItemStyle-Width="26%"/>
+                        <asp:BoundField HeaderText="Direccion" DataField="direccion" InsertVisible="False" ReadOnly="True" SortExpression="direccion" ItemStyle-Width="24%"/>
 
                         <asp:TemplateField HeaderText="" ShowHeader="False">
                             <ItemTemplate>
@@ -55,6 +56,13 @@
                         <asp:TemplateField HeaderText="" ShowHeader="False">
                             <ItemTemplate>
                                 <asp:LinkButton ID="lnkvVerComprobantesDePago" runat="server" CausesValidation="True" Text="Comprobantes de pago" OnClick="lnkvVerComprobantesDePago_Click"></asp:LinkButton>
+                            </ItemTemplate>
+                            <ItemStyle Width="11%"/>
+                        </asp:TemplateField>
+
+                        <asp:TemplateField HeaderText="" ShowHeader="False">
+                            <ItemTemplate>
+                                <asp:LinkButton ID="lnkvVerArreglosDePago" runat="server" CausesValidation="True" Text="Arreglos de pago" OnClick="lnkvVerArreglosDePago_Click"></asp:LinkButton>
                             </ItemTemplate>
                             <ItemStyle Width="11%"/>
                         </asp:TemplateField>

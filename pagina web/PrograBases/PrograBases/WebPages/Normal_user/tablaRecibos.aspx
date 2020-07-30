@@ -7,7 +7,6 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div id="flexBoxRecibosContainer">
-        <div runat="server" CssClass="BlurHelper" id="divBlur" visible="false"></div>
 
         <div id="wrap-table">
             <table border="1" class="tableHeader">
@@ -17,8 +16,8 @@
 					    <th class="cell100 column3" style="width:14%">Estado</th>
 					    <th class="cell100 column4" style="width:14%">Fecha</th>
 					    <th class="cell100 column5" style="width:14%">Fecha Vencimiento</th>
-					    <th class="cell100 column5" style="width:12%">Comprobantes de pago</th>
 					    <th class="cell100 column2" style="width:19%">Monto</th>
+					    <th class="cell100 column5" style="width:12%">Comprobantes de pago</th>
                         <th class="cell100 column5" style="width:3%"></th>
 				    </tr>
 			    </thead>        

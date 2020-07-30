@@ -44,10 +44,19 @@
                 <asp:ListItem Value="5"> Propiedad vs Usuario </asp:ListItem>
             </asp:DropDownList>
 
-            <p style="color:white">Fecha inicio: <input type="text" name="fromDate" id="fromDate1"> Fecha final <input type="text" name="toDate" id="toDate1"></p>
+            <p style="color:white">Fecha inicio: </p>
+            <input type="text" name="fromDate" id="fromDate1" />
+            <p style="color:white">Fecha final: </p>
+            <input type="text" name="toDate" id="toDate1" />
 
             <asp:Button runat="server" CssClass="botonConsulta" ID="botonConsultaCambiosEnEntidad" Text="Realizar consulta" OnClick="botonConsultaCambiosEnEntidad_Click"/>
         </div>
+            
+        <div>
+            <asp:TextBox runat="server" CssClass="textBoxConsulta" ID="textBoxImpersonarUsuario"></asp:TextBox>
+            <asp:Button runat="server" CssClass="botonConsulta" ID="botonImpersonarUsuario" Text="Impersonar Usuario" Onclick="botonImpersonarUsuario_Click" />
+        </div>
+
     </div>
 
     <script>

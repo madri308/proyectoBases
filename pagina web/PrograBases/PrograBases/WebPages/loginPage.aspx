@@ -24,10 +24,6 @@
                 <asp:Label runat="server" CssClass="RespuestaLabel" ID="RespuestaLabel" Visible="true" text="CPenalla, tXfIF, usuario1, 123"/>
             </div>
         </div>
-
-        <div runat="server" id="loading" style="text-align: center" hidden>
-            <asp:Image ID="loadingImage" runat="server"  ImageUrl="~/91.gif" />
-        </div>
     </form>
 </body>
 </html>

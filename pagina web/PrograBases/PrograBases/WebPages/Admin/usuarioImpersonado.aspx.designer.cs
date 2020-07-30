@@ -7,12 +7,39 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PrograBases.WebPages.Normal_user
+namespace PrograBases.WebPages.Admin
 {
 
 
-    public partial class tablaRecibos
+    public partial class usuarioImpersonado
     {
+
+        /// <summary>
+        /// divPropiedades control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divPropiedades;
+
+        /// <summary>
+        /// GridPropiedades control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView GridPropiedades;
+
+        /// <summary>
+        /// divRecibos control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divRecibos;
 
         /// <summary>
         /// GridRecibos control.
@@ -67,5 +94,23 @@ namespace PrograBases.WebPages.Normal_user
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button botonConfirmarPago;
+
+        /// <summary>
+        /// divComprobantesDePagoContainer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divComprobantesDePagoContainer;
+
+        /// <summary>
+        /// GridComprobantesDePago control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView GridComprobantesDePago;
     }
 }

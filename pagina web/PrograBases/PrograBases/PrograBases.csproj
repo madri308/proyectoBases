@@ -73,6 +73,7 @@
     <Content Include="91.gif" />
     <Content Include="css\Admin\About.css" />
     <Content Include="css\Admin\crudsRelaciones.css" />
+    <Content Include="css\Admin\usuarioImpersonado.css" />
     <Content Include="css\login.css" />
     <Content Include="css\Admin\SiteMaster.css" />
     <Content Include="css\Admin\StartPage.css" />
@@ -81,6 +82,7 @@
     <Content Include="css\Admin\tablaPropietarios.css" />
     <Content Include="css\Admin\tablaUsuarios.css" />
     <Content Include="css\Normal_user\StartPage.css" />
+    <Content Include="css\Normal_user\tablaAP.css" />
     <Content Include="css\Normal_user\tablaComprobantesDePago.css" />
     <Content Include="css\Normal_user\tablaConceptosDeCobro.css" />
     <Content Include="css\Normal_user\tablaRecibos.css" />
@@ -93,7 +95,9 @@
     <Content Include="Web.config" />
     <Content Include="WebPages\Admin\About.aspx" />
     <Content Include="WebPages\Admin\crudsRelaciones.aspx" />
+    <Content Include="WebPages\Admin\tablaAP.aspx" />
     <Content Include="WebPages\Admin\tablaCambios.aspx" />
+    <Content Include="WebPages\Admin\usuarioImpersonado.aspx" />
     <Content Include="WebPages\loginPage.aspx" />
     <Content Include="WebPages\Admin\StartPage.aspx" />
     <Content Include="WebPages\Admin\tablaConceptosDeCobro.aspx" />
@@ -101,6 +105,7 @@
     <Content Include="WebPages\Admin\tablaPropietarios.aspx" />
     <Content Include="WebPages\Admin\tablaUsuarios.aspx" />
     <Content Include="WebPages\Normal_user\StartPage.aspx" />
+    <Content Include="WebPages\Normal_user\tablaAP.aspx" />
     <Content Include="WebPages\Normal_user\tablaComprobantesDePago.aspx" />
     <Content Include="WebPages\Normal_user\tablaConceptosDeCobro.aspx" />
     <Content Include="WebPages\Normal_user\tablaRecibos.aspx" />
@@ -129,12 +134,26 @@
     <Compile Include="WebPages\Admin\crudsRelaciones.aspx.designer.cs">
       <DependentUpon>crudsRelaciones.aspx</DependentUpon>
     </Compile>
+    <Compile Include="WebPages\Admin\tablaAP.aspx.cs">
+      <DependentUpon>tablaAP.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebPages\Admin\tablaAP.aspx.designer.cs">
+      <DependentUpon>tablaAP.aspx</DependentUpon>
+    </Compile>
     <Compile Include="WebPages\Admin\tablaCambios.aspx.cs">
       <DependentUpon>tablaCambios.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="WebPages\Admin\tablaCambios.aspx.designer.cs">
       <DependentUpon>tablaCambios.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebPages\Admin\usuarioImpersonado.aspx.cs">
+      <DependentUpon>usuarioImpersonado.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebPages\Admin\usuarioImpersonado.aspx.designer.cs">
+      <DependentUpon>usuarioImpersonado.aspx</DependentUpon>
     </Compile>
     <Compile Include="WebPages\loginPage.aspx.cs">
       <DependentUpon>loginPage.aspx</DependentUpon>
@@ -191,6 +210,13 @@
     </Compile>
     <Compile Include="WebPages\Normal_user\StartPage.aspx.designer.cs">
       <DependentUpon>StartPage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebPages\Normal_user\tablaAP.aspx.cs">
+      <DependentUpon>tablaAP.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebPages\Normal_user\tablaAP.aspx.designer.cs">
+      <DependentUpon>tablaAP.aspx</DependentUpon>
     </Compile>
     <Compile Include="WebPages\Normal_user\tablaComprobantesDePago.aspx.cs">
       <DependentUpon>tablaComprobantesDePago.aspx</DependentUpon>

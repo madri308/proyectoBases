@@ -1,0 +1,52 @@
+﻿body {
+}
+
+.flexBoxContainer {
+    margin-left: 11% !important;
+    height: 97%;
+}
+
+    .flexBoxContainer > div {
+        padding: 10px;
+    }
+
+.wrap-table {
+    height: 100%;
+}
+
+    .wrap-table td {
+        font-family: Lato-Regular;
+        font-size: 15px;
+        color: black;
+        line-height: 1.4;
+    }
+
+    .wrap-table tr:nth-child(even) {
+        background-color: #f8f6ff;
+    }
+
+.tableHeader {
+    font-size: 10pt;
+    width: 99%;
+    border-collapse: collapse;
+    height: 50px;
+    font-family: Lato-Bold;
+    font-size: 18px;
+    color: #fff;
+    line-height: 1.4;
+    background-color: #6c7ae0;
+    border-color: white;
+}
+
+.divTabla {
+    width: 99%;
+    display: inline-block;
+    overflow-y: auto;
+    max-height: 90%;
+}
+
+.grid {
+    text-align: center;
+    width: 100%;
+    border-color: transparent;
+}
