@@ -71,3 +71,12 @@ ul.hrefList {
     margin-left: var(--div-size);
     height: 100%;
 }
+
+#logout_button {
+    width: 70%;
+    margin-left: 15%;
+    border: none;
+    background: inherit;
+    color: #fff !important;
+    font-size: 15px;
+}

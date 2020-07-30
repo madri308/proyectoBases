@@ -49,6 +49,7 @@ namespace PrograBases.WebPages.Normal_user
                         GridRecibos.DataBind();
                         GridRecibos.Visible = true;
                     }
+                    botonPagarRecibos.Visible = false;
                 }
                 catch (SqlException ex)
                 {
@@ -79,12 +80,17 @@ namespace PrograBases.WebPages.Normal_user
                         GridRecibos.DataBind();
                         GridRecibos.Visible = true;
                     }
+                    if (opcionRecibos == 1)
+                    {
+                        botonPagarRecibos.Visible = false;
+                    }
                 }
                 catch (SqlException ex)
                 {
                     string alertMessage = Utilidad.mensajeAlerta(ex);
                     ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('" + alertMessage + "')", true);
                 }
+                
             }
         }
 

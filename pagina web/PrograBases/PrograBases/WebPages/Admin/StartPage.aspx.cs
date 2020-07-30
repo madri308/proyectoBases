@@ -73,5 +73,16 @@ namespace PrograBases.WebPages
             Session["toDate"] = Request.Form["toDate"];
             Response.Redirect("~/WebPages/Admin/tablaCambios.aspx");
         }
+
+        protected void botonImpersonarUsuario_Click(object sender, EventArgs e)
+        {
+            string nombreUsuario = textBoxImpersonarUsuario.Text;
+            if (string.IsNullOrEmpty(nombreUsuario))
+            {
+                return;
+            }
+            Session["nombreDeUsuario"] = nombreUsuario;
+            Response.Redirect("~/WebPages/Admin/usuarioImpersonado.aspx");
+        }
     }
 }

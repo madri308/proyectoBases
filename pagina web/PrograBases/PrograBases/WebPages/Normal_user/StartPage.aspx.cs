@@ -47,6 +47,8 @@ namespace PrograBases.WebPages.Normal_user
 
             }
         }
+
+        // ########################## Funciones para recibos
         protected void lnkvVerConceptosDeCobro_Click(object sender, EventArgs e)
         {
             LinkButton btn = (LinkButton)sender;
@@ -85,6 +87,15 @@ namespace PrograBases.WebPages.Normal_user
             Session["numFinca"] = numfinca;
             Session["opcionComprobante"] = 2;
             Response.Redirect("~/WebPages/Normal_user/tablaComprobantesDePago.aspx");
+        }
+
+        protected void lnkvVerArreglosDePago_Click(object sender, EventArgs e)
+        {
+            LinkButton btn = (LinkButton)sender;
+            GridViewRow row = (GridViewRow)btn.NamingContainer;
+            string numfinca = row.Cells[0].Text;
+            Session["numFinca"] = numfinca;
+            Response.Redirect("~/WebPages/Normal_user/tablaAP.aspx");
         }
     }
 }
