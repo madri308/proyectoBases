@@ -181,4 +181,5 @@
         </div>
     </div>
 
+    <asp:Button runat="server" CssClass="botonRecibos" id="botonVolverAPropiedades" Text="Volver a propiedades" OnClick="botonVolverAPropiedades_Click"/>
 </asp:Content>

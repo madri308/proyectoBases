@@ -83,5 +83,6 @@
             </div>
         </div>
     </div>
+    <asp:Button runat="server" id="botonVolverAPropiedades" CssClass="botonRecibos" Text="Volver a propiedades" OnClick="botonVolverAPropiedades_Click"/>
 
 </asp:Content>

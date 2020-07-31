@@ -253,6 +253,7 @@ namespace PrograBases.WebPages.Admin
         // ###################### Funciones para arreglos de pagos
         protected void botonCrearAP_Click(object sender, EventArgs e)
         {
+            botonVolverAPropiedades.Visible = false;
             labelErrorPagoRecibos.Visible = false;
             DataTable idRecibos = new DataTable();
             HashSet<string> idCCSeleccionados = new HashSet<string>();
@@ -314,6 +315,7 @@ namespace PrograBases.WebPages.Admin
 
         protected void botonCancelarAP_Click(object sender, EventArgs e)
         {
+            botonVolverAPropiedades.Visible = true;
             try
             {
                 using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
@@ -340,6 +342,7 @@ namespace PrograBases.WebPages.Admin
 
         protected void botonConfirmarAP_Click(object sender, EventArgs e)
         {
+            botonVolverAPropiedades.Visible = true;
             try
             {
                 using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
@@ -364,6 +367,13 @@ namespace PrograBases.WebPages.Admin
             }
             divTablaConfirmacionDePago.Visible = false;
             fillGridRecibos();
+        }
+
+        protected void botonVolverAPropiedades_Click(object sender, EventArgs e)
+        {
+            divComprobantesDePagoContainer.Visible = false;
+            divRecibos.Visible = false;
+            divPropiedades.Visible = true;
         }
     }
 }
