@@ -15,8 +15,18 @@ AS
 		BEGIN TRY
 		SET NOCOUNT ON 
 		SET XACT_ABORT ON  
-			SELECT *
+			SELECT R.id
+				,R.id_CC
+				,R.monto
+				,R.estado
+				,R.activo
+				,R.id_Propiedad
+				,R.fecha
+				,R.fechaVence
+				,RAP.idMovAP
+				,RAP.idMovAP
 			FROM [dbo].[Recibos] R
+			LEFT OUTER JOIN [dbo].[RecibosAP] RAP ON R.id = RAP.id
 			INNER JOIN [dbo].[ReciboPagado] RP ON RP.id_Recibo = R.id
 			WHERE RP.id_Comprobante = @inIdComprobantePago
 		END TRY
