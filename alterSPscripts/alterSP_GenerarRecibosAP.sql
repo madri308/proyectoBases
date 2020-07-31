@@ -43,11 +43,7 @@ AS
 					SET @interesDelMes = ((SELECT AP.Saldo 
 											FROM [dbo].[ArregloPago] AP
 											INNER JOIN @idAPs idAPs ON AP.id = idAPs.idAP
-<<<<<<< HEAD
-											WHERE idAPs.id = @idMenor)*@TasaInteresAnual/12)/100
-=======
 											WHERE idAPs.id = @idMenor)*@TasaInteresAnual/12) / 100
->>>>>>> 4a9bfc302122f52a24a094b6a37360cfb31380f6
 					SET @amortizacion = (SELECT AP.Cuota
 											FROM [dbo].[ArregloPago] AP
 											INNER JOIN @idAPs idAPs ON AP.id = idAPs.idAP

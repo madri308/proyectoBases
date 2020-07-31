@@ -71,11 +71,8 @@ AS
 					SET @idMenor += 1
 				END
 			COMMIT
-<<<<<<< HEAD
 			SET @tasaInteres = (CONVERT(FLOAT,(SELECT valor FROM [dbo].[ValoresConfig] WHERE id = 1)) / 12) /100
-=======
-			SET @tasaInteres = (CONVERT(FLOAT,(SELECT valor FROM [dbo].[ValoresConfig] WHERE id = 1)) / 12) / 100
->>>>>>> 4a9bfc302122f52a24a094b6a37360cfb31380f6
+
 			SET @cuota = @sumaRecibos*((@tasaInteres*POWER((1+@tasaInteres),@inMeses))/(POWER((1+@tasaInteres),@inMeses)-1))
 			SELECT @cuota
 		END TRY
