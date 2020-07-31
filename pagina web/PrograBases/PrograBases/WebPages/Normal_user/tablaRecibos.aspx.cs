@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Web.UI.HtmlControls;
 
 namespace PrograBases.WebPages.Normal_user
 {
@@ -107,25 +108,35 @@ namespace PrograBases.WebPages.Normal_user
 
         protected void botonPagarRecibos_Click(object sender, EventArgs e)
         {
-
+            labelErrorPagoRecibos.Visible = false;
             DataTable idRecibos = new DataTable();
+            HashSet<string> idCCSeleccionados = new HashSet<string>();
 
             idRecibos.Columns.Add(new DataColumn("id", typeof(int)) { AutoIncrement = true, AutoIncrementSeed = 1, AutoIncrementStep = 1 }) ;
             idRecibos.Columns.Add("idRecibo", typeof(int));
 
-            foreach (GridViewRow row in GridRecibos.Rows)
+            for (int rowIndex = GridRecibos.Rows.Count - 1; rowIndex >= 0; rowIndex--)
             {
+                GridViewRow row = GridRecibos.Rows[rowIndex];
+                string idCC = row.Cells[0].Text;
                 CheckBox checkBoxPagar = (CheckBox)row.FindControl("checkBoxRecibo");
                 if (checkBoxPagar.Checked)
                 {
-                    // TODO Falta revisar que sea la fecha mas vieja de ese concepto de cobro
-                    int rowIndex = Convert.ToInt32(row.RowIndex);
                     int idRecibo = Convert.ToInt32(GridRecibos.DataKeys[rowIndex]["id"]);
-                    
                     DataRow newRow = idRecibos.NewRow();
                     newRow["idRecibo"] = idRecibo;
-                    idRecibos.Rows.Add(newRow);
+                    idRecibos.Rows.InsertAt(newRow, 0);
+                    idCCSeleccionados.Add(idCC);
                 }
+                else if (idCCSeleccionados.Contains(idCC))
+                {
+                    labelErrorPagoRecibos.Visible = true;
+                    return;
+                }
+            }
+            if (idRecibos.Rows.Count == 0)
+            {
+                return;
             }
             try
             {
@@ -194,7 +205,6 @@ namespace PrograBases.WebPages.Normal_user
             divTablaConfirmacionDePago.Visible = false;
             fillGridRecibos();
         }
-
         protected void botonConfirmarPago_Click(object sender, EventArgs e)
         {
             try

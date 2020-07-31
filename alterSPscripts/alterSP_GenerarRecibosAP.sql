@@ -40,10 +40,10 @@ AS
 			BEGIN TRAN
 				WHILE @idMenor<=@idMayor
 				BEGIN
-					SET @interesDelMes = (SELECT AP.Saldo 
+					SET @interesDelMes = ((SELECT AP.Saldo 
 											FROM [dbo].[ArregloPago] AP
 											INNER JOIN @idAPs idAPs ON AP.id = idAPs.idAP
-											WHERE idAPs.id = @idMenor)*@TasaInteresAnual/12
+											WHERE idAPs.id = @idMenor)*@TasaInteresAnual/12) / 100
 					SET @amortizacion = (SELECT AP.Cuota
 											FROM [dbo].[ArregloPago] AP
 											INNER JOIN @idAPs idAPs ON AP.id = idAPs.idAP

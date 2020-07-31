@@ -16,7 +16,7 @@ AS
 		SET XACT_ABORT ON  
 			--ANULA LOS RECIBOS MORATORIOS QUE ESTABAN EN LA TABLA
 			UPDATE [dbo].[Recibos]
-			SET estado = 3
+			SET estado = 2
 			FROM [dbo].[Recibos] R
 			INNER JOIN idRecibosPagarAP idRP ON R.id = idRP.idRecibo
 			WHERE R.id_CC = 11 AND R.estado = 3

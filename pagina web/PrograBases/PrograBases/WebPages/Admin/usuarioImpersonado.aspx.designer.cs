@@ -51,13 +51,31 @@ namespace PrograBases.WebPages.Admin
         protected global::System.Web.UI.WebControls.GridView GridRecibos;
 
         /// <summary>
-        /// botonPagarRecibos control.
+        /// listaPlazoDeAP control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button botonPagarRecibos;
+        protected global::System.Web.UI.WebControls.DropDownList listaPlazoDeAP;
+
+        /// <summary>
+        /// labelErrorPagoRecibos control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label labelErrorPagoRecibos;
+
+        /// <summary>
+        /// botonCrearAP control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button botonCrearAP;
 
         /// <summary>
         /// divTablaConfirmacionDePago control.
@@ -69,31 +87,31 @@ namespace PrograBases.WebPages.Admin
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divTablaConfirmacionDePago;
 
         /// <summary>
-        /// GridComfirmacionDePago control.
+        /// labelResultadoCuota control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GridComfirmacionDePago;
+        protected global::System.Web.UI.WebControls.Label labelResultadoCuota;
 
         /// <summary>
-        /// botonCancelarPago control.
+        /// botonCancelarAP control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button botonCancelarPago;
+        protected global::System.Web.UI.WebControls.Button botonCancelarAP;
 
         /// <summary>
-        /// botonConfirmarPago control.
+        /// botonConfirmarAP control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button botonConfirmarPago;
+        protected global::System.Web.UI.WebControls.Button botonConfirmarAP;
 
         /// <summary>
         /// divComprobantesDePagoContainer control.

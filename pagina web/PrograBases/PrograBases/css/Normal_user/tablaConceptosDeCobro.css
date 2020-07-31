@@ -48,5 +48,6 @@
 #ContentPlaceHolder1_GridConceptosDeCobro {
     text-align: center;
     margin: auto;
+    width: 100%;
     border-color: transparent;
 }
