@@ -72,9 +72,14 @@ AS
 				END
 			COMMIT
 			SET @tasaInteres = (CONVERT(FLOAT,(SELECT valor FROM [dbo].[ValoresConfig] WHERE id = 1)) / 12) /100
-
 			SET @cuota = @sumaRecibos*((@tasaInteres*POWER((1+@tasaInteres),@inMeses))/(POWER((1+@tasaInteres),@inMeses)-1))
-			SELECT @cuota
+			--SELECT @cuota
+
+			SELECT @cuota,R.[id_CC],R.[monto],R.[fecha],R.[fechaVence] FROM [dbo].[Recibos] R
+			INNER JOIN idRecibosPagarAP RP ON R.id = RP.idRecibo
+			ORDER BY [fecha]
+
+
 		END TRY
 		BEGIN CATCH
 			If @@TRANCOUNT > 0 
