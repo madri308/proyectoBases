@@ -86,5 +86,11 @@ namespace PrograBases.WebPages.Admin
             divAP.Visible = false;
             divMovimientos.Visible = true;
         }
+
+
+        protected void botonVolverAPropiedades_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/WebPages/Admin/usuarioImpersonado.aspx");
+        }
     }
 }

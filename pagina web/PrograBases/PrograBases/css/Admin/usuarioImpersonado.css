@@ -3,7 +3,7 @@
 
 .flexBoxContainer {
     margin-left: 11% !important;
-    height: 97%;
+    height: 94%;
 }
 
     .flexBoxContainer > div {
@@ -94,4 +94,26 @@
     -moz-box-shadow: 6px 2px 54px -11px rgba(0,0,0,0.75);
     box-shadow: 6px 2px 54px -11px rgba(0,0,0,0.75);
     background: white;
+}
+
+.labelError {
+    text-align: center;
+    display: inline-block;
+    width: 100%;
+    Color: red;
+    font-size: 20px;
+}
+
+.ddlAP {
+    margin-top: 1%;
+    width: 6%;
+    border: none;
+    background-color: #f8f6ff;
+    font-size: 15px;
+}
+
+.labelPlazo {
+    margin-right: 5px;
+    margin-left: 87.8%;
+
 }

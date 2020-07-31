@@ -2,9 +2,6 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 
     <link rel="stylesheet" href="/css/Admin/StartPage.css" type="text/css" media="screen" />
-    <link rel="stylesheet" href="/css/jquery-ui.min.css">
-    <script src="/Js/jquery-3.5.1.min.js" type="text/javascript"></script>
-    <script src="/Js/jquery-ui.min.js" type="text/javascript"></script>
 
 </asp:Content>
 

@@ -8,7 +8,7 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE PROC [dbo].[SP_ConsultarCuota] @inIdRecibos VARCHAR(MAX), @inMeses INT
+CREATE PROC [dbo].[SP_ConsultarCuota] @inIdRecibos TablaRecibosAPagarTipo READONLY, @inMeses INT
 AS 
 	BEGIN
 		BEGIN TRY
@@ -27,9 +27,8 @@ AS
 
 			--GUARDA LOS IDS DE LOS RECIBOS QUE QUIERO PAGAR
 			INSERT INTO idRecibosPagarAP(idRecibo)
-			SELECT id
-			FROM OPENJSON(@inIdRecibos)
-			WITH(id INT)
+			SELECT idRecibo
+			from @inIdRecibos
 
 			--SACA ID MAYOR Y MENOR PARA ITERAR LA TABLA
 			SELECT @idMenor = MIN([id]), @idMayor=MAX([id]) FROM idRecibosPagarAP
@@ -72,7 +71,11 @@ AS
 					SET @idMenor += 1
 				END
 			COMMIT
+<<<<<<< HEAD
 			SET @tasaInteres = (CONVERT(FLOAT,(SELECT valor FROM [dbo].[ValoresConfig] WHERE id = 1)) / 12) /100
+=======
+			SET @tasaInteres = (CONVERT(FLOAT,(SELECT valor FROM [dbo].[ValoresConfig] WHERE id = 1)) / 12) / 100
+>>>>>>> 4a9bfc302122f52a24a094b6a37360cfb31380f6
 			SET @cuota = @sumaRecibos*((@tasaInteres*POWER((1+@tasaInteres),@inMeses))/(POWER((1+@tasaInteres),@inMeses)-1))
 			SELECT @cuota
 		END TRY

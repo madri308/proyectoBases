@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
@@ -14,6 +15,9 @@ namespace PrograBases.WebPages.Admin
         private string selectRecibosDeComprobanteSPName = "SP_ReciboDeComprobanteSelect";
         private string getComprobantesDePagoSPName = "SP_ComprobantePagoSelect";
         private string getAllComprobantesDePagoSPName = "SP_ComprobantePagoPorPropiedadSelect";
+        private string crearAP = "SP_ConsultarCuota";
+        private string comfirmarAP = "SP_CrearAP";
+        private string cancelarAP = "SP_cancelarAP";
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -78,7 +82,7 @@ namespace PrograBases.WebPages.Admin
                         GridRecibos.DataBind();
                         GridRecibos.Visible = true;
                     }
-                    botonPagarRecibos.Visible = false;
+                    botonCrearAP.Visible = false;
                 }
                 catch (SqlException ex)
                 {
@@ -111,7 +115,7 @@ namespace PrograBases.WebPages.Admin
                     }
                     if (opcionRecibos == 1)
                     {
-                        botonPagarRecibos.Visible = false;
+                        botonCrearAP.Visible = false;
                     }
                 }
                 catch (SqlException ex)
@@ -246,8 +250,130 @@ namespace PrograBases.WebPages.Admin
             Response.Redirect("~/WebPages/Admin/tablaAP.aspx");
         }
 
-        
-
         // ###################### Funciones para arreglos de pagos
+        protected void botonCrearAP_Click(object sender, EventArgs e)
+        {
+            botonVolverAPropiedades.Visible = false;
+            labelErrorPagoRecibos.Visible = false;
+            DataTable idRecibos = new DataTable();
+            HashSet<string> idCCSeleccionados = new HashSet<string>();
+
+            idRecibos.Columns.Add(new DataColumn("id", typeof(int)) { AutoIncrement = true, AutoIncrementSeed = 1, AutoIncrementStep = 1 });
+            idRecibos.Columns.Add("idRecibo", typeof(int));
+
+            for (int rowIndex = GridRecibos.Rows.Count - 1; rowIndex >= 0; rowIndex--)
+            {
+                GridViewRow row = GridRecibos.Rows[rowIndex];
+                string idCC = row.Cells[0].Text;
+                CheckBox checkBoxPagar = (CheckBox)row.FindControl("checkBoxRecibo");
+                if (checkBoxPagar.Checked)
+                {
+                    int idRecibo = Convert.ToInt32(GridRecibos.DataKeys[rowIndex]["id"]);
+                    DataRow newRow = idRecibos.NewRow();
+                    newRow["idRecibo"] = idRecibo;
+                    idRecibos.Rows.InsertAt(newRow, 0);
+                    idCCSeleccionados.Add(idCC);
+                }
+                else if (idCCSeleccionados.Contains(idCC))
+                {
+                    labelErrorPagoRecibos.Visible = true;
+                    return;
+                }
+            }
+            if (idRecibos.Rows.Count == 0)
+            {
+                return;
+            }
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
+                {
+                    string procedure = crearAP;
+
+                    SqlCommand cmd = new SqlCommand(procedure, conn);
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add("@inIdRecibos", SqlDbType.Structured).Value = idRecibos;
+                    cmd.Parameters.Add("@inMeses", SqlDbType.Int).Value = listaPlazoDeAP.SelectedValue;
+
+                    cmd.Connection = conn;
+                    conn.Open();
+
+                    Session["cuota"] = cmd.ExecuteScalar();
+
+                    labelResultadoCuota.Text = Session["cuota"].ToString();
+                }
+            }
+            catch (SqlException ex)
+            {
+                string alertMessage = Utilidad.mensajeAlerta(ex);
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('" + alertMessage + "')", true);
+                return;
+            }
+            divTablaConfirmacionDePago.Visible = true;
+        }
+
+        protected void botonCancelarAP_Click(object sender, EventArgs e)
+        {
+            botonVolverAPropiedades.Visible = true;
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
+                {
+                    string procedure = cancelarAP;
+
+                    SqlCommand cmd = new SqlCommand(procedure, conn);
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Connection = conn;
+                    conn.Open();
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (SqlException ex)
+            {
+                string alertMessage = Utilidad.mensajeAlerta(ex);
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('" + alertMessage + "')", true);
+            }
+            divTablaConfirmacionDePago.Visible = false;
+            fillGridRecibos();
+        }
+
+        protected void botonConfirmarAP_Click(object sender, EventArgs e)
+        {
+            botonVolverAPropiedades.Visible = true;
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connDB"].ConnectionString))
+                {
+                    string procedure = comfirmarAP;
+
+                    SqlCommand cmd = new SqlCommand(procedure, conn);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@inMeses", SqlDbType.Int).Value = listaPlazoDeAP.SelectedValue;
+                    cmd.Parameters.Add("@inCuota", SqlDbType.Money).Value = (decimal)Session["cuota"];
+
+                    cmd.Connection = conn;
+                    conn.Open();
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (SqlException ex)
+            {
+                string alertMessage = Utilidad.mensajeAlerta(ex);
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('" + alertMessage + "')", true);
+            }
+            divTablaConfirmacionDePago.Visible = false;
+            fillGridRecibos();
+        }
+
+        protected void botonVolverAPropiedades_Click(object sender, EventArgs e)
+        {
+            divComprobantesDePagoContainer.Visible = false;
+            divRecibos.Visible = false;
+            divPropiedades.Visible = true;
+        }
     }
 }

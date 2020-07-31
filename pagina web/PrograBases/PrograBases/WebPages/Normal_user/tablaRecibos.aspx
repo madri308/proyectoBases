@@ -26,7 +26,6 @@
             <div id="divTablaRecibos">
                 <asp:GridView runat="server" CssClass="gridNormalUser" id="GridRecibos" AutoGenerateColumns="false" Visible="false" ShowFooter="false" ShowHeader="false" CellPadding="3" DataKeyNames = "id">
                     <Columns>
-                        <asp:BoundField HeaderText="Id" DataField="id" InsertVisible="False" ReadOnly="True" SortExpression="id" Visible="false"/>
                         <asp:BoundField HeaderText="Id Concepto de cobro" DataField="id_CC" InsertVisible="False" ReadOnly="True" SortExpression="id_CC" ItemStyle-Width="10%"/>
                         <asp:BoundField HeaderText="Estado" DataField="estado" InsertVisible="False" ReadOnly="True" SortExpression="estado" ItemStyle-Width="14%"/>
                         <asp:BoundField HeaderText="Fecha" DataField="fecha" InsertVisible="False" ReadOnly="True" SortExpression="fecha" ItemStyle-Width="14%"/>
@@ -47,6 +46,7 @@
                     </Columns>
                     <HeaderStyle BackColor="#222222" Font-Bold="True" ForeColor="White" HorizontalAlign="Center"/>
                 </asp:GridView>
+                <asp:Label runat="server"  CssClass="labelError" ID="labelErrorPagoRecibos" Text="Error" Visible="false"></asp:Label>
             </div>
             <asp:Button runat="server" CssClass="botonRecibos" ID="botonPagarRecibos" onClick="botonPagarRecibos_Click" Text="Pagar"/>
             

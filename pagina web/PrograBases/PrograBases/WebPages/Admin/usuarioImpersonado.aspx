@@ -103,8 +103,27 @@
                     </Columns>
                     <HeaderStyle BackColor="#222222" Font-Bold="True" ForeColor="White" HorizontalAlign="Center"/>
                 </asp:GridView>
+
+                <div>
+                    <asp:Label runat="server" Text="Plazo: " CssClass="labelPlazo"></asp:Label>
+                    <asp:DropDownList runat="server" CssClass="ddlAP" ID="listaPlazoDeAP">
+                    
+                        <asp:ListItem Text="3 meses" Value="3"></asp:ListItem>
+                        <asp:ListItem Text="4 meses" Value="4"></asp:ListItem>
+                        <asp:ListItem Text="5 meses" Value="5"></asp:ListItem>
+                        <asp:ListItem Text="6 meses" Value="6"></asp:ListItem>
+                        <asp:ListItem Text="7 meses" Value="7"></asp:ListItem>
+                        <asp:ListItem Text="8 meses" Value="8"></asp:ListItem>
+                        <asp:ListItem Text="9 meses" Value="9"></asp:ListItem>
+                        <asp:ListItem Text="10 meses" Value="10"></asp:ListItem>
+                        <asp:ListItem Text="11 meses" Value="11"></asp:ListItem>
+                        <asp:ListItem Text="12 meses" Value="12"></asp:ListItem>
+
+                    </asp:DropDownList>
+                </div>
+                <asp:Label runat="server" CssClass="labelError" ID="labelErrorPagoRecibos" Text="Error" Visible="false"></asp:Label>
             </div>
-            <asp:Button runat="server" CssClass="botonRecibos" ID="botonPagarRecibos" Text="Arreglo de Pago"/>
+            <asp:Button runat="server" CssClass="botonRecibos" ID="botonCrearAP" Text="Arreglo de Pago" OnClick="botonCrearAP_Click"/>
             
             <div runat="server" id="divTablaConfirmacionDePago" visible="false">
                 <table border="1" class="tableHeader">
@@ -118,27 +137,11 @@
 			        </thead>        
                 </table>
 
-                <asp:GridView runat="server" CssClass="grid" id="GridComfirmacionDePago" AutoGenerateColumns="false" Visible="false" ShowFooter="true" ShowHeader="false" CellPadding="3">
-                    <Columns>
-                        <asp:BoundField HeaderText="Id Concepto de cobro" DataField="id_CC" InsertVisible="False" ReadOnly="True" SortExpression="id_CC" ItemStyle-Width="10%"/>
-                        <asp:BoundField HeaderText="Fecha" DataField="fecha" InsertVisible="False" ReadOnly="True" SortExpression="fecha" ItemStyle-Width="14%"/>
-                        <asp:BoundField HeaderText="Fecha Vencimiento" DataField="fechaVence" InsertVisible="False" ReadOnly="True" SortExpression="fechaVence" ItemStyle-Width="14%"/>
-                        <asp:TemplateField HeaderText="Monto">
-                            <ItemTemplate>
-                                <asp:Label runat="server" ID="labelMonto" Text='<%# Bind("monto") %>'></asp:Label>
-                            </ItemTemplate>
-                            <FooterTemplate>
-                                <asp:Label runat="server" id="labelTotal" Text="Total"></asp:Label>
-                            </FooterTemplate>
-
-                            <ItemStyle Width="19%" />
-                        </asp:TemplateField>
-                    </Columns>
-                    <HeaderStyle BackColor="#222222" Font-Bold="True" ForeColor="White" HorizontalAlign="Center"/>
-                </asp:GridView>
+                <asp:Label runat="server" ID="labelResultadoCuota" Text=""></asp:Label>
+                
                 <div id="divButtonContainer">
-                    <asp:Button runat="server" CssClass="botonRecibos botonCancelar" ID="botonCancelarPago" Text="Cancelar Pago"/>
-                    <asp:Button runat="server" CssClass="botonRecibos botonConfirmar" ID="botonConfirmarPago" Text="Confirmar pago"/>
+                    <asp:Button runat="server" CssClass="botonRecibos botonCancelar" ID="botonCancelarAP" Text="Cancelar arreglo de pago" OnClick="botonCancelarAP_Click"/>
+                    <asp:Button runat="server" CssClass="botonRecibos botonConfirmar" ID="botonConfirmarAP" Text="Confirmar arreglo de pago" OnClick="botonConfirmarAP_Click"/>
                 </div>
             </div>
         </div>
@@ -178,4 +181,5 @@
         </div>
     </div>
 
+    <asp:Button runat="server" CssClass="botonRecibos" id="botonVolverAPropiedades" Text="Volver a propiedades" OnClick="botonVolverAPropiedades_Click"/>
 </asp:Content>

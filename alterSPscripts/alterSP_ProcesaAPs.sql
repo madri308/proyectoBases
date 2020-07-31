@@ -85,7 +85,11 @@ AS
 						SET @idMenorRecibo += 1
 					END
 					--GENERO EL AP
+<<<<<<< HEAD
 					SET @tasaInteres = (CONVERT(FLOAT,(SELECT valor FROM [dbo].[ValoresConfig] WHERE id = 1))/12)/100
+=======
+					SET @tasaInteres = (CONVERT(FLOAT,(SELECT valor FROM [dbo].[ValoresConfig] WHERE id = 1)) / 12) / 100
+>>>>>>> 4a9bfc302122f52a24a094b6a37360cfb31380f6
 					SET @cuota = @montoAP*((@tasaInteres*POWER((1+@tasaInteres),@meses))/(POWER((1+@tasaInteres),@meses)-1))
 
 					--LLAMA AL SP QUE ME CREA APs

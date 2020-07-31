@@ -12,14 +12,13 @@
             <table border="1" class="tableHeader">
                 <thead>
 				    <tr class="row100 head">
-					    <th class="cell100 column1" style="width:12%">Monto Original</th>
-					    <th class="cell100 column2" style="width:12%">Saldo</th>
-					    <th class="cell100 column3" style="width:12%">Tasa Interes Anual</th>
-					    <th class="cell100 column5" style="width:12%">Saldo</th>
-					    <th class="cell100 column5" style="width:12%">Plazo Original</th>
-					    <th class="cell100 column5" style="width:12%">Plazo Restante</th>
-				        <th class="cell100 column5" style="width:12%">Cuota</th>  
-                        <th class="cell100 column5" style="width:12%"></th>
+					    <th class="cell100 column1" style="width:14%">Monto Original</th>
+					    <th class="cell100 column2" style="width:14%">Saldo</th>
+					    <th class="cell100 column3" style="width:14%">Tasa Interes Anual</th>
+					    <th class="cell100 column5" style="width:14%">Plazo Original</th>
+					    <th class="cell100 column5" style="width:14%">Plazo Restante</th>
+				        <th class="cell100 column5" style="width:14%">Cuota</th>  
+                        <th class="cell100 column5" style="width:14%"></th>
                     </tr>
 			    </thead>  
             </table>	
@@ -27,25 +26,23 @@
 			<div class="divTabla" id="divTablaAP">
                 <asp:GridView runat="server" CssClass="grid" id="GridAP" AutoGenerateColumns="false" Visible="false" ShowFooter="false" ShowHeader="false" CellPadding="3" DataKeyNames="id" >
                     <Columns>
-                        <asp:BoundField HeaderText="Monto Original" DataField="MontoOriginal" InsertVisible="False" ReadOnly="True" SortExpression="MontoOriginal" ItemStyle-Width="12%"/>
+                        <asp:BoundField HeaderText="Monto Original" DataField="MontoOriginal" InsertVisible="False" ReadOnly="True" SortExpression="MontoOriginal" ItemStyle-Width="14%"/>
 
-                        <asp:BoundField HeaderText="Saldo" DataField="saldo"  InsertVisible="False" ReadOnly="True" SortExpression="saldo" ItemStyle-Width="12%"/>
+                        <asp:BoundField HeaderText="Saldo" DataField="saldo"  InsertVisible="False" ReadOnly="True" SortExpression="saldo" ItemStyle-Width="14%"/>
 
-                        <asp:BoundField HeaderText="Tasa Interes Anual" DataField="TasaInteresAnual" InsertVisible="False" ReadOnly="True" SortExpression="TasaInteresAnual" ItemStyle-Width="12%"/>
+                        <asp:BoundField HeaderText="Tasa Interes Anual" DataField="TasaInteresAnual" InsertVisible="False" ReadOnly="True" SortExpression="TasaInteresAnual" ItemStyle-Width="14%"/>
 
-                        <asp:BoundField HeaderText="Saldo" DataField="saldo"  InsertVisible="False" ReadOnly="True" SortExpression="saldo" ItemStyle-Width="12%"/>
-
-                        <asp:BoundField HeaderText="Plazo Original" DataField="PlazoOriginal"  InsertVisible="False" ReadOnly="True" SortExpression="PlazoOriginal" ItemStyle-Width="12%"/>
+                        <asp:BoundField HeaderText="Plazo Original" DataField="PlazoOriginal"  InsertVisible="False" ReadOnly="True" SortExpression="PlazoOriginal" ItemStyle-Width="14%"/>
                         
-                        <asp:BoundField HeaderText="Plazo Restante" DataField="PlazoResta"  InsertVisible="False" ReadOnly="True" SortExpression="PlazoResta" ItemStyle-Width="12%"/>
+                        <asp:BoundField HeaderText="Plazo Restante" DataField="PlazoResta"  InsertVisible="False" ReadOnly="True" SortExpression="PlazoResta" ItemStyle-Width="14%"/>
 
-                        <asp:BoundField HeaderText="Cuota" DataField="valor"  InsertVisible="False" ReadOnly="True" SortExpression="Cuota" ItemStyle-Width="12%"/>
+                        <asp:BoundField HeaderText="Cuota" DataField="valor"  InsertVisible="False" ReadOnly="True" SortExpression="Cuota" ItemStyle-Width="14%"/>
                         
                         <asp:TemplateField HeaderText="" ShowHeader="False">
                             <ItemTemplate>
                                 <asp:LinkButton ID="lnkvVerMovimientos" runat="server" CausesValidation="True" Text="Movimientos" Onclick="lnkvVerMovimientos_Click"></asp:LinkButton>
                             </ItemTemplate>
-                            <ItemStyle Width="12%"/>
+                            <ItemStyle Width="14%"/>
                         </asp:TemplateField>
                     </Columns>
                 </asp:GridView>
@@ -86,5 +83,6 @@
             </div>
         </div>
     </div>
+    <asp:Button runat="server" id="botonVolverAPropiedades" CssClass="botonRecibos" Text="Volver a propiedades" OnClick="botonVolverAPropiedades_Click"/>
 
 </asp:Content>
