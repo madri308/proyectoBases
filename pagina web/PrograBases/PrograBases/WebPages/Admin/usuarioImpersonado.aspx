@@ -125,7 +125,7 @@
             </div>
             <asp:Button runat="server" CssClass="botonRecibos" ID="botonCrearAP" Text="Arreglo de Pago" OnClick="botonCrearAP_Click"/>
             
-            <div runat="server" id="divTablaConfirmacionDePago" visible="false">
+            <div class="divTabla" runat="server" id="divTablaConfirmacionDePago" visible="false">
                 <table border="1" class="tableHeader">
                     <thead>
 				        <tr class="row100 head">
@@ -136,6 +136,25 @@
 				        </tr>
 			        </thead>        
                 </table>
+
+                <asp:GridView runat="server" CssClass="grid" id="GridComfirmacionDeAP" AutoGenerateColumns="false" Visible="false" ShowFooter="true" ShowHeader="false" CellPadding="3">
+                    <Columns>
+                        <asp:BoundField HeaderText="Id Concepto de cobro" DataField="id_CC" InsertVisible="False" ReadOnly="True" SortExpression="id_CC" ItemStyle-Width="10%"/>
+                        <asp:BoundField HeaderText="Fecha" DataField="fecha" InsertVisible="False" ReadOnly="True" SortExpression="fecha" ItemStyle-Width="14%"/>
+                        <asp:BoundField HeaderText="Fecha Vencimiento" DataField="fechaVence" InsertVisible="False" ReadOnly="True" SortExpression="fechaVence" ItemStyle-Width="14%"/>
+                        <asp:TemplateField HeaderText="Monto">
+                            <ItemTemplate>
+                                <asp:Label runat="server" ID="labelMonto" Text='<%# Bind("monto") %>' ></asp:Label>
+                            </ItemTemplate>
+                            <FooterTemplate>
+                                <asp:Label runat="server" ID="labelTotal" Text="Cuota: " ></asp:Label>
+                            </FooterTemplate>
+
+                            <ItemStyle Width="19%" />
+                        </asp:TemplateField>
+                    </Columns>
+                    <HeaderStyle BackColor="#222222" Font-Bold="True" ForeColor="White" HorizontalAlign="Center"/>
+                </asp:GridView>
 
                 <asp:Label runat="server" ID="labelResultadoCuota" Text=""></asp:Label>
                 

@@ -299,9 +299,19 @@ namespace PrograBases.WebPages.Admin
                     cmd.Connection = conn;
                     conn.Open();
 
-                    Session["cuota"] = cmd.ExecuteScalar();
+                    DataTable tablaTemporal = new DataTable();
+                    tablaTemporal.Load(cmd.ExecuteReader());
+                    DataRow fila = tablaTemporal.Rows[0];
 
-                    labelResultadoCuota.Text = Session["cuota"].ToString();
+                    Session["cuota"] = fila.ItemArray[0];
+                    
+
+                    GridComfirmacionDeAP.DataSource = tablaTemporal;
+                    GridComfirmacionDeAP.DataBind();
+                    GridComfirmacionDeAP.Visible = true;
+                    
+                    GridViewRow footerRow = GridComfirmacionDeAP.FooterRow;
+                    footerRow.Cells[3].Text = "Cuota: " + Session["cuota"].ToString();
                 }
             }
             catch (SqlException ex)
