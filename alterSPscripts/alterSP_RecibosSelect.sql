@@ -18,8 +18,16 @@ AS
 			DECLARE @idPropiedad INT
 			SET @idPropiedad = (SELECT id FROM Propiedad WHERE Propiedad.numFinca = @inNumFinca)
 
-			SELECT [id], [id_CC], [monto], [estado], [fecha], [fechaVence]
-			FROM   [dbo].[Recibos] 
+			SELECT R.[id]
+				,R.[id_CC]
+				,R.[monto]
+				,R.[estado]
+				,R.[fecha]
+				,R.[fechaVence]
+				,RAP.[descripcion]
+				,RAP.[idMovAP]
+			FROM   [dbo].[Recibos] R
+			LEFT OUTER JOIN [dbo].[RecibosAP] RAP ON R.id = RAP.id
 			WHERE  [id_Propiedad] = @idPropiedad 
 			AND [estado] = @inOpcionRecibos
 		END TRY

@@ -23,7 +23,7 @@ AS
 				,R.id_Propiedad
 				,R.fecha
 				,R.fechaVence
-				,RAP.idMovAP
+				,RAP.descripcion
 				,RAP.idMovAP
 			FROM [dbo].[Recibos] R
 			LEFT OUTER JOIN [dbo].[RecibosAP] RAP ON R.id = RAP.id
