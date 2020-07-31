@@ -121,7 +121,7 @@
 
                     </asp:DropDownList>
                 </div>
-                <asp:Label runat="server" CssClass="labelError" ID="labelErrorPagoRecibos" Text="Error" Visible="false"></asp:Label>
+                <asp:Label runat="server" CssClass="labelError" ID="labelErrorPagoRecibos" Text="Error: No se pueden dejar fechas anteriores sin pagar" Visible="false"></asp:Label>
             </div>
             <asp:Button runat="server" CssClass="botonRecibos" ID="botonCrearAP" Text="Arreglo de Pago" OnClick="botonCrearAP_Click"/>
             

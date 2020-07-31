@@ -347,7 +347,6 @@ namespace PrograBases.WebPages.Admin
                 ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('" + alertMessage + "')", true);
             }
             divTablaConfirmacionDePago.Visible = false;
-            fillGridRecibos();
         }
 
         protected void botonConfirmarAP_Click(object sender, EventArgs e)

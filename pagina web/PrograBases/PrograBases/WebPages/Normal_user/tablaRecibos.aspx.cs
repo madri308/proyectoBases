@@ -203,7 +203,6 @@ namespace PrograBases.WebPages.Normal_user
                 ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('" + alertMessage + "')", true);
             }
             divTablaConfirmacionDePago.Visible = false;
-            fillGridRecibos();
         }
         protected void botonConfirmarPago_Click(object sender, EventArgs e)
         {
