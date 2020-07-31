@@ -74,7 +74,7 @@ AS
 			SET @tasaInteres = (CONVERT(FLOAT,(SELECT valor FROM [dbo].[ValoresConfig] WHERE id = 1)) / 12) /100
 			SET @cuota = @sumaRecibos*((@tasaInteres*POWER((1+@tasaInteres),@inMeses))/(POWER((1+@tasaInteres),@inMeses)-1))
 
-			SELECT @cuota AS cuota,R.[id_CC],R.[monto],R.[fecha],R.[fechaVence] from [dbo].[Recibos] R
+			SELECT @cuota,R.[id_CC],R.[monto],R.[fecha],R.[fechaVence] from [dbo].[Recibos] R
 			INNER JOIN idRecibosPagarAP RP ON R.id = RP.idRecibo
 			ORDER BY [fecha]
 		END TRY
