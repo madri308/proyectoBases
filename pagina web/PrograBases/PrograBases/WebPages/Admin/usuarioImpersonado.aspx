@@ -76,11 +76,12 @@
             <table border="1" class="tableHeader">
                 <thead>
 				    <tr class="row100 head">
-					    <th class="cell100 column1" style="width:10%">Id Concepto de cobro</th>
-					    <th class="cell100 column3" style="width:18%">Estado</th>
-					    <th class="cell100 column4" style="width:18%">Fecha</th>
-					    <th class="cell100 column5" style="width:18%">Fecha Vencimiento</th>
-					    <th class="cell100 column2" style="width:19%">Monto</th>
+					    <th class="cell100 column1" style="width:8%">Id Concepto de cobro</th>
+					    <th class="cell100 column3" style="width:14%">Estado</th>
+					    <th class="cell100 column4" style="width:16%">Fecha</th>
+					    <th class="cell100 column5" style="width:16%">Fecha Vencimiento</th>
+					    <th class="cell100 column2" style="width:17%">Monto</th>
+                        <th class="cell100 column2" style="width:12%">Descripcion</th>
                         <th class="cell100 column5" style="width:3%"></th>
 				    </tr>
 			    </thead>        
@@ -89,11 +90,12 @@
             <div class="divTabla" id="divTablaRecibos">
                 <asp:GridView runat="server" CssClass="grid" id="GridRecibos" AutoGenerateColumns="false" Visible="false" ShowFooter="false" ShowHeader="false" CellPadding="3" DataKeyNames = "id">
                     <Columns>
-                        <asp:BoundField HeaderText="Id Concepto de cobro" DataField="id_CC" InsertVisible="False" ReadOnly="True" SortExpression="id_CC" ItemStyle-Width="10%"/>
-                        <asp:BoundField HeaderText="Estado" DataField="estado" InsertVisible="False" ReadOnly="True" SortExpression="estado" ItemStyle-Width="18%"/>
-                        <asp:BoundField HeaderText="Fecha" DataField="fecha" InsertVisible="False" ReadOnly="True" SortExpression="fecha" ItemStyle-Width="18%"/>
-                        <asp:BoundField HeaderText="Fecha Vencimiento" DataField="fechaVence" InsertVisible="False" ReadOnly="True" SortExpression="fechaVence" ItemStyle-Width="18%"/>
-                        <asp:BoundField HeaderText="Monto" DataField="monto" InsertVisible="False" ReadOnly="True" SortExpression="monto" ItemStyle-Width="19%"/>
+                        <asp:BoundField HeaderText="Id Concepto de cobro" DataField="id_CC" InsertVisible="False" ReadOnly="True" SortExpression="id_CC" ItemStyle-Width="8%"/>
+                        <asp:BoundField HeaderText="Estado" DataField="estado" InsertVisible="False" ReadOnly="True" SortExpression="estado" ItemStyle-Width="14%"/>
+                        <asp:BoundField HeaderText="Fecha" DataField="fecha" InsertVisible="False" ReadOnly="True" SortExpression="fecha" ItemStyle-Width="16%"/>
+                        <asp:BoundField HeaderText="Fecha Vencimiento" DataField="fechaVence" InsertVisible="False" ReadOnly="True" SortExpression="fechaVence" ItemStyle-Width="16%"/>
+                        <asp:BoundField HeaderText="Monto" DataField="monto" InsertVisible="False" ReadOnly="True" SortExpression="monto" ItemStyle-Width="17%"/>
+                        <asp:BoundField HeaderText="Descripcion" DataField="descripcion" InsertVisible="False" ReadOnly="True" SortExpression="descripcion" ItemStyle-Width="12%"/>
                         <asp:TemplateField HeaderText="" ShowHeader="False">
                             <ItemTemplate>
                                 <asp:CheckBox runat="server" ID="checkBoxRecibo"/>
